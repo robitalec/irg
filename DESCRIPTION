@@ -1,5 +1,5 @@
 Package: irg
-Title: What the Package Does (One Line, Title Case)
+Title: Calculate Instantaneous Rate of Green Up
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "Alec L.",
@@ -7,7 +7,12 @@ Authors@R:
            role = c("aut", "cre"),
            email = "robit.alec@gmail.com",
            comment = c(ORCID = "0000-0002-4706-1762"))
-Description: What the package does (one paragraph).
+Description: Calculates instantaneous rate of green from satellite derived, 
+				     green up data according to Bischoff et al. 2012. 
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 6.1.0
+Suggests: 
+    testthat
