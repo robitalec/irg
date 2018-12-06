@@ -2,7 +2,7 @@
 % Please edit documentation in R/filter.R
 \name{filter_roll}
 \alias{filter_roll}
-\title{Filter rolling median}
+\title{Filter with rolling median}
 \usage{
 filter_roll(DT, window = 3L, id = "id", method = "median")
 }
@@ -16,7 +16,7 @@ filter_roll(DT, window = 3L, id = "id", method = "median")
 \item{method}{median. no other options yet. let me know if you are looking for something else.}
 }
 \value{
-filtered data.table with appended 'winter' column of each id's "winterNDVI" baseline value.
+filtered data.table with appended 'rolled' column of each id's rolling median, filtered NDVI time series.
 }
 \description{
 Using a rolling median, filter the NDVI time series for each id.
