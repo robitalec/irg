@@ -2,5 +2,6 @@
 
 export(filter_qa)
 export(filter_roll)
+export(filter_top)
 export(filter_winter)
 import(data.table)
