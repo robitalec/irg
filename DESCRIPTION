@@ -19,5 +19,6 @@ Suggests:
     knitr,
     rmarkdown
 Imports: 
-    data.table
+    data.table,
+    RcppRoll
 VignetteBuilder: knitr
