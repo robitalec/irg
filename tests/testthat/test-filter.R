@@ -2,6 +2,7 @@ context("test-filter")
 
 ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
 
+### filter_qa ###########################################
 test_that("filter qa works", {
 
 	# Columns mising are detected
@@ -25,6 +26,7 @@ test_that("filter qa works", {
 
 ndviqa <- filter_qa(copy(ndvi))
 
+### filter_winter ######################################
 test_that("filter winter works", {
 
 	# Columns mising are detected
@@ -50,10 +52,25 @@ test_that("filter winter works", {
 							 'overwriting winter column')
 
 	# Cast to integer silently
-	expect_silent(filter_winter(ndviqa, limits = c(10.5, 100.2)))
+	expect_silent(filter_winter(copy(ndviqa), limits = c(10.5, 100.2)))
 
 	# sel one id, if above quantile,
 
 })
 
+ndviwnt <- filter_qa(copy(ndviqa))
 
+
+### filter_roll ########################################
+test_that("filter roll works", {
+	# Columns mising are detected
+	expect_error(filter_roll(ndvi),
+							 'filtered column not found in DT, did you run filter_qa?')
+
+	expect_error(filter_roll(ndviqa),
+							 'winter column not found in DT, did you run filter_winter?')
+
+	miss <- copy(ndviwnt)[, id := NULL]
+	expect_error(filter_roll(miss),
+							 'id column not found in DT')
+})
