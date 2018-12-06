@@ -28,5 +28,11 @@ Using lower quantile (default = 0.025) of multi-year MODIS data, determine the "
 The id parameter is used to split between sampling units. This may be a point id, polygon id, pixel id, etc. depending on your analysis.
 }
 \examples{
-filter_winter(DT, qa = 'SummaryQA', good = c(0, 1))
+# Load data.table
+library(data.table)
+
+# Read example data
+ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
+
+filter_winter(DT, probs = 0.025, limits = c(60L, 300L), doy = 'DayOfYear', id = 'id')
 }

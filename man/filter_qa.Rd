@@ -20,5 +20,11 @@ filtered data.table with appended 'filtered' column of "quality" NDVI.
 Using MODIS QA band information, filter the NDVI time series.
 }
 \examples{
+# Load data.table
+library(data.table)
+
+# Read example data
+ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
+
 filter_qa(DT, qa = 'SummaryQA', good = c(0, 1))
 }

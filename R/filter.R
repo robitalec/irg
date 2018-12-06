@@ -12,6 +12,12 @@
 #' @export
 #'
 #' @examples
+#' # Load data.table
+#' library(data.table)
+#'
+#' # Read example data
+#' ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
+#'
 #' filter_qa(DT, qa = 'SummaryQA', good = c(0, 1))
 filter_qa <-
 	function(DT,
@@ -58,7 +64,13 @@ filter_qa <-
 #' @export
 #'
 #' @examples
-#' filter_winter(DT, qa = 'SummaryQA', good = c(0, 1))
+#' # Load data.table
+#' library(data.table)
+#'
+#' # Read example data
+#' ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
+#'
+#' filter_winter(DT, probs = 0.025, limits = c(60L, 300L), doy = 'DayOfYear', id = 'id')
 filter_winter <-
 	function(DT,
 					 probs = 0.025,
