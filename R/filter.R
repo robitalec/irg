@@ -171,7 +171,9 @@ filter_roll <-
 
 		bys <- id
 
-		DT[, rolled := RcppRoll::roll_median(filtered, n = 3, fill = -3000),
+		DT[, rolled :=
+			 	as.integer(RcppRoll::roll_median(filtered, n = 3,
+			 																	 fill = -3000L)),
 			 by = bys]
 		DT[rolled == -3000, rolled := winter]
 	}

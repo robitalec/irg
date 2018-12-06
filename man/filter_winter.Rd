@@ -34,5 +34,5 @@ library(data.table)
 # Read example data
 ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
 
-filter_winter(DT, probs = 0.025, limits = c(60L, 300L), doy = 'DayOfYear', id = 'id')
+filter_winter(ndvi, probs = 0.025, limits = c(60L, 300L), doy = 'DayOfYear', id = 'id')
 }
