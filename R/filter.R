@@ -164,9 +164,71 @@ filter_roll <-
 			stop('winter column not found in DT, did you run filter_winter?')
 		}
 
+		if ('rolled' %in% colnames(DT)) {
+			warning('overwriting rolled column')
+			set(DT, j = 'rolled', value = NULL)
+		}
+
 		bys <- id
 
 		DT[, rolled := RcppRoll::roll_median(filtered, n = 3, fill = -3000),
 			 by = bys]
 		DT[rolled == -3000, rolled := winter]
+	}
+
+#' Filter top NDVI
+#'
+#' Using upper quantile (default = 0.925) of multi-year MODIS data, determine the top NDVI for each id.
+#'
+#' The id parameter is used to split between sampling units. This may be a point id, polygon id, pixel id, etc. depending on your analysis.
+#'
+#' @inheritParams filter_winter
+#' @param prob quantile probability to determine top. default is 0.925.
+#'
+#' @return filtered data.table with appended 'top' column of each id's top (quantile) NDVI value.
+#' @import data.table
+#'
+#' @export
+#'
+#' @examples
+#' # Load data.table
+#' library(data.table)
+#'
+#' # Read example data
+#' ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
+#'
+#' filter_top(DT, probs = 0.925, id = 'id')
+filter_top <-
+	function(DT,
+					 probs = 0.925,
+					 id = 'id') {
+		# NSE Errors
+		top <- filtered <- NULL
+
+		if (length(probs) != 1) {
+			stop('probs must be length 1')
+		}
+
+		if (!(id %in% colnames(DT))) {
+			stop('id column not found in DT')
+		}
+
+		if (!('filtered' %in% colnames(DT))) {
+			stop('filtered column not found in DT, did you run filter_qa?')
+		}
+
+		if (!('winter' %in% colnames(DT))) {
+			stop('winter column not found in DT, did you run filter_winter?')
+		}
+
+		if ('top' %in% colnames(DT)) {
+			warning('overwriting top column')
+			set(DT, j = 'top', value = NULL)
+		}
+
+		bys <- id
+
+		DT[, top := quantile(filtered, probs, na.rm = TRUE),
+			 by = bys]
+
 	}
