@@ -18,7 +18,7 @@
 #' # Read example data
 #' ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
 #'
-#' filter_qa(DT, qa = 'SummaryQA', good = c(0, 1))
+#' filter_qa(ndvi, qa = 'SummaryQA', good = c(0, 1))
 filter_qa <-
 	function(DT,
 					 qa = 'SummaryQA',
@@ -70,7 +70,7 @@ filter_qa <-
 #' # Read example data
 #' ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
 #'
-#' filter_winter(DT, probs = 0.025, limits = c(60L, 300L), doy = 'DayOfYear', id = 'id')
+#' filter_winter(ndvi, probs = 0.025, limits = c(60L, 300L), doy = 'DayOfYear', id = 'id')
 filter_winter <-
 	function(DT,
 					 probs = 0.025,
@@ -142,7 +142,7 @@ filter_winter <-
 #' # Read example data
 #' ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
 #'
-#' filter_roll(DT, window = 3L, id = 'id')
+#' filter_roll(ndvi, window = 3L, id = 'id')
 filter_roll <-
 	function(DT,
 					 window = 3L,
@@ -197,7 +197,7 @@ filter_roll <-
 #' # Read example data
 #' ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
 #'
-#' filter_top(DT, probs = 0.925, id = 'id')
+#' filter_top(ndvi, probs = 0.925, id = 'id')
 filter_top <-
 	function(DT,
 					 probs = 0.925,
