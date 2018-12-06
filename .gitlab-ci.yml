@@ -9,7 +9,7 @@ test_latest:
   - r -e 'install.packages("data.table")'
   - R CMD build . --no-manual
   - PKG_FILE_NAME=$(ls -1t *.tar.gz | head -n 1)
-  - R CMD check "${PKG_FILE_NAME}" --no-manual --as-cran
+  - R CMD check "${PKG_FILE_NAME}" --no-manual
   only:
   - master
 
@@ -20,7 +20,7 @@ test_devel:
   - r -e 'install.packages("data.table")'
   - R CMD build . --no-manual
   - PKG_FILE_NAME=$(ls -1t *.tar.gz | head -n 1)
-  - R CMD check "${PKG_FILE_NAME}" --no-manual --as-cran
+  - R CMD check "${PKG_FILE_NAME}" --no-manual
   only:
   - master
 
