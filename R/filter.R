@@ -29,9 +29,8 @@ filter_qa <- function(DT, qa = 'SummaryQA', good = c(0, 1)) {
 		stop('QA column not found in DT')
 	}
 
-
-	DT[(qa) %in% good, good := TRUE][is.na(good), good := FALSE]
+	DT[get(qa) %in% good, good := TRUE][is.na(good), good := FALSE]
 	DT[(good), filtered := NDVI]
 	DT[!(good), filtered := NA]
-
+	set(DT, j = 'good', value = NULL)
 }
