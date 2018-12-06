@@ -1,0 +1,36 @@
+stages:
+ - test
+ - coverage
+
+test_latest:
+  image: rocker/r-base
+  stage: test
+  script:
+  - r -e 'install.packages('data.table')'
+  - R CMD build . --no-manual
+  - PKG_FILE_NAME=$(ls -1t *.tar.gz | head -n 1)
+  - R CMD check "${PKG_FILE_NAME}" --no-manual --as-cran
+  only:
+  - master
+
+test_devel:
+  image: rocker/r-devel
+  stage: test
+  script:
+  - r -e 'install.packages('data.table')'
+  - R CMD build . --no-manual
+  - PKG_FILE_NAME=$(ls -1t *.tar.gz | head -n 1)
+  - R CMD check "${PKG_FILE_NAME}" --no-manual --as-cran
+  only:
+  - master
+
+coverage_job:
+  image: rocker/r-base
+  stage: coverage
+  when: on_success
+  only:
+    - master
+  script:
+  	- r -e 'install.packages('covr')
+    - r -e 'devtools::install()'
+    - r -e 'covr::codecov(type = c("tests", "examples"), quiet = FALSE, token = "49da8c07-70b6-46ee-a2e2-f1d1d5784a9a")'
