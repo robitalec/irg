@@ -6,14 +6,17 @@
 #' @param qa QA column. default is 'SummaryQA'.
 #' @param good values which correspond to quality pixels. default is 0 and 1.
 #'
-#' @return filtered data.table with appended
+#' @return filtered data.table with appended 'filtered' column of "quality" NDVI.
 #' @import data.table
 #'
 #' @export
 #'
 #' @examples
 #' filter_qa(DT, qa = 'SummaryQA', good = c(0, 1))
-filter_qa <- function(DT, qa = 'SummaryQA', good = c(0, 1)) {
+filter_qa <-
+	function(DT,
+					 qa = 'SummaryQA',
+					 good = c(0, 1)) {
 	# NSE Errors
 	NDVI <- NULL
 

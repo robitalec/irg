@@ -14,7 +14,7 @@ filter_qa(DT, qa = "SummaryQA", good = c(0, 1))
 \item{good}{values which correspond to quality pixels. default is 0 and 1.}
 }
 \value{
-filtered data.table with appended
+filtered data.table with appended 'filtered' column of "quality" NDVI.
 }
 \description{
 Using MODIS QA band information, filter the NDVI time series.
