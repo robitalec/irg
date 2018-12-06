@@ -1,0 +1,23 @@
+---
+title: "Getting started with irg"
+author: "Alec L. Robitaille"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Getting started with irg}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+IRG is intended to be used with a `data.table` time seris of NDVI samples for multiple years. 
+
+ID can be point ID, polygon ID, etc. Any sampling unit you are using which is relevant to the calculation of IRG. 
+
+We don't use raster methods on purpose to take advantage of `data.table` speed. If you want to visualize your results, make single graphs (see vignette-graphing TODO and maybe a raster graphing vignette TODO). 
