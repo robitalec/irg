@@ -13,6 +13,9 @@
 #' @examples
 #' filter_qa(DT, qa = 'SummaryQA', good = c(0, 1))
 filter_qa <- function(DT, qa = 'SummaryQA', good = c(0, 1)) {
+	if (length(qa) != 1) {
+		stop('qa must be length 1')
+	}
 
 	if (!('NDVI' %in% colnames(DT))) {
 		stop('NDVI column not found in DT')
