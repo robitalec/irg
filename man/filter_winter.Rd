@@ -4,22 +4,25 @@
 \alias{filter_winter}
 \title{Filter winter NDVI}
 \usage{
-filter_winter(DT, probs = 0.025, doy = "DayOfYear", id = "id")
+filter_winter(DT, probs = 0.025, limits = c(60L, 300L),
+  doy = "DayOfYear", id = "id")
 }
 \arguments{
 \item{DT}{data.table of NDVI time series}
+
+\item{limits}{integer vector indicating limit days of absolute winter (snow cover, etc.). default = 60 days after Jan 1 and 65 days before Jan 1.}
 
 \item{doy}{julian day column. default is 'DayOfYear'.}
 
 \item{id}{id column. default is 'id'. See details.}
 
-\item{prob}{quantile probability to determine winterNDVI. default is 0.025.}
+\item{prob}{quantile probability to determine "winterNDVI". default is 0.025.}
 }
 \value{
 filtered data.table with appended 'winter' column of each id's "winterNDVI" baseline value.
 }
 \description{
-Using lower 0.025 quantile of multi-year MODIS data, determine the "winterNDVI" for each id.
+Using lower quantile (default = 0.025) of multi-year MODIS data, determine the "winterNDVI" for each id.
 }
 \details{
 The id parameter is used to split between sampling units. This may be a point id, polygon id, pixel id, etc. depending on your analysis.

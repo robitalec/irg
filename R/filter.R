@@ -41,13 +41,13 @@ filter_qa <-
 
 #' Filter winter NDVI
 #'
-#' Using lower 0.025 quantile of multi-year MODIS data, determine the "winterNDVI" for each id.
+#' Using lower quantile (default = 0.025) of multi-year MODIS data, determine the "winterNDVI" for each id.
 #'
 #' The id parameter is used to split between sampling units. This may be a point id, polygon id, pixel id, etc. depending on your analysis.
 #'
 #' @inheritParams filter_qa
-#' @param prob quantile probability to determine winterNDVI. default is 0.025.
-#' @param winter days indicating absolute winter.
+#' @param prob quantile probability to determine "winterNDVI". default is 0.025.
+#' @param limits integer vector indicating limit days of absolute winter (snow cover, etc.). default = 60 days after Jan 1 and 65 days before Jan 1.
 #' @param doy julian day column. default is 'DayOfYear'.
 #' @param id id column. default is 'id'. See details.
 #'
@@ -62,7 +62,7 @@ filter_qa <-
 filter_winter <-
 	function(DT,
 					 probs = 0.025,
-					 days = c(60, 300),
+					 limits = c(60L, 300L),
 					 doy = 'DayOfYear',
 					 id = 'id') {
 		# NSE Errors
@@ -84,16 +84,24 @@ filter_winter <-
 			stop('filtered column not found in DT, did you run filter_qa?')
 		}
 
+		if ('winter' %in% colnames(DT)) {
+			warning('overwriting winter column')
+			set(DT, j = 'winter', value = NULL)
+		}
 
+		if (typeof(limits) != 'integer') {
+			limits <- as.integer(limits)
+		}
 
-		DT[, winter := quantile(filtered, probs = 0.025, na.rm = TRUE),
-			 by = id]
+		bys <- id
 
-		# If below winter, set to winter
-		DT[filtered < winter, filtered := winter]
+		DT[, winter := as.integer(quantile(filtered,
+																			 probs = probs,
+																			 na.rm = TRUE)),
+			 by = bys]
 
-		# If between those dates, set to winter value
-		DT[DayOfYear <= 60 | DayOfYear >= 300, filtered := winter]
+		DT[filtered < winter, filtered := winter][]
 
-
-	}
+		DT[get(doy) <= limits[1] | get(doy) >= limits[2],
+			 filtered := winter]
+}
