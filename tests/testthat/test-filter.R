@@ -14,9 +14,9 @@ test_that("filter qa works", {
 							 'NDVI column not found in DT')
 
 	expect_error(filter_qa(ndvi, qa = 'potato'),
-							 'QA column not found in DT')
+							 'qa column not found in DT')
 
-	# QA length 1
+	# qa length 1
 	expect_error(filter_qa(ndvi, qa = c('a', 'b')))
 
 	# if qa != 0 and != 1, filtered is NULL
