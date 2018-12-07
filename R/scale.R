@@ -9,6 +9,8 @@
 #'
 #' @export
 #'
+#' @family scale
+#'
 #' @examples
 #' # Load data.table
 #' library(data.table)

@@ -36,3 +36,9 @@ ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
 filter_qa(ndvi, qa = 'SummaryQA', good = c(0, 1))
 filter_winter(ndvi, probs = 0.025, limits = c(60L, 300L), doy = 'DayOfYear', id = 'id')
 }
+\seealso{
+Other filter: \code{\link{filter_ndvi}},
+  \code{\link{filter_qa}}, \code{\link{filter_roll}},
+  \code{\link{filter_top}}
+}
+\concept{filter}

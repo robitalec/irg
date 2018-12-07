@@ -35,3 +35,9 @@ filter_qa(ndvi, qa = 'SummaryQA', good = c(0, 1))
 filter_winter(ndvi, probs = 0.025, limits = c(60L, 300L), doy = 'DayOfYear', id = 'id')
 filter_roll(ndvi, window = 3L, id = 'id')
 }
+\seealso{
+Other filter: \code{\link{filter_ndvi}},
+  \code{\link{filter_qa}}, \code{\link{filter_top}},
+  \code{\link{filter_winter}}
+}
+\concept{filter}

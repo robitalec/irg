@@ -34,3 +34,9 @@ filter_winter(ndvi, probs = 0.025, limits = c(60L, 300L), doy = 'DayOfYear', id 
 filter_roll(ndvi, window = 3L, id = 'id')
 filter_top(ndvi, probs = 0.925, id = 'id')
 }
+\seealso{
+Other filter: \code{\link{filter_ndvi}},
+  \code{\link{filter_qa}}, \code{\link{filter_roll}},
+  \code{\link{filter_winter}}
+}
+\concept{filter}
