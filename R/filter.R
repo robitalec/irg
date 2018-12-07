@@ -28,21 +28,14 @@ filter_qa <-
 	# NSE Errors
 	NDVI <- filtered <- NULL
 
-	if (truelength(DT) == 0) {
-		stop('please run data.table::alloc.col on your DT to allocate columns')
-	}
+	check_truelength(DT)
 
 	if (length(qa) != 1) {
 		stop('qa must be length 1')
 	}
 
-	if (!('NDVI' %in% colnames(DT))) {
-		stop('NDVI column not found in DT')
-	}
-
-	if (!(qa %in% colnames(DT))) {
-		stop('QA column not found in DT')
-	}
+	check_col(DT, 'NDVI')
+	check_col(DT, qa, 'qa')
 
 	DT[get(qa) %in% good, good := TRUE][is.na(good), good := FALSE]
 	DT[(good), filtered := NDVI]
@@ -88,30 +81,17 @@ filter_winter <-
 		# NSE Errors
 		filtered <- winter <- NULL
 
-		if (truelength(DT) == 0) {
-			stop('please run data.table::alloc.col on your DT to allocate columns')
-		}
+
+		check_truelength(DT)
 
 		if (length(probs) != 1) {
 			stop('probs must be length 1')
 		}
 
-		if (!(doy %in% colnames(DT))) {
-			stop('doy column not found in DT')
-		}
-
-		if (!(id %in% colnames(DT))) {
-			stop('id column not found in DT')
-		}
-
-		if (!('filtered' %in% colnames(DT))) {
-			stop('filtered column not found in DT, did you run filter_qa?')
-		}
-
-		if ('winter' %in% colnames(DT)) {
-			warning('overwriting winter column')
-			set(DT, j = 'winter', value = NULL)
-		}
+		check_col(DT, doy, 'doy')
+		check_col(DT, id, 'id')
+		check_col(DT, 'filtered', extra = ', did you run filter_qa?')
+		overwrite_col(DT, 'winter')
 
 		if (typeof(limits) != 'integer') {
 			limits <- as.integer(limits)
@@ -168,26 +148,11 @@ filter_roll <-
 		# NSE Errors
 		filtered <- winter <- rolled <- NULL
 
-		if (truelength(DT) == 0) {
-			stop('please run data.table::alloc.col on your DT to allocate columns')
-		}
-
-		if (!(id %in% colnames(DT))) {
-			stop('id column not found in DT')
-		}
-
-		if (!('filtered' %in% colnames(DT))) {
-			stop('filtered column not found in DT, did you run filter_qa?')
-		}
-
-		if (!('winter' %in% colnames(DT))) {
-			stop('winter column not found in DT, did you run filter_winter?')
-		}
-
-		if ('rolled' %in% colnames(DT)) {
-			warning('overwriting rolled column')
-			set(DT, j = 'rolled', value = NULL)
-		}
+		check_truelength(DT)
+		check_col(DT, id, 'id')
+		check_col(DT, 'filtered', extra = ', did you run filter_qa?')
+		check_col(DT, 'winter', extra = ', did you run filter_winter?')
+		overwrite_col(DT, 'rolled')
 
 		bys <- id
 
@@ -232,30 +197,17 @@ filter_top <-
 		# NSE Errors
 		top <- filtered <- NULL
 
-		if (truelength(DT) == 0) {
-			stop('please run data.table::alloc.col on your DT to allocate columns')
-		}
+		check_truelength(DT)
+
 
 		if (length(probs) != 1) {
 			stop('probs must be length 1')
 		}
 
-		if (!(id %in% colnames(DT))) {
-			stop('id column not found in DT')
-		}
-
-		if (!('filtered' %in% colnames(DT))) {
-			stop('filtered column not found in DT, did you run filter_qa?')
-		}
-
-		if (!('winter' %in% colnames(DT))) {
-			stop('winter column not found in DT, did you run filter_winter?')
-		}
-
-		if ('top' %in% colnames(DT)) {
-			warning('overwriting top column')
-			set(DT, j = 'top', value = NULL)
-		}
+		check_col(DT, id, 'id')
+		check_col(DT, 'filtered', extra = ', did you run filter_qa?')
+		check_col(DT, 'winter', extra = ', did you run filter_winter?')
+		overwrite_col(DT, 'top')
 
 		bys <- id
 
