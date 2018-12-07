@@ -25,7 +25,11 @@ scale_ndvi <-
 		# NSE Errors
 		rolled <- winter <- top <- scaled <- NULL
 
-		if (any(!c('rolled', 'winter', 'top') %in% colnames(DT))) {
+		if (truelength(DT) == 0) {
+			stop('please run data.table::alloc.col on your DT to allocate columns')
+		}
+
+		if (any(!(c('rolled', 'winter', 'top') %in% colnames(DT)))) {
 			stop('missing one of "rolled", "winter", "top". did you filter?')
 		}
 
@@ -60,6 +64,10 @@ scale_doy <-
 	function(DT, doy = 'DayOfYear') {
 		# NSE Errors
 		t <- NULL
+
+		if (truelength(DT) == 0) {
+			stop('please run data.table::alloc.col on your DT to allocate columns')
+		}
 
 		if (!(doy %in% colnames(DT))) {
 			stop('doy column not found in DT')
