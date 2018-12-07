@@ -26,7 +26,7 @@ scale_ndvi <-
 		# NSE Errors
 		rolled <- winter <- top <- NULL
 
-		if (all(c('rolled', 'winter', 'top') %in% colnames(DT))) {
+		if (any(!c('rolled', 'winter', 'top') %in% colnames(DT))) {
 			stop('missing one of "rolled", "winter", "top". did you filter?')
 		}
 
@@ -36,3 +36,37 @@ scale_ndvi <-
 	}
 
 
+#' Scale DOY
+#'
+#' Scale the day of the year to 0-1 (like NDVI).
+#'
+#' @inheritParams filter_qa
+#'
+#' @return data.table with appended 'scaled' column of 0-1 scaled NDVI.
+#' @import data.table
+#'
+#' @export
+#'
+#' @family scale
+#'
+#' @examples
+#' # Load data.table
+#' library(data.table)
+#'
+#' # Read example data
+#' ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
+#'
+#' scale_doy(ndvi, doy = 'DayOfYear')
+scale_doy <-
+	function(DT, doy = 'DayOfYear') {
+		# NSE Errors
+		t <- NULL
+
+		if (!(doy %in% colnames(DT))) {
+			stop('doy column not found in DT')
+		}
+
+		jul01 <- data.table(jul = 1:366,
+												t = seq(0, 1, length.out = 366))
+		DT[, t := jul01$t[.SD], .SDcols = doy]
+	}
