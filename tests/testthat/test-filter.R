@@ -2,6 +2,9 @@ context("test-filter")
 
 ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
 
+#TODO: add test alloc.col?
+
+
 ### filter_qa ###########################################
 test_that("filter qa works", {
 
@@ -92,6 +95,23 @@ test_that("filter top works", {
 
 	# Overwrite top column
 	expect_warning(filter_top(copy(ndviroll)[, top := 1]),
+								 'overwriting top column')
+
+})
+
+### filter_ndvi #######################################
+test_that("filter ndvi meta works", {
+	# Overwrite top column
+	expect_warning(filter_ndvi(copy(ndvi)[, filtered := 1]),
+								 'overwriting filtered column')
+
+	expect_warning(filter_ndvi(copy(ndvi)[, winter := 1]),
+								 'overwriting winter column')
+
+	expect_warning(filter_ndvi(copy(ndvi)[, rolled := 1]),
+								 'overwriting rolled column')
+
+	expect_warning(filter_ndvi(copy(ndvi)[, top := 1]),
 								 'overwriting top column')
 
 })

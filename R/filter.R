@@ -26,6 +26,10 @@ filter_qa <-
 	# NSE Errors
 	NDVI <- filtered <- NULL
 
+	if (truelength(DT) == 0) {
+		stop('please run data.table::alloc.col on your DT to allocate columns')
+	}
+
 	if (length(qa) != 1) {
 		stop('qa must be length 1')
 	}
@@ -79,6 +83,10 @@ filter_winter <-
 					 id = 'id') {
 		# NSE Errors
 		filtered <- winter <- NULL
+
+		if (truelength(DT) == 0) {
+			stop('please run data.table::alloc.col on your DT to allocate columns')
+		}
 
 		if (length(probs) != 1) {
 			stop('probs must be length 1')
@@ -154,6 +162,10 @@ filter_roll <-
 		# NSE Errors
 		filtered <- winter <- rolled <- NULL
 
+		if (truelength(DT) == 0) {
+			stop('please run data.table::alloc.col on your DT to allocate columns')
+		}
+
 		if (!(id %in% colnames(DT))) {
 			stop('id column not found in DT')
 		}
@@ -212,6 +224,10 @@ filter_top <-
 		# NSE Errors
 		top <- filtered <- NULL
 
+		if (truelength(DT) == 0) {
+			stop('please run data.table::alloc.col on your DT to allocate columns')
+		}
+
 		if (length(probs) != 1) {
 			stop('probs must be length 1')
 		}
@@ -238,4 +254,57 @@ filter_top <-
 		DT[, top := stats::quantile(filtered, probs, na.rm = TRUE),
 			 by = bys]
 
+	}
+
+
+#' Filter NDVI
+#'
+#' Meta function, calling all filtering steps, in order. Only defaults.
+#'
+#' @inheritParams filter_qa
+
+#' @return filtered NDVI time series.
+#'
+#' @import data.table
+#'
+#' @export
+#'
+#' @examples
+#' # Load data.table
+#' library(data.table)
+#'
+#' # Read example data
+#' ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
+#'
+#' filter_ndvi(ndvi)
+filter_ndvi <-
+	function(DT) {
+		if (truelength(DT) == 0) {
+			stop('please run data.table::alloc.col on your DT to allocate columns')
+		}
+
+		if ('filtered' %in% colnames(DT)) {
+			warning('overwriting filtered column')
+			set(DT, j = 'filtered', value = NULL)
+		}
+
+		if ('winter' %in% colnames(DT)) {
+			warning('overwriting winter column')
+			set(DT, j = 'winter', value = NULL)
+		}
+
+		if ('rolled' %in% colnames(DT)) {
+			warning('overwriting rolled column')
+			set(DT, j = 'rolled', value = NULL)
+		}
+
+		if ('top' %in% colnames(DT)) {
+			warning('overwriting top column')
+			set(DT, j = 'top', value = NULL)
+		}
+
+		filter_qa(DT)
+		filter_winter(DT)
+		filter_roll(DT)
+		filter_top(DT)
 	}
