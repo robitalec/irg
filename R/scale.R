@@ -25,9 +25,7 @@ scale_ndvi <-
 		# NSE Errors
 		rolled <- winter <- top <- scaled <- NULL
 
-		if (truelength(DT) == 0) {
-			stop('please run data.table::alloc.col on your DT to allocate columns')
-		}
+		check_truelength(DT)
 
 		if (any(!(c('rolled', 'winter', 'top') %in% colnames(DT)))) {
 			stop('missing one of "rolled", "winter", "top". did you filter?')
@@ -65,13 +63,9 @@ scale_doy <-
 		# NSE Errors
 		t <- NULL
 
-		if (truelength(DT) == 0) {
-			stop('please run data.table::alloc.col on your DT to allocate columns')
-		}
+		check_truelength(DT)
 
-		if (!(doy %in% colnames(DT))) {
-			stop('doy column not found in DT')
-		}
+		check_col(DT, doy, 'doy')
 
 		jul01 <- data.table(jul = 1:366,
 												t = seq(0, 1, length.out = 366))
