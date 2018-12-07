@@ -12,7 +12,7 @@ scale_doy(DT, doy = "DayOfYear")
 \item{doy}{julian day column. default is 'DayOfYear'.}
 }
 \value{
-data.table with appended 'scaled' column of 0-1 scaled NDVI.
+data.table with appended 't' column of 0-1 scaled day of year.
 }
 \description{
 Scale the day of the year to 0-1 (like NDVI).

@@ -41,7 +41,7 @@ scale_ndvi <-
 #'
 #' @inheritParams filter_winter
 #'
-#' @return data.table with appended 'scaled' column of 0-1 scaled NDVI.
+#' @return data.table with appended 't' column of 0-1 scaled day of year.
 #' @import data.table
 #'
 #' @export
@@ -67,5 +67,5 @@ scale_doy <-
 
 		jul01 <- data.table(jul = 1:366,
 												t = seq(0, 1, length.out = 366))
-		DT[, t := jul01$t[.SD][[1]], .SDcols = doy]
+		DT[, t := jul01$t[.SD[[1]]], .SDcols = doy]
 	}
