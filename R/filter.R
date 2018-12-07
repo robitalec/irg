@@ -9,6 +9,8 @@
 #' @return filtered data.table with appended 'filtered' column of "quality" NDVI.
 #' @import data.table
 #'
+#' @family filter
+#'
 #' @export
 #'
 #' @examples
@@ -66,6 +68,8 @@ filter_qa <-
 #' @import data.table
 #'
 #' @export
+#'
+#' @family filter
 #'
 #' @examples
 #' # Load data.table
@@ -143,6 +147,8 @@ filter_winter <-
 #'
 #' @export
 #'
+#' @family filter
+#'
 #' @examples
 #' # Load data.table
 #' library(data.table)
@@ -206,6 +212,8 @@ filter_roll <-
 #'
 #' @export
 #'
+#' @family filter
+#'
 #' @examples
 #' # Load data.table
 #' library(data.table)
@@ -266,6 +274,8 @@ filter_top <-
 #' @return filtered NDVI time series.
 #'
 #' @import data.table
+#'
+#' @family filter
 #'
 #' @export
 #'
