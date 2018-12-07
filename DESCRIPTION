@@ -9,7 +9,7 @@ Authors@R:
            comment = c(ORCID = "0000-0002-4706-1762"))
 Description: Calculates instantaneous rate of green (IRG) from satellite derived, 
 				     green up data according to Bischoff et al. 2012. 
-License: GPL-3 | LICENSE
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
