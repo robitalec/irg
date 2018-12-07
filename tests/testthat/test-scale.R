@@ -17,5 +17,4 @@ test_that("scale_doy works", {
 	expect_error(scale_doy(ndvi, doy = 'potato'),
 							 'doy column not found in DT')
 
-
 })

@@ -8,6 +8,8 @@ scale_doy(DT, doy = "DayOfYear")
 }
 \arguments{
 \item{DT}{data.table of NDVI time series}
+
+\item{doy}{julian day column. default is 'DayOfYear'.}
 }
 \value{
 data.table with appended 'scaled' column of 0-1 scaled NDVI.

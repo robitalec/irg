@@ -19,12 +19,11 @@
 #' ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
 #'
 #' filter_ndvi(ndvi)
-#'
 #' scale_ndvi(ndvi)
 scale_ndvi <-
 	function(DT) {
 		# NSE Errors
-		rolled <- winter <- top <- NULL
+		rolled <- winter <- top <- scaled <- NULL
 
 		if (any(!c('rolled', 'winter', 'top') %in% colnames(DT))) {
 			stop('missing one of "rolled", "winter", "top". did you filter?')
@@ -40,7 +39,7 @@ scale_ndvi <-
 #'
 #' Scale the day of the year to 0-1 (like NDVI).
 #'
-#' @inheritParams filter_qa
+#' @inheritParams filter_winter
 #'
 #' @return data.table with appended 'scaled' column of 0-1 scaled NDVI.
 #' @import data.table
@@ -68,5 +67,5 @@ scale_doy <-
 
 		jul01 <- data.table(jul = 1:366,
 												t = seq(0, 1, length.out = 366))
-		DT[, t := jul01$t[.SD], .SDcols = doy]
+		DT[, t := jul01$t[.SD][[1]], .SDcols = doy]
 	}

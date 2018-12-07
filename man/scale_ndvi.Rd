@@ -23,7 +23,6 @@ library(data.table)
 ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
 
 filter_ndvi(ndvi)
-
 scale_ndvi(ndvi)
 }
 \seealso{
