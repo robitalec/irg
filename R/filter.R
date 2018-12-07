@@ -24,7 +24,7 @@ filter_qa <-
 					 qa = 'SummaryQA',
 					 good = c(0, 1)) {
 	# NSE Errors
-	NDVI <- NULL
+	NDVI <- filtered <- NULL
 
 	if (length(qa) != 1) {
 		stop('qa must be length 1')
@@ -52,7 +52,7 @@ filter_qa <-
 #' The id parameter is used to split between sampling units. This may be a point id, polygon id, pixel id, etc. depending on your analysis.
 #'
 #' @inheritParams filter_qa
-#' @param prob quantile probability to determine "winterNDVI". default is 0.025.
+#' @param probs quantile probability to determine "winterNDVI". default is 0.025.
 #' @param limits integer vector indicating limit days of absolute winter (snow cover, etc.). default = 60 days after Jan 1 and 65 days before Jan 1.
 #' @param doy julian day column. default is 'DayOfYear'.
 #' @param id id column. default is 'id'. See details.
@@ -69,7 +69,7 @@ filter_qa <-
 #'
 #' # Read example data
 #' ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
-#'
+#' filter_qa(ndvi, qa = 'SummaryQA', good = c(0, 1))
 #' filter_winter(ndvi, probs = 0.025, limits = c(60L, 300L), doy = 'DayOfYear', id = 'id')
 filter_winter <-
 	function(DT,
@@ -78,7 +78,7 @@ filter_winter <-
 					 doy = 'DayOfYear',
 					 id = 'id') {
 		# NSE Errors
-		filtered <- NULL
+		filtered <- winter <- NULL
 
 		if (length(probs) != 1) {
 			stop('probs must be length 1')
@@ -107,7 +107,7 @@ filter_winter <-
 
 		bys <- id
 
-		DT[, winter := as.integer(quantile(filtered,
+		DT[, winter := as.integer(stats::quantile(filtered,
 																			 probs = probs,
 																			 na.rm = TRUE)),
 			 by = bys]
@@ -142,6 +142,8 @@ filter_winter <-
 #' # Read example data
 #' ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
 #'
+#' filter_qa(ndvi, qa = 'SummaryQA', good = c(0, 1))
+#' filter_winter(ndvi, probs = 0.025, limits = c(60L, 300L), doy = 'DayOfYear', id = 'id')
 #' filter_roll(ndvi, window = 3L, id = 'id')
 filter_roll <-
 	function(DT,
@@ -150,7 +152,7 @@ filter_roll <-
 					 method = 'median'
 					 ) {
 		# NSE Errors
-		filtered <- winter <- NULL
+		filtered <- winter <- rolled <- NULL
 
 		if (!(id %in% colnames(DT))) {
 			stop('id column not found in DT')
@@ -185,7 +187,7 @@ filter_roll <-
 #' The id parameter is used to split between sampling units. This may be a point id, polygon id, pixel id, etc. depending on your analysis.
 #'
 #' @inheritParams filter_winter
-#' @param prob quantile probability to determine top. default is 0.925.
+#' @param probs quantile probability to determine top. default is 0.925.
 #'
 #' @return filtered data.table with appended 'top' column of each id's top (quantile) NDVI value.
 #' @import data.table
@@ -199,6 +201,9 @@ filter_roll <-
 #' # Read example data
 #' ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
 #'
+#' filter_qa(ndvi, qa = 'SummaryQA', good = c(0, 1))
+#' filter_winter(ndvi, probs = 0.025, limits = c(60L, 300L), doy = 'DayOfYear', id = 'id')
+#' filter_roll(ndvi, window = 3L, id = 'id')
 #' filter_top(ndvi, probs = 0.925, id = 'id')
 filter_top <-
 	function(DT,
@@ -230,7 +235,7 @@ filter_top <-
 
 		bys <- id
 
-		DT[, top := quantile(filtered, probs, na.rm = TRUE),
+		DT[, top := stats::quantile(filtered, probs, na.rm = TRUE),
 			 by = bys]
 
 	}

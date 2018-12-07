@@ -10,13 +10,13 @@ filter_winter(DT, probs = 0.025, limits = c(60L, 300L),
 \arguments{
 \item{DT}{data.table of NDVI time series}
 
+\item{probs}{quantile probability to determine "winterNDVI". default is 0.025.}
+
 \item{limits}{integer vector indicating limit days of absolute winter (snow cover, etc.). default = 60 days after Jan 1 and 65 days before Jan 1.}
 
 \item{doy}{julian day column. default is 'DayOfYear'.}
 
 \item{id}{id column. default is 'id'. See details.}
-
-\item{prob}{quantile probability to determine "winterNDVI". default is 0.025.}
 }
 \value{
 filtered data.table with appended 'winter' column of each id's "winterNDVI" baseline value.
@@ -33,6 +33,6 @@ library(data.table)
 
 # Read example data
 ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
-
+filter_qa(ndvi, qa = 'SummaryQA', good = c(0, 1))
 filter_winter(ndvi, probs = 0.025, limits = c(60L, 300L), doy = 'DayOfYear', id = 'id')
 }
