@@ -16,6 +16,17 @@ check_col <- function(DT = NULL, col = NULL, arg = NULL, extra = NULL) {
 	}
 }
 
+#' check type
+#' @param DT data.table
+#' @param col column name
+#' @param type
+check_type <- function(DT = NULL, col = NULL, type = NULL) {
+	if (!(typeof(DT[[col]]) %in% type)) {
+		stop(paste0(col, ' does not match required type: ', type))
+	}
+}
+
+
 #' overwite_col
 #' @param DT data.table
 #' @param col column name
