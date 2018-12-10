@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-IRG is intended to be used with a `data.table` time seris of NDVI samples for multiple years. 
+IRG is intended to be used with a `data.table` time series of NDVI samples for multiple years. 
 
 ID can be point ID, polygon ID, etc. Any sampling unit you are using which is relevant to the calculation of IRG. 
 
