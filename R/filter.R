@@ -241,29 +241,13 @@ filter_top <-
 #' filter_ndvi(ndvi)
 filter_ndvi <-
 	function(DT) {
-		if (truelength(DT) == 0) {
-			stop('please run data.table::alloc.col on your DT to allocate columns')
-		}
 
-		if ('filtered' %in% colnames(DT)) {
-			warning('overwriting filtered column')
-			set(DT, j = 'filtered', value = NULL)
-		}
+		check_truelength(DT)
 
-		if ('winter' %in% colnames(DT)) {
-			warning('overwriting winter column')
-			set(DT, j = 'winter', value = NULL)
-		}
-
-		if ('rolled' %in% colnames(DT)) {
-			warning('overwriting rolled column')
-			set(DT, j = 'rolled', value = NULL)
-		}
-
-		if ('top' %in% colnames(DT)) {
-			warning('overwriting top column')
-			set(DT, j = 'top', value = NULL)
-		}
+		overwrite_col(DT, 'filtered')
+		overwrite_col(DT, 'winter')
+		overwrite_col(DT, 'rolled')
+		overwrite_col(DT, 'top')
 
 		filter_qa(DT)
 		filter_winter(DT)
