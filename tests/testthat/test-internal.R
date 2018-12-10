@@ -1,28 +1,33 @@
 context("test-internal")
 
+
+ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
+
+
 test_that("check_col works", {
-	stop(paste0(it, ' column not found in DT', extra))
+	expect_error(check_col(ndvi, 'potato'),
+							 'potato column not found in DT')
 
 })
 
 test_that("check_type works", {
-	stop(paste0(col, ' does not match required type: ', type))
+	expect_error(
+		check_type(ndvi, 'DayOfYear', 'potato'),
+		'DayOfYear does not match required type: potato'
+	)
 
 })
 
 
 test_that("overwrite_col works", {
-	# warning(paste0('overwriting ', col, ' column'))
+	copyNDVI <- copy(ndvi)[, potato := 'golden']
+	expect_warning(overwrite_col(copyNDVI, 'potato'),
+								 'overwriting potato column')
 
 })
 
 
-
-
-
-
-test_that("check_truelength works", {
-
+# test_that("check_truelength works", {
 	# see #10
 	# error = 'please run data.table::alloc.col on your DT to allocate columns'
-})
+# })
