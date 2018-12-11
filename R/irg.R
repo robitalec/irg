@@ -53,42 +53,83 @@
 #'
 #' # Calculate IRG for each day of the year
 #' calc_irg(fittedNDVI, fitted = TRUE)
-calc_irg <- function(DT, fitted = TRUE, scaled = TRUE, id = 'id', year = 'yr') {
+calc_irg <-
+	function(DT,
+					 fitted = TRUE,
+					 scaled = TRUE,
+					 id = 'id',
+					 year = 'yr') {
+		# NSE error
+		xmidS <- scalS <- irg <- NULL
+
+		check_col(DT, 'xmidS')
+		check_col(DT, 'scalS')
+
+		if (fitted) {
+			if (!anyDuplicated(DT, by = c(id, year, 'xmidS', 'scalS'))) {
+				stop('did not find duplicates, did you model_ndvi? - see Details.')
+			}
+		} else if (!fitted) {
+			if (anyDuplicated(DT, by = c(id, year, 'xmidS', 'scalS'))) {
+				stop('duplicates found, are you sure it is "fitted"? - see Details.')
+			} else {
+				DT <- DT[rep(1:.N, each = 366)][, t := julseq$t]
+			}
+		}
+
+		if (any(unlist(DT[, lapply(.SD, function(x)
+			any(is.na(x)))]))) {
+			warning('NAs found in DT, IRG will be set to NA.')
+		}
+
+		DT[, irg :=
+			 	(exp((t + xmidS) / scalS)) /
+			 	(2 * scalS * (exp(1) ^ ((t + xmidS) / scalS)) +
+			 	 	(scalS * (exp(1) ^ ((
+			 	 		2 * t
+			 	 	) / scalS))) +
+			 	 	(scalS * exp(1) ^ ((2 * xmidS) / scalS)))]
+
+		if (scaled) {
+			check_col(DT, id, 'id')
+			check_col(DT, year, 'year')
+
+			DT[, irg := (irg - min(irg)) / (max(irg) - min(irg)),
+				 by = c(id, year)]
+		}
+
+		return(DT)
+	}
+
+
+
+#' IRG
+#'
+#'
+#' @return
+#'
+#' Extended data.table 'irg' column of instantaneous rate of green-up calculated for each day of the year, for each individual and year.
+#'
+#' @export
+#'
+#' @family irg
+#'
+#' @examples
+#' # Load data.table
+#' library(data.table)
+#'
+#' # Read in example data
+#' ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
+#'
+#' # Calculate IRG for each day of the year
+#' out <- irg(ndvi)
+irg <- function(DT) {
 	# NSE error
-	xmidS <- scalS <- irg <- NULL
 
-	check_col(DT, 'xmidS')
-	check_col(DT, 'scalS')
+	filter_ndvi(ndvi)
+	scale_doy(ndvi)
+	scale_ndvi(ndvi)
+	m <- model_params(ndvi, )
+	calc_irg(model_ndvi(m))
 
-	if (fitted) {
-		if (!anyDuplicated(DT, by = c(id, year, 'xmidS', 'scalS'))) {
-			stop('did not find duplicates, did you model_ndvi? - see Details.')
-		}
-	} else if (!fitted) {
-		if (anyDuplicated(DT, by = c(id, year, 'xmidS', 'scalS'))) {
-			stop('duplicates found, are you sure it is "fitted"? - see Details.')
-		} else {
-			DT <- DT[rep(1:.N, each = 366)][, t := julseq$t]
-		}
-	}
-
-	if (any(unlist(DT[, lapply(.SD, function(x) any(is.na(x)))]))) {
-		warning('NAs found in DT, IRG will be set to NA.')
-	}
-
-	DT[, irg :=
-				(exp((t + xmidS) / scalS)) /
-				(2 * scalS * (exp(1) ^ ((t + xmidS) / scalS)) +
-				 	(scalS * (exp(1) ^ ((2 * t) / scalS))) +
-				 	(scalS * exp(1) ^ ((2 * xmidS) / scalS)))]
-
-	if (scaled) {
-		check_col(DT, id, 'id')
-		check_col(DT, year, 'year')
-
-		DT[, irg := (irg - min(irg))/(max(irg) - min(irg)),
-			 by = c(id, year)]
-	}
-
-	return(DT)
 }
