@@ -14,29 +14,29 @@ model_params(DT, id = "id", year = "yr", xmidS = NULL,
 
 \item{year}{year column name. default is 'yr'.}
 
-\item{scalA}{}
+\item{xmidS}{"spring inflection point"}
+
+\item{xmidA}{"fall inflection point"}
+
+\item{scalS}{"scale parameter for spring green-up portion of the NDVI curve"}
+
+\item{scalA}{"scale parameter for fall dry-down portion of the NDVI curve"}
 }
 \value{
-data.table of id, (year), xmidS, xmidA, scalS, scalA.
-
-\itemize{
-\item \code{id}
-\item \code{year}
-\item \code{xmidS}
-\item \code{xmidA}
-\item \code{scalS}
-\item \code{scalA}
-}
+data.table of model estimated parameters for double logistic model
 }
 \description{
 Estimated parameters for fitting double logistic curve.
 }
 \details{
-Default value for the year column is 'yr'.
+Default value for the year column is 'yr'. If you only have one year of data, set to NULL.
 
 The id parameter is used to split between sampling units. This may be a point id, polygon id, pixel id, etc. depending on your analysis. This should match the id provided to filtering functions.
 
-Arguments xmidS, xmidA, scalS and scalA refer:
+Formula and arguments \code{xmidS}, \code{xmidA}, \code{scalS}, \code{scalA} following this from Bischoff et al. (2012).
 
 \deqn{\frac{1}{1 + \exp{\frac{xmidS - t}{scalS}}} - \frac{1}{1 + \exp{\frac{xmidA - t}{scalA}}}}
+}
+\references{
+\url{https://www.journals.uchicago.edu/doi/abs/10.1086/667590}
 }
