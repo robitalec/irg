@@ -14,21 +14,23 @@ model_params(DT, id = "id", year = "yr", xmidS = NULL,
 
 \item{year}{year column name. default is 'yr'.}
 
-\item{xmidS}{"spring inflection point"}
+\item{xmidS}{global starting estimates. see Details. - "spring inflection point"}
 
-\item{xmidA}{"fall inflection point"}
+\item{xmidA}{global starting estimates. see Details. - "fall inflection point"}
 
-\item{scalS}{"scale parameter for spring green-up portion of the NDVI curve"}
+\item{scalS}{global starting estimates. see Details. - "scale parameter for spring green-up portion of the NDVI curve"}
 
-\item{scalA}{"scale parameter for fall dry-down portion of the NDVI curve"}
+\item{scalA}{global starting estimates. see Details. - "scale parameter for fall dry-down portion of the NDVI curve"}
 }
 \value{
-data.table of model estimated parameters for double logistic model
+data.table of model estimated parameters for double logistic model.
 }
 \description{
 Estimated parameters for fitting double logistic curve.
 }
 \details{
+Arguments \code{xmidS}, \code{xmidA}, \code{scalS}, \code{scalA} allow users to provide global starting estimates to be used for all models. Alternatively, leave NULL and provide those arguments as columns (with matching names), to provide starting estimates for each id and year.
+
 Default value for the year column is 'yr'. If you only have one year of data, set to NULL.
 
 The id parameter is used to split between sampling units. This may be a point id, polygon id, pixel id, etc. depending on your analysis. This should match the id provided to filtering functions.

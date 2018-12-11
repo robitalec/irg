@@ -2,6 +2,8 @@
 #'
 #' Estimated parameters for fitting double logistic curve.
 #'
+#' Arguments \code{xmidS}, \code{xmidA}, \code{scalS}, \code{scalA} allow users to provide global starting estimates to be used for all models. Alternatively, leave NULL and provide those arguments as columns (with matching names), to provide starting estimates for each id and year.
+#'
 #' Default value for the year column is 'yr'. If you only have one year of data, set to NULL.
 #'
 #' The id parameter is used to split between sampling units. This may be a point id, polygon id, pixel id, etc. depending on your analysis. This should match the id provided to filtering functions.
@@ -10,17 +12,16 @@
 #'
 #' \deqn{\frac{1}{1 + \exp{\frac{xmidS - t}{scalS}}} - \frac{1}{1 + \exp{\frac{xmidA - t}{scalA}}}}
 #'
-#'
 #' @inheritParams filter_winter
 #' @param year year column name. default is 'yr'.
-#' @param xmidS "spring inflection point"
-#' @param xmidA "fall inflection point"
-#' @param scalS "scale parameter for spring green-up portion of the NDVI curve"
-#' @param scalA "scale parameter for fall dry-down portion of the NDVI curve"
+#' @param xmidS global starting estimates. see Details. - "spring inflection point"
+#' @param xmidA global starting estimates. see Details. - "fall inflection point"
+#' @param scalS global starting estimates. see Details. - "scale parameter for spring green-up portion of the NDVI curve"
+#' @param scalA global starting estimates. see Details. - "scale parameter for fall dry-down portion of the NDVI curve"
 #'
 #' @return
 #'
-#' data.table of model estimated parameters for double logistic model
+#' data.table of model estimated parameters for double logistic model.
 #'
 #' @references
 #'   \url{https://www.journals.uchicago.edu/doi/abs/10.1086/667590}
@@ -40,19 +41,19 @@ model_params <- function(DT,
 
 	check_col(DT, 'scaled', extra = ' - did you filter and scale?')
 
-	if (!is.null(xmidS)) {
+	if (is.null(xmidS)) {
 		check_col(DT, 'xmidS')
 	}
 
-	if (!is.null(xmidA)) {
+	if (is.null(xmidA)) {
 		check_col(DT, 'xmidA')
 	}
 
-	if (!is.null(scalS)) {
+	if (is.null(scalS)) {
 		check_col(DT, 'scalS')
 	}
 
-	if (!is.null(scalA)) {
+	if (is.null(scalA)) {
 		check_col(DT, 'scalA')
 	}
 
