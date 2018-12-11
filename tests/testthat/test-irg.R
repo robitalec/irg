@@ -38,4 +38,8 @@ test_that("calc_irg works", {
 		'scalA column not found in DT'
 	)
 
+	expect_true(all(c('id', 'yr', 'xmidS', 'xmidA', 'scalS', 'irg')
+									%in%
+										colnames(calc_irg(copyMods))))
+
 })
