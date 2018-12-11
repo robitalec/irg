@@ -38,6 +38,7 @@ model_params <- function(DT,
 												 scalS = NULL,
 												 scalA = NULL) {
 	# NSE errors
+	. <- yr <- NULL
 
 	check_col(DT, 'scaled', extra = ' - did you filter and scale?')
 
