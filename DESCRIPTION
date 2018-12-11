@@ -1,6 +1,6 @@
 Package: irg
 Title: Instantaneous Rate of Green Up
-Version: 0.0.6.9000
+Version: 0.0.7.9000
 Authors@R: 
     person(given = "Alec L.",
            family = "Robitaille",
@@ -18,6 +18,7 @@ Suggests:
     testthat,
     knitr,
     rmarkdown
+Depends: R (>= 2.10)
 Imports: 
     data.table,
     RcppRoll,
