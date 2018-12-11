@@ -60,8 +60,15 @@ model_params <- function(DT,
 	# are there >1 unique xmidS, etc in an id, year?
 	# put it all into the comb?
 
-	comb <- unique(DT[, .SD, .SDcols = c(id, year)])
+	comb <- unique(
+		DT[, .SD, .SDcols =
+			 	c(id, year, intersect(colnames(DT),
+			 												c('xmidS', 'xmidA', 'scalS', 'scalA')))])
 
+	if (any(comb[, .(checkdup = .N > 1), by = c(id, year)]$checkdup)) {
+		stop('non unique values for id (and year),
+				  check duplicate starting parameters')
+	}
 
 	m <- mapply(function(i, y) {
 		tryCatch(
@@ -75,19 +82,19 @@ model_params <- function(DT,
 						start = list(
 							xmidS =
 								ifelse(is.null(xmidS),
-											 DT[id == i & yr == y][1, xmidS],
+											 comb[id == i & yr == y][['xmidS']],
 											 xmidS),
 							xmidA =
 								ifelse(is.null(xmidA),
-											 DT[id == i & yr == y][1, xmidA],
+											 comb[id == i & yr == y][['xmidA']],
 											 xmidA),
 							scalS =
 								ifelse(is.null(scalS),
-											 DT[id == i & yr == y][1, scalS],
+											 comb[id == i & yr == y][['scalS']],
 											 scalS),
 							scalA =
 								ifelse(is.null(scalA),
-											 DT[id == i & yr == y][1, scalA],
+											 comb[id == i & yr == y][['scalA']],
 											 scalA)
 						)
 					)
