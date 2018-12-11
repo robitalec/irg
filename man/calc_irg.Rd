@@ -4,10 +4,12 @@
 \alias{calc_irg}
 \title{IRG}
 \usage{
-calc_irg(DT, scaled = TRUE, id = "id", year = "yr")
+calc_irg(DT, fitted = TRUE, scaled = TRUE, id = "id", year = "yr")
 }
 \arguments{
 \item{DT}{data.table of model parameters (output from model_params).}
+
+\item{fitted}{boolean indicating if input DT is the result of model_ndvi.}
 
 \item{scaled}{boolean indicating if irg should be rescaled between 0-1 within id and year. If TRUE, provide id and year. Default is TRUE.}
 
@@ -41,6 +43,12 @@ scale_doy(ndvi)
 scale_ndvi(ndvi)
 
 # Double logistic model parameters given starting parameters for nls
+
+## Option 1: fitted = FALSE
+# Calculate IRG for each day of the year
+calc_irg(mods)
+
+## Option 2: fitted = TRUE
 mods <- model_params(
   ndvi,
   xmidS = 0.44,
@@ -49,7 +57,15 @@ mods <- model_params(
   scalA = 0.01
 )
 
+model_ndvi(mods)
+
+
+
+
 # Calculate IRG for each day of the year
 calc_irg(mods)
+}
+\seealso{
+Other irg: \code{\link{irg}}
 }
 \concept{irg}

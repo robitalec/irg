@@ -39,7 +39,7 @@ mods <- model_params(
 )
 
 # Fit double logistic curve to NDVI time series for the whole year
-model_ndvi(mods)
+fittedNDVI <- model_ndvi(mods)
 }
 \references{
 \url{https://www.journals.uchicago.edu/doi/abs/10.1086/667590}

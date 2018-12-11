@@ -30,6 +30,13 @@ test_that("calc_irg works", {
 	expect_true(all(
 		c('id', 'yr', 'xmidS', 'scalS', 't', 'irg')
 		%in%
-			colnames(calc_irg(copyMods))))
+			colnames(calc_irg(copyMods, fitted = FALSE))))
+
+	# fitted errors
+	expect_error(calc_irg(copyMods, fitted = TRUE),
+							 'did not find duplicates', fixed = FALSE)
+
+	expect_error(calc_irg(model_ndvi(copyMods), fitted = FALSE),
+							 'duplicates found', fixed = FALSE)
 
 })

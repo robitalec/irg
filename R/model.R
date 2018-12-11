@@ -176,7 +176,7 @@ model_params <- function(DT,
 #' )
 #'
 #' # Fit double logistic curve to NDVI time series for the whole year
-#' model_ndvi(mods)
+#' fittedNDVI <- model_ndvi(mods)
 model_ndvi <- function(DT) {
 	# NSE error
 	xmidS <- xmidA <- scalS <- scalA <- fitted <- NULL
