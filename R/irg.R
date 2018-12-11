@@ -32,7 +32,7 @@ calc_irg <- function(DT, scaled = TRUE, id = 'id', year = 'yr') {
 		warning('NAs found in DT, IRG will be set to NA.')
 	}
 
-	DT <- mods[rep(1:.N, each = 366)][, t := irg:::julseq$t]
+	DT <- DT[rep(1:.N, each = 366)][, t := julseq$t]
 
 	DT[, irg :=
 				(exp((t + xmidS) / scalS)) /

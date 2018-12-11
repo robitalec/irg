@@ -20,26 +20,16 @@ test_that("calc_irg works", {
 		'xmidS column not found in DT'
 	)
 
-	copyMods <- copy(mods)[, xmidA := NULL]
-	expect_error(
-		calc_irg(copyMods),
-		'xmidA column not found in DT'
-	)
-
 	copyMods <- copy(mods)[, scalS := NULL]
 	expect_error(
 		calc_irg(copyMods),
 		'scalS column not found in DT'
 	)
 
-	copyMods <- copy(mods)[, scalA := NULL]
-	expect_error(
-		calc_irg(copyMods),
-		'scalA column not found in DT'
-	)
-
-	expect_true(all(c('id', 'yr', 'xmidS', 'xmidA', 'scalS', 'irg')
-									%in%
-										colnames(calc_irg(copyMods))))
+	copyMods <- copy(mods)[!is.na(xmidS)]
+	expect_true(all(
+		c('id', 'yr', 'xmidS', 'scalS', 't', 'irg')
+		%in%
+			colnames(calc_irg(copyMods))))
 
 })

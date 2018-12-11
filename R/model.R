@@ -166,7 +166,7 @@ model_params <- function(DT,
 #' model_ndvi(mods)
 model_ndvi <- function(DT) {
 	# NSE error
-	xmidS <- xmidA <- scalS <- scalA <- NULL
+	xmidS <- xmidA <- scalS <- scalA <- fitted <- NULL
 
 	check_col(DT, 'xmidS')
 	check_col(DT, 'xmidA')
@@ -174,7 +174,7 @@ model_ndvi <- function(DT) {
 	check_col(DT, 'scalA')
 
 
-	fitDT <- DT[rep(1:.N, each = 366)][, t := irg:::julseq$t]
+	fitDT <- DT[rep(1:.N, each = 366)][, t := julseq$t]
 
 	fitDT[, fitted :=
 					(1 / (1 + exp((xmidS - t) / scalS))) -
