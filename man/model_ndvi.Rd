@@ -9,6 +9,19 @@ model_ndvi(DT)
 \arguments{
 \item{DT}{data.table of model parameters (output from model_params).}
 }
+\value{
+data.table of fitted double logistic model of NDVI for a full year. Calculated at the daily scale with the following formula from Bischoff et al. 2012.
+
+\deqn{\frac{1}{1 + \exp{\frac{xmidS - t}{scalS}}} - \frac{1}{1 + \exp{\frac{xmidA - t}{scalA}}}}
+}
 \description{
 Fit double logistic model to NDVI time series given parameters estimated with model_params.
+}
+\examples{
+
+
+
+}
+\references{
+\url{https://www.journals.uchicago.edu/doi/abs/10.1086/667590}
 }

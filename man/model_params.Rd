@@ -39,6 +39,24 @@ Formula and arguments \code{xmidS}, \code{xmidA}, \code{scalS}, \code{scalA} fol
 
 \deqn{\frac{1}{1 + \exp{\frac{xmidS - t}{scalS}}} - \frac{1}{1 + \exp{\frac{xmidA - t}{scalA}}}}
 }
+\examples{
+
+library(data.table)
+
+ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
+
+filter_ndvi(ndvi)
+scale_doy(ndvi)
+scale_ndvi(ndvi)
+
+mods <- model_params(
+  ndvi,
+  xmidS = 0.44,
+  xmidA = 0.80,
+  scalS = 0.05,
+  scalA = 0.01
+)
+}
 \references{
 \url{https://www.journals.uchicago.edu/doi/abs/10.1086/667590}
 }

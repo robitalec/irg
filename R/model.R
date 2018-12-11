@@ -1,8 +1,8 @@
-#' Model parameters
+#' Estimate model parameters
 #'
 #' Estimated parameters for fitting double logistic curve.
 #'
-#' Arguments \code{xmidS}, \code{xmidA}, \code{scalS}, \code{scalA} allow users to provide global starting estimates to be used for all models. Alternatively, leave NULL and provide those arguments as columns (with matching names), to provide starting estimates for each id and year.
+#' Arguments \code{xmidS}, \code{xmidA}, \code{scalS}, \code{scalA} allow users to provide global starting estimates to be used for all models. Alternatively, leave NULL and provide those arguments as columns (with matching names) in DT, to provide starting estimates for each id and year.
 #'
 #' Default value for the year column is 'yr'. If you only have one year of data, set to NULL.
 #'
@@ -13,11 +13,12 @@
 #' \deqn{\frac{1}{1 + \exp{\frac{xmidS - t}{scalS}}} - \frac{1}{1 + \exp{\frac{xmidA - t}{scalA}}}}
 #'
 #' @inheritParams filter_winter
+#' @param DT data.table of NDVI time series. Also optionally starting estimates. See Details.
 #' @param year year column name. default is 'yr'.
-#' @param xmidS global starting estimates. see Details. - "spring inflection point"
-#' @param xmidA global starting estimates. see Details. - "fall inflection point"
-#' @param scalS global starting estimates. see Details. - "scale parameter for spring green-up portion of the NDVI curve"
-#' @param scalA global starting estimates. see Details. - "scale parameter for fall dry-down portion of the NDVI curve"
+#' @param xmidS starting estimates. see Details. - "spring inflection point"
+#' @param xmidA starting estimates. see Details. - "fall inflection point"
+#' @param scalS starting estimates. see Details. - "scale parameter for spring green-up portion of the NDVI curve"
+#' @param scalA starting estimates. see Details. - "scale parameter for fall dry-down portion of the NDVI curve"
 #'
 #' @return
 #'
@@ -30,6 +31,21 @@
 #' @export
 #'
 #' @examples
+#' library(data.table)
+#'
+#' ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
+#'
+#' filter_ndvi(ndvi)
+#' scale_doy(ndvi)
+#' scale_ndvi(ndvi)
+#'
+#' mods <- model_params(
+#'   ndvi,
+#'   xmidS = 0.44,
+#'   xmidA = 0.80,
+#'   scalS = 0.05,
+#'   scalA = 0.01
+#' )
 model_params <- function(DT,
 												 id = 'id',
 												 year = 'yr',
@@ -115,12 +131,39 @@ model_params <- function(DT,
 #' Fit double logistic model to NDVI time series given parameters estimated with model_params.
 #'
 #' @param DT data.table of model parameters (output from model_params).
-#'
 #' @return
+#'
+#' data.table of fitted double logistic model of NDVI for a full year. Calculated at the daily scale with the following formula from Bischoff et al. 2012.
+#'
+#' \deqn{\frac{1}{1 + \exp{\frac{xmidS - t}{scalS}}} - \frac{1}{1 + \exp{\frac{xmidA - t}{scalA}}}}
+#'
+#'
+#' @references
+#'   \url{https://www.journals.uchicago.edu/doi/abs/10.1086/667590}
+#'
 #' @export
 #'
 #' @examples
+#' library(data.table)
+#'
+#' ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
+#'
+#' filter_ndvi(ndvi)
+#' scale_doy(ndvi)
+#' scale_ndvi(ndvi)
+#'
+#' mods <- model_params(
+#'   ndvi,
+#'   xmidS = 0.44,
+#'   xmidA = 0.80,
+#'   scalS = 0.05,
+#'   scalA = 0.01
+#' )
+#'
+#' model_ndvi(mods)
 model_ndvi <- function(DT) {
+	# NSE error
+	xmidS <- xmidA <- scalS <- scalA <- NULL
 
 	check_col(DT, 'xmidS')
 	check_col(DT, 'xmidA')

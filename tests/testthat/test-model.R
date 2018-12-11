@@ -73,4 +73,6 @@ test_that("model_ndvi works", {
 		'scalA column not found in DT'
 	)
 
+
+
 })
