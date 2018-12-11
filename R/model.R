@@ -112,9 +112,9 @@ model_params <- function(DT,
 
 #' Model NDVI time series
 #'
-#' Fit double logistic model to NDVI time series given parameters estimated with fit_params
+#' Fit double logistic model to NDVI time series given parameters estimated with model_params.
 #'
-#' @inheritParams filter_winter
+#' @param DT data.table of model parameters (output from model_params).
 #'
 #' @return
 #' @export
@@ -122,4 +122,15 @@ model_params <- function(DT,
 #' @examples
 model_ndvi <- function(DT) {
 
+	check_col(DT, 'xmidS')
+	check_col(DT, 'xmidA')
+	check_col(DT, 'scalS')
+	check_col(DT, 'scalA')
+
+
+	fitDT <- DT[rep(1:.N, each = 366)][, t := julseq()$t]
+
+	fitDT[, fitted :=
+					(1 / (1 + exp((xmidS - t) / scalS))) -
+					(1 / (1 + exp((xmidA - t) / scalA)))]
 }
