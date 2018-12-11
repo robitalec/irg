@@ -7,9 +7,11 @@
 check_type(DT = NULL, col = NULL, type = NULL)
 }
 \arguments{
-\item{DT}{data.table}
+\item{DT}{data.table.}
 
-\item{col}{column name}
+\item{col}{column name.}
+
+\item{type}{typeof type type typeof type.}
 }
 \description{
 check type

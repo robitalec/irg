@@ -13,7 +13,6 @@
 #' \deqn{\frac{1}{1 + \exp{\frac{xmidS - t}{scalS}}} - \frac{1}{1 + \exp{\frac{xmidA - t}{scalA}}}}
 #'
 #' @inheritParams filter_winter
-#' @inheritParams filter_qa
 #' @param year year column name. default is 'yr'.
 #' @param xmidS global starting estimates. see Details. - "spring inflection point"
 #' @param xmidA global starting estimates. see Details. - "fall inflection point"
@@ -59,15 +58,13 @@ model_params <- function(DT,
 		check_col(DT, 'scalA')
 	}
 
-	# are there >1 unique xmidS, etc in an id, year?
-	# put it all into the comb?
-
 	comb <- unique(
 		DT[, .SD, .SDcols =
 			 	c(id, year, intersect(colnames(DT),
 			 												c('xmidS', 'xmidA', 'scalS', 'scalA')))])
 
-	if (any(comb[, .(checkdup = .N > 1), by = c(id, year)]$checkdup)) {
+	if (any(comb[, .(checkdup = .N > 1),
+							 by = c(id, year)]$checkdup)) {
 		stop('non unique values for id (and year),
 				  check duplicate starting parameters')
 	}
@@ -109,7 +106,7 @@ model_params <- function(DT,
 	y = comb$yr,
 	SIMPLIFY = FALSE)
 
-	rbindlist(m, fill = TRUE)
+	data.table::rbindlist(m, fill = TRUE)
 }
 
 
@@ -117,7 +114,7 @@ model_params <- function(DT,
 #'
 #' Fit double logistic model to NDVI time series given parameters estimated with fit_params
 #'
-#' @param DT
+#' @inheritParams filter_winter
 #'
 #' @return
 #' @export

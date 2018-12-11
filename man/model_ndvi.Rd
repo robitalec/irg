@@ -7,7 +7,7 @@
 model_ndvi(DT)
 }
 \arguments{
-\item{DT}{}
+\item{DT}{data.table of NDVI time series}
 }
 \description{
 Fit double logistic model to NDVI time series given parameters estimated with fit_params
