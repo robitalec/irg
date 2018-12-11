@@ -33,7 +33,7 @@ Arguments \code{xmidS}, \code{xmidA}, \code{scalS}, \code{scalA} allow users to 
 
 Default value for the year column is 'yr'. If you only have one year of data, set to NULL.
 
-The id parameter is used to split between sampling units. This may be a point id, polygon id, pixel id, etc. depending on your analysis. This should match the id provided to filtering functions.
+The id argument is used to split between sampling units. This may be a point id, polygon id, pixel id, etc. depending on your analysis. This should match the id provided to filtering functions.
 
 Formula and arguments \code{xmidS}, \code{xmidA}, \code{scalS}, \code{scalA} following this from Bischoff et al. (2012).
 

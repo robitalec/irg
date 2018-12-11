@@ -22,7 +22,7 @@ filtered data.table with appended 'rolled' column of each id's rolling median, f
 Using a rolling median, filter the NDVI time series for each id.
 }
 \details{
-The id parameter is used to split between sampling units. This may be a point id, polygon id, pixel id, etc. depending on your analysis.
+The id argument is used to split between sampling units. This may be a point id, polygon id, pixel id, etc. depending on your analysis.
 }
 \examples{
 # Load data.table

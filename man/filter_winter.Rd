@@ -25,7 +25,7 @@ filtered data.table with appended 'winter' column of each id's "winterNDVI" base
 Using lower quantile (default = 0.025) of multi-year MODIS data, determine the "winterNDVI" for each id.
 }
 \details{
-The id parameter is used to split between sampling units. This may be a point id, polygon id, pixel id, etc. depending on your analysis.
+The id argument is used to split between sampling units. This may be a point id, polygon id, pixel id, etc. depending on your analysis.
 }
 \examples{
 # Load data.table

@@ -20,7 +20,7 @@ filtered data.table with appended 'top' column of each id's top (quantile) NDVI 
 Using upper quantile (default = 0.925) of multi-year MODIS data, determine the top NDVI for each id.
 }
 \details{
-The id parameter is used to split between sampling units. This may be a point id, polygon id, pixel id, etc. depending on your analysis.
+The id argument is used to split between sampling units. This may be a point id, polygon id, pixel id, etc. depending on your analysis.
 }
 \examples{
 # Load data.table

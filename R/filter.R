@@ -48,7 +48,7 @@ filter_qa <-
 #'
 #' Using lower quantile (default = 0.025) of multi-year MODIS data, determine the "winterNDVI" for each id.
 #'
-#' The id parameter is used to split between sampling units. This may be a point id, polygon id, pixel id, etc. depending on your analysis.
+#' The id argument is used to split between sampling units. This may be a point id, polygon id, pixel id, etc. depending on your analysis.
 #'
 #' @inheritParams filter_qa
 #' @param probs quantile probability to determine "winterNDVI". default is 0.025.
@@ -115,7 +115,7 @@ filter_winter <-
 #'
 #' Using a rolling median, filter the NDVI time series for each id.
 #'
-#' The id parameter is used to split between sampling units. This may be a point id, polygon id, pixel id, etc. depending on your analysis.
+#' The id argument is used to split between sampling units. This may be a point id, polygon id, pixel id, etc. depending on your analysis.
 #'
 #' @inheritParams filter_qa
 #' @inheritParams filter_winter
@@ -167,7 +167,7 @@ filter_roll <-
 #'
 #' Using upper quantile (default = 0.925) of multi-year MODIS data, determine the top NDVI for each id.
 #'
-#' The id parameter is used to split between sampling units. This may be a point id, polygon id, pixel id, etc. depending on your analysis.
+#' The id argument is used to split between sampling units. This may be a point id, polygon id, pixel id, etc. depending on your analysis.
 #'
 #' @inheritParams filter_winter
 #' @param probs quantile probability to determine top. default is 0.925.
