@@ -13,6 +13,7 @@
 #' \deqn{\frac{1}{1 + \exp{\frac{xmidS - t}{scalS}}} - \frac{1}{1 + \exp{\frac{xmidA - t}{scalA}}}}
 #'
 #' @inheritParams filter_winter
+#' @inheritParams filter_qa
 #' @param year year column name. default is 'yr'.
 #' @param xmidS global starting estimates. see Details. - "spring inflection point"
 #' @param xmidA global starting estimates. see Details. - "fall inflection point"
