@@ -57,9 +57,50 @@ model_params <- function(DT,
 		check_col(DT, 'scalA')
 	}
 
+	# are there >1 unique xmidS, etc in an id, year?
+	# put it all into the comb?
+
+	comb <- unique(DT[, .SD, .SDcols = c(id, year)])
 
 
+	m <- mapply(function(i, y) {
+		tryCatch(
+			c(list(id = i, yr = y),
+				coef(
+					stats::nls(
+						formula = scaled ~
+							(1 / (1 + exp((xmidS - t) / scalS))) -
+							(1 / (1 + exp((xmidA - t) / scalA))),
+						data = DT[id == i & yr == y],
+						start = list(
+							xmidS =
+								ifelse(is.null(xmidS),
+											 DT[id == i & yr == y][1, xmidS],
+											 xmidS),
+							xmidA =
+								ifelse(is.null(xmidA),
+											 DT[id == i & yr == y][1, xmidA],
+											 xmidA),
+							scalS =
+								ifelse(is.null(scalS),
+											 DT[id == i & yr == y][1, scalS],
+											 scalS),
+							scalA =
+								ifelse(is.null(scalA),
+											 DT[id == i & yr == y][1, scalA],
+											 scalA)
+						)
+					)
+				)),
+			error = function(e)
+				list(id = i, yr = y)
+		)
+	},
+	i = comb$id,
+	y = comb$yr,
+	SIMPLIFY = FALSE)
 
+	rbindlist(m, fill = TRUE)
 }
 
 
