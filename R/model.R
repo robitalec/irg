@@ -75,7 +75,7 @@ model_params <- function(DT,
 	m <- mapply(function(i, y) {
 		tryCatch(
 			c(list(id = i, yr = y),
-				coef(
+				stats::coef(
 					stats::nls(
 						formula = scaled ~
 							(1 / (1 + exp((xmidS - t) / scalS))) -
