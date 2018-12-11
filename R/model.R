@@ -29,7 +29,35 @@
 #' @export
 #'
 #' @examples
-model_params <- function(DT) {
+model_params <- function(DT,
+												 id = 'id',
+												 year = 'yr',
+												 xmidS = NULL,
+												 xmidA = NULL,
+												 scalS = NULL,
+												 scalA = NULL) {
+	# NSE errors
+
+	check_col(DT, 'scaled', extra = ' - did you filter and scale?')
+
+	if (!is.null(xmidS)) {
+		check_col(DT, 'xmidS')
+	}
+
+	if (!is.null(xmidA)) {
+		check_col(DT, 'xmidA')
+	}
+
+	if (!is.null(scalS)) {
+		check_col(DT, 'scalS')
+	}
+
+	if (!is.null(scalA)) {
+		check_col(DT, 'scalA')
+	}
+
+
+
 
 }
 
