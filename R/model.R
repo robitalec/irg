@@ -19,6 +19,8 @@
 #' @param scalA
 #'
 #' @return
+#' @references
+#'   \url{https://www.journals.uchicago.edu/doi/abs/10.1086/667590}
 #' @export
 #'
 #' @examples
