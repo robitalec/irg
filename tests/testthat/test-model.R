@@ -73,6 +73,7 @@ test_that("model_ndvi works", {
 		'scalA column not found in DT'
 	)
 
-
-
+	expect_true(all(c('id', 'yr', 'xmidS', 'xmidA', 'scalS', 'fitted')
+									%in%
+										colnames(model_ndvi(mods))))
 })
