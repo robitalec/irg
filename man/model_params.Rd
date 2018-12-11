@@ -4,11 +4,39 @@
 \alias{model_params}
 \title{Model parameters}
 \usage{
-model_params(DT)
+model_params(DT, id = "id", year = "yr", xmidS = NULL,
+  xmidA = NULL, scalS = NULL, scalA = NULL)
 }
 \arguments{
-\item{DT}{}
+\item{DT}{data.table of NDVI time series}
+
+\item{id}{id column. default is 'id'. See details.}
+
+\item{year}{year column name. default is 'yr'.}
+
+\item{scalA}{}
+}
+\value{
+data.table of id, (year), xmidS, xmidA, scalS, scalA.
+
+\itemize{
+\item \code{id}
+\item \code{year}
+\item \code{xmidS}
+\item \code{xmidA}
+\item \code{scalS}
+\item \code{scalA}
+}
 }
 \description{
 Estimated parameters for fitting double logistic curve.
+}
+\details{
+Default value for the year column is 'yr'.
+
+The id parameter is used to split between sampling units. This may be a point id, polygon id, pixel id, etc. depending on your analysis. This should match the id provided to filtering functions.
+
+Arguments xmidS, xmidA, scalS and scalA refer:
+
+\deqn{\frac{1}{1 + \exp{\frac{xmidS - t}{scalS}}} - \frac{1}{1 + \exp{\frac{xmidA - t}{scalA}}}}
 }
