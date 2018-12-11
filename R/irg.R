@@ -3,8 +3,12 @@
 #' Instantaneous rate of green-up.
 #'
 #'
+#' The DT argument expects a data.table of model estimated parameters for double logistic function of NDVI for each year and individual. Since it is the rate of green-up, model parameters required are only xmidS and scalS.
 #'
-#' The id parameter is used to split between sampling units. This may be a point id, polygon id, pixel id, etc. depending on your analysis. This should match the id provided to filtering functions.
+#'
+#' The scaled argument is used to optionally rescale the IRG result to 0-1, for each year and individual.
+#'
+#' The id argument is used to split between sampling units. This may be a point id, polygon id, pixel id, etc. depending on your analysis. This should match the id provided to filtering functions.
 #'
 #' @inheritParams model_ndvi
 #' @inheritParams model_params
@@ -12,19 +16,23 @@
 #'
 #' @return
 #'
-#' Model parameter data.table appended with 'irg' column of double logistic model of NDVI for a full year. Calculated at the daily scale with the following formula from Bischoff et al. (2012).
+#' Extended data.table 'irg' column of instantaneous rate of green up calculated for each day of the year, for each individual and year.
 #'
 #' @export
 #'
 #' @examples
 calc_irg <- function(DT, scaled = TRUE, id = 'id', year = 'yr') {
 	# NSE error
-	xmidS <- xmidA <- scalS <- scalA <- NULL
+	xmidS <- scalS <- irg <- NULL
 
 	check_col(DT, 'xmidS')
-	check_col(DT, 'xmidA')
 	check_col(DT, 'scalS')
-	check_col(DT, 'scalA')
+
+	if (any(unlist(DT[, lapply(.SD, function(x) any(is.na(x)))]))) {
+		warning('NAs found in DT, IRG will be set to NA.')
+	}
+
+	DT <- mods[rep(1:.N, each = 366)][, t := irg:::julseq$t]
 
 	DT[, irg :=
 				(exp((t + xmidS) / scalS)) /
@@ -39,7 +47,6 @@ calc_irg <- function(DT, scaled = TRUE, id = 'id', year = 'yr') {
 		DT[, irg := (irg - min(irg))/(max(irg) - min(irg)),
 			 by = c(id, year)]
 	}
-
 
 	return(DT)
 }

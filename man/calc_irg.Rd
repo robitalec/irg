@@ -16,11 +16,15 @@ calc_irg(DT, scaled = TRUE, id = "id", year = "yr")
 \item{year}{year column name. default is 'yr'.}
 }
 \value{
-Model parameter data.table appended with 'irg' column of double logistic model of NDVI for a full year. Calculated at the daily scale with the following formula from Bischoff et al. (2012).
+Extended data.table 'irg' column of instantaneous rate of green up calculated for each day of the year, for each individual and year.
 }
 \description{
 Instantaneous rate of green-up.
 }
 \details{
-The id parameter is used to split between sampling units. This may be a point id, polygon id, pixel id, etc. depending on your analysis. This should match the id provided to filtering functions.
+The DT argument expects a data.table of model estimated parameters for double logistic function of NDVI for each year and individual. Since it is the rate of green-up, model parameters required are only xmidS and scalS.
+
+The scaled argument is used to optionally rescale the IRG result to 0-1, for each year and individual.
+
+The id argument is used to split between sampling units. This may be a point id, polygon id, pixel id, etc. depending on your analysis. This should match the id provided to filtering functions.
 }
