@@ -1,10 +1,8 @@
 #' IRG
 #'
-#' Instantaneous rate of green-up.
-#'
+#' Calculate the instantaneous rate of green-up.
 #'
 #' The DT argument expects a data.table of model estimated parameters for double logistic function of NDVI for each year and individual. Since it is the rate of green-up, model parameters required are only xmidS and scalS.
-#'
 #'
 #' The scaled argument is used to optionally rescale the IRG result to 0-1, for each year and individual.
 #'
@@ -16,11 +14,35 @@
 #'
 #' @return
 #'
-#' Extended data.table 'irg' column of instantaneous rate of green up calculated for each day of the year, for each individual and year.
+#' Extended data.table 'irg' column of instantaneous rate of green-up calculated for each day of the year, for each individual and year.
 #'
 #' @export
 #'
+#' @family irg
+#'
 #' @examples
+#' # Load data.table
+#' library(data.table)
+#'
+#' # Read in example data
+#' ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
+#'
+#' # Filter and scale NDVI time series
+#' filter_ndvi(ndvi)
+#' scale_doy(ndvi)
+#' scale_ndvi(ndvi)
+#'
+#' # Double logistic model parameters given starting parameters for nls
+#' mods <- model_params(
+#'   ndvi,
+#'   xmidS = 0.44,
+#'   xmidA = 0.80,
+#'   scalS = 0.05,
+#'   scalA = 0.01
+#' )
+#'
+#' # Calculate IRG for each day of the year
+#' calc_irg(mods)
 calc_irg <- function(DT, scaled = TRUE, id = 'id', year = 'yr') {
 	# NSE error
 	xmidS <- scalS <- irg <- NULL
@@ -32,21 +54,21 @@ calc_irg <- function(DT, scaled = TRUE, id = 'id', year = 'yr') {
 		warning('NAs found in DT, IRG will be set to NA.')
 	}
 
-	DT <- DT[rep(1:.N, each = 366)][, t := julseq$t]
+	irgDT <- DT[rep(1:.N, each = 366)][, t := julseq$t]
 
-	DT[, irg :=
+	irgDT[, irg :=
 				(exp((t + xmidS) / scalS)) /
 				(2 * scalS * (exp(1) ^ ((t + xmidS) / scalS)) +
 				 	(scalS * (exp(1) ^ ((2 * t) / scalS))) +
 				 	(scalS * exp(1) ^ ((2 * xmidS) / scalS)))]
 
 	if (scaled) {
-		check_col(DT, id, 'id')
-		check_col(DT, year, 'year')
+		check_col(irgDT, id, 'id')
+		check_col(irgDT, year, 'year')
 
-		DT[, irg := (irg - min(irg))/(max(irg) - min(irg)),
+		irgDT[, irg := (irg - min(irg))/(max(irg) - min(irg)),
 			 by = c(id, year)]
 	}
 
-	return(DT)
+	return(irgDT)
 }

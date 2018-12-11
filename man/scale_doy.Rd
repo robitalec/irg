@@ -21,10 +21,11 @@ Scale the day of the year to 0-1 (like NDVI).
 # Load data.table
 library(data.table)
 
-# Read example data
+# Read in example data
 ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
 
-scale_doy(ndvi, doy = 'DayOfYear')
+# Scale DOY
+scale_doy(ndvi)
 }
 \seealso{
 Other scale: \code{\link{scale_ndvi}}

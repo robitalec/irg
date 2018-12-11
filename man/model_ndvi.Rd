@@ -18,14 +18,18 @@ Model parameter data.table appended with 'fitted' column of double logistic mode
 Fit double logistic model to NDVI time series given parameters estimated with model_params.
 }
 \examples{
+# Load data.table
 library(data.table)
 
+# Read in example data
 ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
 
+# Filter and scale NDVI time series
 filter_ndvi(ndvi)
 scale_doy(ndvi)
 scale_ndvi(ndvi)
 
+# Double logistic model parameters given starting parameters for nls
 mods <- model_params(
   ndvi,
   xmidS = 0.44,
@@ -34,8 +38,13 @@ mods <- model_params(
   scalA = 0.01
 )
 
+# Fit double logistic curve to NDVI time series for the whole year
 model_ndvi(mods)
 }
 \references{
 \url{https://www.journals.uchicago.edu/doi/abs/10.1086/667590}
 }
+\seealso{
+Other model: \code{\link{model_params}}
+}
+\concept{model}

@@ -15,9 +15,10 @@
 #' # Load data.table
 #' library(data.table)
 #'
-#' # Read example data
+#' # Read in example data
 #' ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
 #'
+#' # Filter and scale NDVI time series
 #' filter_ndvi(ndvi)
 #' scale_ndvi(ndvi)
 scale_ndvi <-
@@ -54,10 +55,11 @@ scale_ndvi <-
 #' # Load data.table
 #' library(data.table)
 #'
-#' # Read example data
+#' # Read in example data
 #' ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
 #'
-#' scale_doy(ndvi, doy = 'DayOfYear')
+#' # Scale DOY
+#' scale_doy(ndvi)
 scale_doy <-
 	function(DT, doy = 'DayOfYear') {
 		# NSE Errors

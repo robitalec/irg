@@ -2,7 +2,7 @@
 #'
 #' Estimate parameters for fitting double logistic curve.
 #'
-#' Arguments \code{xmidS}, \code{xmidA}, \code{scalS}, \code{scalA} allow users to provide global starting estimates to be used for all models. Alternatively, leave NULL and provide those arguments as columns (with matching names) in DT, to provide starting estimates for each id and year.
+#' Arguments \code{xmidS}, \code{xmidA}, \code{scalS}, \code{scalA} allow users to provide global starting estimates to be used for all models. Alternatively, leave NULL and provide those arguments as columns (with matching names) in DT, to provide starting estimates for each id and year. See \code{\link{nls}} for more details on starting parameters.
 #'
 #' Default value for the year column is 'yr'. If you only have one year of data, set to NULL.
 #'
@@ -20,6 +20,8 @@
 #' @param scalS starting estimates. see Details. - "scale parameter for spring green-up portion of the NDVI curve"
 #' @param scalA starting estimates. see Details. - "scale parameter for fall dry-down portion of the NDVI curve"
 #'
+#' @family model
+#'
 #' @return
 #'
 #' data.table of model estimated parameters for double logistic model.
@@ -31,14 +33,18 @@
 #' @export
 #'
 #' @examples
+#' # Load data.table
 #' library(data.table)
 #'
+#' # Read in example data
 #' ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
 #'
+#' # Filter and scale NDVI time series
 #' filter_ndvi(ndvi)
 #' scale_doy(ndvi)
 #' scale_ndvi(ndvi)
 #'
+#' # Double logistic model parameters given starting parameters for nls
 #' mods <- model_params(
 #'   ndvi,
 #'   xmidS = 0.44,
@@ -146,15 +152,21 @@ model_params <- function(DT,
 #'
 #' @export
 #'
+#' @family model
+#'
 #' @examples
+#' # Load data.table
 #' library(data.table)
 #'
+#' # Read in example data
 #' ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
 #'
+#' # Filter and scale NDVI time series
 #' filter_ndvi(ndvi)
 #' scale_doy(ndvi)
 #' scale_ndvi(ndvi)
 #'
+#' # Double logistic model parameters given starting parameters for nls
 #' mods <- model_params(
 #'   ndvi,
 #'   xmidS = 0.44,
@@ -163,6 +175,7 @@ model_params <- function(DT,
 #'   scalA = 0.01
 #' )
 #'
+#' # Fit double logistic curve to NDVI time series for the whole year
 #' model_ndvi(mods)
 model_ndvi <- function(DT) {
 	# NSE error

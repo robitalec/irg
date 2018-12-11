@@ -16,10 +16,10 @@ calc_irg(DT, scaled = TRUE, id = "id", year = "yr")
 \item{year}{year column name. default is 'yr'.}
 }
 \value{
-Extended data.table 'irg' column of instantaneous rate of green up calculated for each day of the year, for each individual and year.
+Extended data.table 'irg' column of instantaneous rate of green-up calculated for each day of the year, for each individual and year.
 }
 \description{
-Instantaneous rate of green-up.
+Calculate the instantaneous rate of green-up.
 }
 \details{
 The DT argument expects a data.table of model estimated parameters for double logistic function of NDVI for each year and individual. Since it is the rate of green-up, model parameters required are only xmidS and scalS.
@@ -28,3 +28,28 @@ The scaled argument is used to optionally rescale the IRG result to 0-1, for eac
 
 The id argument is used to split between sampling units. This may be a point id, polygon id, pixel id, etc. depending on your analysis. This should match the id provided to filtering functions.
 }
+\examples{
+# Load data.table
+library(data.table)
+
+# Read in example data
+ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
+
+# Filter and scale NDVI time series
+filter_ndvi(ndvi)
+scale_doy(ndvi)
+scale_ndvi(ndvi)
+
+# Double logistic model parameters given starting parameters for nls
+mods <- model_params(
+  ndvi,
+  xmidS = 0.44,
+  xmidA = 0.80,
+  scalS = 0.05,
+  scalA = 0.01
+)
+
+# Calculate IRG for each day of the year
+calc_irg(mods)
+}
+\concept{irg}

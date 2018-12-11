@@ -29,7 +29,7 @@ data.table of model estimated parameters for double logistic model.
 Estimate parameters for fitting double logistic curve.
 }
 \details{
-Arguments \code{xmidS}, \code{xmidA}, \code{scalS}, \code{scalA} allow users to provide global starting estimates to be used for all models. Alternatively, leave NULL and provide those arguments as columns (with matching names) in DT, to provide starting estimates for each id and year.
+Arguments \code{xmidS}, \code{xmidA}, \code{scalS}, \code{scalA} allow users to provide global starting estimates to be used for all models. Alternatively, leave NULL and provide those arguments as columns (with matching names) in DT, to provide starting estimates for each id and year. See \code{\link{nls}} for more details on starting parameters.
 
 Default value for the year column is 'yr'. If you only have one year of data, set to NULL.
 
@@ -40,14 +40,18 @@ Formula and arguments \code{xmidS}, \code{xmidA}, \code{scalS}, \code{scalA} fol
 \deqn{\frac{1}{1 + \exp{\frac{xmidS - t}{scalS}}} - \frac{1}{1 + \exp{\frac{xmidA - t}{scalA}}}}
 }
 \examples{
+# Load data.table
 library(data.table)
 
+# Read in example data
 ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
 
+# Filter and scale NDVI time series
 filter_ndvi(ndvi)
 scale_doy(ndvi)
 scale_ndvi(ndvi)
 
+# Double logistic model parameters given starting parameters for nls
 mods <- model_params(
   ndvi,
   xmidS = 0.44,
@@ -59,3 +63,7 @@ mods <- model_params(
 \references{
 \url{https://www.journals.uchicago.edu/doi/abs/10.1086/667590}
 }
+\seealso{
+Other model: \code{\link{model_ndvi}}
+}
+\concept{model}

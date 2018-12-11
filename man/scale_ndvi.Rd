@@ -19,9 +19,10 @@ Using filtered NDVI time series, scale it to 0-1
 # Load data.table
 library(data.table)
 
-# Read example data
+# Read in example data
 ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
 
+# Filter and scale NDVI time series
 filter_ndvi(ndvi)
 scale_ndvi(ndvi)
 }

@@ -238,6 +238,7 @@ filter_top <-
 #' # Read example data
 #' ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
 #'
+#' # Use filter_ndvi to apply all filtering steps (with defaults)
 #' filter_ndvi(ndvi)
 filter_ndvi <-
 	function(DT) {
