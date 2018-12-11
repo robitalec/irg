@@ -1,6 +1,6 @@
 #' Estimate model parameters
 #'
-#' Estimated parameters for fitting double logistic curve.
+#' Estimate parameters for fitting double logistic curve.
 #'
 #' Arguments \code{xmidS}, \code{xmidA}, \code{scalS}, \code{scalA} allow users to provide global starting estimates to be used for all models. Alternatively, leave NULL and provide those arguments as columns (with matching names) in DT, to provide starting estimates for each id and year.
 #'
@@ -57,6 +57,9 @@ model_params <- function(DT,
 	. <- yr <- NULL
 
 	check_col(DT, 'scaled', extra = ' - did you filter and scale?')
+
+	check_col(DT, id, 'id')
+	check_col(DT, year, 'year')
 
 	if (is.null(xmidS)) {
 		check_col(DT, 'xmidS')
@@ -133,7 +136,7 @@ model_params <- function(DT,
 #' @param DT data.table of model parameters (output from model_params).
 #' @return
 #'
-#' data.table of fitted double logistic model of NDVI for a full year. Calculated at the daily scale with the following formula from Bischoff et al. 2012.
+#' Model parameter data.table appended with 'fitted' column of double logistic model of NDVI for a full year. Calculated at the daily scale with the following formula from Bischoff et al. (2012).
 #'
 #' \deqn{\frac{1}{1 + \exp{\frac{xmidS - t}{scalS}}} - \frac{1}{1 + \exp{\frac{xmidA - t}{scalA}}}}
 #'

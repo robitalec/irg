@@ -2,34 +2,34 @@
 % Please edit documentation in R/model.R
 \name{model_params}
 \alias{model_params}
-\title{Model parameters}
+\title{Estimate model parameters}
 \usage{
 model_params(DT, id = "id", year = "yr", xmidS = NULL,
   xmidA = NULL, scalS = NULL, scalA = NULL)
 }
 \arguments{
-\item{DT}{data.table of NDVI time series}
+\item{DT}{data.table of NDVI time series. Also optionally starting estimates. See Details.}
 
 \item{id}{id column. default is 'id'. See details.}
 
 \item{year}{year column name. default is 'yr'.}
 
-\item{xmidS}{global starting estimates. see Details. - "spring inflection point"}
+\item{xmidS}{starting estimates. see Details. - "spring inflection point"}
 
-\item{xmidA}{global starting estimates. see Details. - "fall inflection point"}
+\item{xmidA}{starting estimates. see Details. - "fall inflection point"}
 
-\item{scalS}{global starting estimates. see Details. - "scale parameter for spring green-up portion of the NDVI curve"}
+\item{scalS}{starting estimates. see Details. - "scale parameter for spring green-up portion of the NDVI curve"}
 
-\item{scalA}{global starting estimates. see Details. - "scale parameter for fall dry-down portion of the NDVI curve"}
+\item{scalA}{starting estimates. see Details. - "scale parameter for fall dry-down portion of the NDVI curve"}
 }
 \value{
 data.table of model estimated parameters for double logistic model.
 }
 \description{
-Estimated parameters for fitting double logistic curve.
+Estimate parameters for fitting double logistic curve.
 }
 \details{
-Arguments \code{xmidS}, \code{xmidA}, \code{scalS}, \code{scalA} allow users to provide global starting estimates to be used for all models. Alternatively, leave NULL and provide those arguments as columns (with matching names), to provide starting estimates for each id and year.
+Arguments \code{xmidS}, \code{xmidA}, \code{scalS}, \code{scalA} allow users to provide global starting estimates to be used for all models. Alternatively, leave NULL and provide those arguments as columns (with matching names) in DT, to provide starting estimates for each id and year.
 
 Default value for the year column is 'yr'. If you only have one year of data, set to NULL.
 
@@ -40,7 +40,6 @@ Formula and arguments \code{xmidS}, \code{xmidA}, \code{scalS}, \code{scalA} fol
 \deqn{\frac{1}{1 + \exp{\frac{xmidS - t}{scalS}}} - \frac{1}{1 + \exp{\frac{xmidA - t}{scalA}}}}
 }
 \examples{
-
 library(data.table)
 
 ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))

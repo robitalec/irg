@@ -10,7 +10,7 @@ model_ndvi(DT)
 \item{DT}{data.table of model parameters (output from model_params).}
 }
 \value{
-data.table of fitted double logistic model of NDVI for a full year. Calculated at the daily scale with the following formula from Bischoff et al. 2012.
+Model parameter data.table appended with 'fitted' column of double logistic model of NDVI for a full year. Calculated at the daily scale with the following formula from Bischoff et al. (2012).
 
 \deqn{\frac{1}{1 + \exp{\frac{xmidS - t}{scalS}}} - \frac{1}{1 + \exp{\frac{xmidA - t}{scalA}}}}
 }
@@ -18,9 +18,23 @@ data.table of fitted double logistic model of NDVI for a full year. Calculated a
 Fit double logistic model to NDVI time series given parameters estimated with model_params.
 }
 \examples{
+library(data.table)
 
+ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
 
+filter_ndvi(ndvi)
+scale_doy(ndvi)
+scale_ndvi(ndvi)
 
+mods <- model_params(
+  ndvi,
+  xmidS = 0.44,
+  xmidA = 0.80,
+  scalS = 0.05,
+  scalA = 0.01
+)
+
+model_ndvi(mods)
 }
 \references{
 \url{https://www.journals.uchicago.edu/doi/abs/10.1086/667590}
