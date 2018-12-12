@@ -6,11 +6,17 @@
 \usage{
 irg(DT)
 }
+\arguments{
+\item{DT}{data.table of NDVI time series}
+}
 \value{
 Extended data.table 'irg' column of instantaneous rate of green-up calculated for each day of the year, for each individual and year.
 }
 \description{
 IRG
+}
+\details{
+data.table must have columns 'id', 'yr', 'DayOfYear', '
 }
 \examples{
 # Load data.table

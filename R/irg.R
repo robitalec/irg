@@ -106,6 +106,11 @@ calc_irg <-
 #' IRG
 #'
 #'
+#'
+#' data.table must have columns 'id', 'yr', 'DayOfYear', '
+#'
+#' @inheritParams filter_qa
+#'
 #' @return
 #'
 #' Extended data.table 'irg' column of instantaneous rate of green-up calculated for each day of the year, for each individual and year.
@@ -126,10 +131,10 @@ calc_irg <-
 irg <- function(DT) {
 	# NSE error
 
-	filter_ndvi(ndvi)
-	scale_doy(ndvi)
-	scale_ndvi(ndvi)
-	m <- model_params(ndvi, )
-	calc_irg(model_ndvi(m))
-
+	filter_ndvi(DT)
+	scale_doy(DT)
+	scale_ndvi(DT)
+	model_start(DT)
+	m <- model_params(DT, scalS = 0.05, scalA = 0.1)
+	return(calc_irg(model_ndvi(m)))
 }
