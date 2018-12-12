@@ -215,25 +215,34 @@ model_ndvi <- function(DT) {
 #' @examples
 model_start <- function(DT, id = 'id', year = 'yr') {
 	# NSE errors
-	difS <- difA <- NULL
+	difS <- difA <- scaled <- xmidS <- xmidA <- NULL
 
 	check_col(DT, 'scaled', extra = ' - did you filter and scale?')
 	check_col(DT, 't', extra = ' - did you filter and scale?')
+	check_col(DT, id, 'id')
+	check_col(DT, year, 'year')
 
 
-	setkey(DT, 't')
-	DT[, difS := scaled - shift(scaled, type = 'lag'),
+	data.table::setkey(DT, 't')
+	DT[, difS := scaled - data.table::shift(scaled, type = 'lag'),
 		 by = c(id, year)]
-	DT[, difA := scaled - shift(scaled, type = 'lead'),
+	DT[, difA := scaled - data.table::shift(scaled, type = 'lead'),
 		 by = c(id, year)]
 
-	setkey(DT, 'scaled')
-	DT[difS > 0, xmidS := .SD[J(0.5), t, roll = 'nearest'],
+	data.table::setkey(DT, 'scaled')
+	DT[difS > 0, xmidS := .SD[list(0.5), t, roll = 'nearest'],
 		 by = c(id, year), .SDcols = c('scaled', 't')]
-	DT[difS < 0, xmidA := .SD[J(0.5), t, roll = 'nearest'],
+	DT[difS < 0, xmidA := .SD[list(0.5), t, roll = 'nearest'],
 		 by = c(id, year), .SDcols = c('scaled', 't')]
 
 	DT[, xmidS := .SD[!is.na(xmidS), xmidS[1]], by = c(id, year)]
 	DT[, xmidA := .SD[!is.na(xmidA), xmidA[1]], by = c(id, year)]
 
+
+	DT[xmidA < xmidS, xmidA := xmidA + 0.3]
+
+
+	data.table::set(DT, j = c('difS', 'difA'), value = NULL)
+
+	return(DT)
 }
