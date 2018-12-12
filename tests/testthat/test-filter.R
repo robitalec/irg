@@ -11,10 +11,10 @@ test_that("filter qa works", {
 	# Columns mising are detected
 	miss <- copy(ndvi)[, NDVI := NULL]
 	expect_error(filter_qa(miss),
-							 'NDVI column not found in DT')
+							 'column not found in DT')
 
 	expect_error(filter_qa(ndvi, qa = 'potato'),
-							 'qa column not found in DT')
+							 'column not found in DT')
 
 	# qa length 1
 	expect_error(filter_qa(ndvi, qa = c('a', 'b')))
@@ -30,13 +30,13 @@ test_that("filter winter works", {
 
 	# Columns mising are detected
 	expect_error(filter_winter(ndvi),
-							 'filtered column not found in DT')
+							 'column not found in DT')
 
 	expect_error(filter_winter(ndviqa, doy = 'potato'),
-							 'doy column not found in DT')
+							 'column not found in DT')
 
 	expect_error(filter_winter(ndviqa, id = 'potato'),
-							 'id column not found in DT')
+							 'column not found in DT')
 
 	# Probs length 1
 	expect_error(filter_winter(ndvi, probs = c(0.2, 0.3)),
@@ -66,7 +66,7 @@ test_that("filter roll works", {
 							 'winter column not found in DT, did you run filter_winter?')
 
 	expect_error(filter_roll(ndviwnt, id = 'potato'),
-							 'id column not found in DT')
+							 'column not found in DT')
 
 	# Overwrite roll column
 	expect_warning(filter_roll(copy(ndviwnt)[, rolled := 1]),
@@ -87,7 +87,7 @@ test_that("filter top works", {
 							 'winter column not found in DT, did you run filter_winter?')
 
 	expect_error(filter_top(ndviwnt, id = 'potato'),
-							 'id column not found in DT')
+							 'column not found in DT')
 
 	# Probs length 1
 	expect_error(filter_top(ndviwnt, probs = c(0.2, 0.3)),

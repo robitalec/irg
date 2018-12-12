@@ -8,7 +8,7 @@ check_col <- function(DT = NULL, col = NULL, arg = NULL, extra = NULL) {
 	if (is.null(arg)) {
 		it <- col
 	} else {
-		it <- arg
+		it <- paste0(arg, " ('", col, "')")
 	}
 
 	if (!(col %in% colnames(DT))) {

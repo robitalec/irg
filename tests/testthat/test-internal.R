@@ -8,6 +8,10 @@ test_that("check_col works", {
 	expect_error(check_col(ndvi, 'potato'),
 							 'potato column not found in DT')
 
+	expect_error(check_col(ndvi, 'potato', arg = 'cheese'),
+							 "column not found in DT",
+							 fixed = FALSE)
+
 })
 
 test_that("check_type works", {

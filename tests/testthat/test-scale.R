@@ -31,7 +31,7 @@ test_that("scale_doy works", {
 
 	# Columns mising are detected
 	expect_error(scale_doy(ndvi, doy = 'potato'),
-							 'doy column not found in DT')
+							 'column not found in DT')
 
 	# Was t added
 	expect_true("t" %in% colnames(scale_doy(ndvi)))
