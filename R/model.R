@@ -195,3 +195,45 @@ model_ndvi <- function(DT) {
 
 	return(fitDT)
 }
+
+
+
+
+#' Model starting parameters
+#'
+#' Try guessing starting parameters for model_params and model_ndvi.
+#'
+#' The id argument is used to split between sampling units. This may be a point id, polygon id, pixel id, etc. depending on your analysis. This should match the id provided to filtering functions.
+#'
+#' @inheritParams model_params
+#'
+#' @family model
+#'
+#' @return
+#' @export
+#'
+#' @examples
+model_start <- function(DT, id = 'id', year = 'yr') {
+	# NSE errors
+	difS <- difA <- NULL
+
+	check_col(DT, 'scaled', extra = ' - did you filter and scale?')
+	check_col(DT, 't', extra = ' - did you filter and scale?')
+
+
+	setkey(DT, 't')
+	DT[, difS := scaled - shift(scaled, type = 'lag'),
+		 by = c(id, year)]
+	DT[, difA := scaled - shift(scaled, type = 'lead'),
+		 by = c(id, year)]
+
+	setkey(DT, 'scaled')
+	DT[difS > 0, xmidS := .SD[J(0.5), t, roll = 'nearest'],
+		 by = c(id, year), .SDcols = c('scaled', 't')]
+	DT[difS < 0, xmidA := .SD[J(0.5), t, roll = 'nearest'],
+		 by = c(id, year), .SDcols = c('scaled', 't')]
+
+	DT[, xmidS := .SD[!is.na(xmidS), xmidS[1]], by = c(id, year)]
+	DT[, xmidA := .SD[!is.na(xmidA), xmidA[1]], by = c(id, year)]
+
+}

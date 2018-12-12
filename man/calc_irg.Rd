@@ -43,12 +43,6 @@ scale_doy(ndvi)
 scale_ndvi(ndvi)
 
 # Double logistic model parameters given starting parameters for nls
-
-## Option 1: fitted = FALSE
-# Calculate IRG for each day of the year
-calc_irg(mods)
-
-## Option 2: fitted = TRUE
 mods <- model_params(
   ndvi,
   xmidS = 0.44,
@@ -57,13 +51,17 @@ mods <- model_params(
   scalA = 0.01
 )
 
-model_ndvi(mods)
+## Option 1: fitted = FALSE
+# Calculate IRG for each day of the year
+#   directly from model_params
+calc_irg(mods, fitted = FALSE)
 
-
-
+## Option 2: fitted = TRUE
+# Fit double log to NDVI
+fittedNDVI <- model_ndvi(mods)
 
 # Calculate IRG for each day of the year
-calc_irg(mods)
+calc_irg(fittedNDVI, fitted = TRUE)
 }
 \seealso{
 Other irg: \code{\link{irg}}

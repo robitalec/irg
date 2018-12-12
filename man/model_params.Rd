@@ -64,6 +64,7 @@ mods <- model_params(
 \url{https://www.journals.uchicago.edu/doi/abs/10.1086/667590}
 }
 \seealso{
-Other model: \code{\link{model_ndvi}}
+Other model: \code{\link{model_ndvi}},
+  \code{\link{model_start}}
 }
 \concept{model}

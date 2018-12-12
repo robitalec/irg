@@ -20,7 +20,7 @@ library(data.table)
 ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
 
 # Calculate IRG for each day of the year
-irg(ndvi)
+out <- irg(ndvi)
 }
 \seealso{
 Other irg: \code{\link{calc_irg}}
