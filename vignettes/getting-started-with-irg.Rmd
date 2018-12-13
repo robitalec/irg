@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-The `irg` package opts for a tabular calculation of IRG as opposed to a raster based approach. Sampling MODIS imagery is left up to the user and a prerequisite for all functions. The main input (`DT`) for all functions is a [`data.table`](https://github.com/Rdatatable/data.table) of an NDVI time series. The sampling unit (`id`) is flexible (a decision for the user) though we would anticipate points or polygons, or maybe a pixel. All functions leverage the speed of `data.table` to efficiently filter, scale, and model NDVI time series and calculate IRG. 
+The `irg` package opts for a tabular calculation of the instantaneous rate of green-up (IRG) as opposed to a raster based approach. Sampling MODIS imagery is left up to the user and a prerequisite for all functions. The main input (`DT`) for all functions is a [`data.table`](https://github.com/Rdatatable/data.table) of an NDVI time series. The sampling unit (`id`) is flexible (a decision for the user) though we would anticipate points or polygons, or maybe a pixel. All functions leverage the speed of `data.table` to efficiently filter, scale, and model NDVI time series and calculate IRG. 
 
 
 
@@ -65,14 +65,77 @@ Though `irg` is not involved in the sampling step, it is important that the inpu
 
 We used the incredible [Google Earth Engine](http://earthengine.google.com/) to sample MODIS NDVI (MOD13Q1.006)<!--share script/another vignette?-->. There are also R packages:  [`MODIStsp`](https://github.com/ropensci/MODIStsp), [`raster`](https://github.com/rspatial/raster), and others (let us know)...
 
-
-
-### Sampling extent
-Filtering steps in `irg` use a baseline "winterNDVI" as described by Bischoff et al. (2012). This requires multiple years of sampled NDVI for each `id`. Make sure to include all samples, leaving the filtering for `irg`. 
+### Temporal extent
+Filtering steps in `irg` use a baseline "winterNDVI" and upper quantile as described by Bischoff et al. (2012). These steps require multiple years of sampled NDVI for each `id`. In addition, make sure to include all samples throughout the year, leaving the filtering for `irg`. 
 
 
 ## Filtering
+```{r, eval = TRUE, echo = FALSE}
+fs <-
+	data.table(functions = as.character(lsf.str("package:irg")))[, 
+            arguments := paste(unlist(formalArgs(functions)), collapse = ', ' ), 
+            by = functions][]
+```
 
+There are `r nrow(fs[grepl('filter', functions)])` filtering functions. 
+
+```{r, echo = FALSE, eval = TRUE}
+knitr::kable(fs[grepl('filter', functions)])
+```
+
+
+```{r graph, echo = FALSE}
+library(DiagrammeR)
+grViz(
+	"
+	digraph irg_functions  {
+	graph [rankdir = LR, compound = TRUE, fontsize = 24, fontname = 'Futura', style=none]
+
+	node[shape=none]
+
+	subgraph cluster_filt{
+  label= '1)' labeljust='l';
+	Filtering -> filter_ndvi [dir=none]
+	filter_ndvi -> filter_qa [dir=none]
+	filter_ndvi -> filter_winter [dir=none]
+  filter_ndvi -> filter_roll [dir=none]
+  filter_ndvi -> filter_top [dir=none]
+
+	filter_top -> filter_roll -> filter_winter -> filter_qa [dir=back]
+	{rank=same; filter_qa; filter_winter; filter_roll; filter_top}
+	}
+
+	subgraph cluster_scal{
+  label= '2)' labeljust='l';
+
+	Scaling -> scale_doy [dir=none]
+	Scaling -> scale_ndvi [dir=none]
+	}
+
+	subgraph cluster_mod{
+  label= '3)' labeljust='l';
+
+	Modeling -> model_start [dir=none]
+	Modeling -> model_params [dir=none]
+	Modeling -> model_ndvi [dir=none]
+	}
+
+	subgraph cluster_irg{
+  label= '4)' labeljust='l';
+
+	IRG -> calc_irg [dir=none]
+	}
+
+  Filtering -> Scaling -> Modeling -> IRG
+	
+	# irg -> Filtering
+	# irg -> Scaling
+	# irg -> Modeling
+	# irg -> IRG
+
+	}
+	", width = 200, height = 500)
+```
 
 ## Scaling
 
