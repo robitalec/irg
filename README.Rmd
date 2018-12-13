@@ -30,3 +30,9 @@ remotes::install_gitlab('robit.a/irg')
 ```
 
 
+
+### Contributing
+See details in [CONTRIBUTING.md](CONTRIBUTING.md). 
+
+Please note that the `irg` package is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By contributing to this package, you agree to abide by its terms.
+
