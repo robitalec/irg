@@ -146,6 +146,7 @@ model_params <- function(DT,
 #'
 #' \deqn{scaled = \frac{1}{1 + \exp{\frac{xmidS - t}{scalS}}} - \frac{1}{1 + \exp{\frac{xmidA - t}{scalA}}}}
 #'
+#' (See the "Getting started with irg vignette" for a better formatted formula.)
 #'
 #' @references
 #'   \url{https://www.journals.uchicago.edu/doi/abs/10.1086/667590}
