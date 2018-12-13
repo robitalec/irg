@@ -1,3 +1,5 @@
+^CODE_OF_CONDUCT\.md$
+^CONTRIBUTING\.md$
 ^data-raw$
 ^LICENSE\.md$
 ^README\.Rmd$
