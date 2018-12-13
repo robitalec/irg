@@ -16,13 +16,75 @@ knitr::opts_chunk$set(
 )
 ```
 
-IRG is intended to be used with a `data.table` time series of NDVI samples for multiple years. 
+The `irg` package opts for a tabular calculation of IRG as opposed to a raster based approach. Sampling MODIS imagery is left up to the user and a prerequisite for all functions. The main input (`DT`) for all functions is a [`data.table`](https://github.com/Rdatatable/data.table) of an NDVI time series. The sampling unit (`id`) is flexible (a decision for the user) though we would anticipate points or polygons, or maybe a pixel. All functions leverage the speed of `data.table` to efficiently filter, scale, and model NDVI time series and calculate IRG. 
 
-ID can be point ID, polygon ID, etc. Any sampling unit you are using which is relevant to the calculation of IRG. 
 
+
+## Input data
+`irg` requires an NDVI time series in a  `data.table`. 
+
+The columns required are (though names can be different and specified at input):
+
+* id: sampling unit identification (point id, polygon id, ...)
+* yr: year of sample
+* DayOfYear: julian day
+* SummaryQA: Quality reliability of pixel
+
+SummaryQA details:
+
+* 0: Good data, use with confidence
+* 1: Marginal data, useful but look at detailed QA for more information
+* 2: Pixel covered with snow/ice
+* 3: Pixel is cloudy
+
+
+Let's take a look at the example data. 
+
+```{r}
+library(irg)
+library(data.table)
+
+ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
+
+ndvi
+```
+
+### Sampling NDVI
+Though `irg` is not involved in the sampling step, it is important that the input data matches the package's expectations.
+
+We used the incredible [Google Earth Engine](http://earthengine.google.com/) to sample MODIS NDVI (MOD13Q1.006)<!--share script/another vignette?-->. There are also R packages:  [`MODIStsp`](https://github.com/ropensci/MODIStsp), [`raster`](https://github.com/rspatial/raster), and others (let us know)...
+
+### data.frame
+If your data is a `data.frame`, convert it by reference:
+
+```{r}
+# Pretend
+DF <- as.data.frame(ndvi)
+
+# Convert by reference
+setDT(DF)
+```
+
+### Sampling extent
+Filtering steps in `irg` use a baseline "winterNDVI" as described by Bischoff et al. (2012). This requires multiple years of sampled NDVI for each `id`. Make sure to include all samples, leaving the filtering for `irg`. 
+
+
+## Filtering
+
+
+## Scaling
+
+## Modeling 
+
+## IRG
+
+
+
+<!-- Visualizing
 We don't use raster methods on purpose to take advantage of `data.table` speed. If you want to visualize your results, make single graphs (see vignette-graphing TODO and maybe a raster graphing vignette TODO). 
 
-
+-->
+<!-- 
 Use 
 
 `alloc.col(ndvi)`
@@ -35,3 +97,4 @@ except where DT is grown e.g.
 model_ndvi, calc_irg, irg
 
 then merge back the observed days
+-->
