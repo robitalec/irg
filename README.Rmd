@@ -20,6 +20,13 @@ knitr::opts_chunk$set(
 )
 ```
 # irg
+`irg` is an R package for calculating the instantaneous rate of green-up (IRG). It can be used to fit a double logistic curve to a time series of normalized difference vegetation index (NDVI) and calculate springness, as described in Bischoff et al. (2012) [[1]](#references). Remote sensing imagery from MODIS is collected frequently with high temporal resolution (albeit lower spatial resolution than LANDSAT). 
+
+## Approach
+The `irg` package opts for a tabular calculation of IRG as opposed to a raster based approach. Sampling MODIS imagery is left up to the user and a prerequisite for all functions. The main input (`DT`) for all functions is a [`data.table`](https://github.com/Rdatatable/data.table) of an NDVI time series. The sampling unit (`id`) is flexible (a decision for the user) though we would anticipate points or polygons, or maybe a pixel. All functions leverage the speed of `data.table` to efficiently filter, scale, and model NDVI time series and calculate IRG. 
+
+More details in the first vignette: [Getting started with IRG](). 
+
 
 ## Installation
 
@@ -30,9 +37,11 @@ remotes::install_gitlab('robit.a/irg')
 ```
 
 
-
-### Contributing
-See details in [CONTRIBUTING.md](CONTRIBUTING.md). 
+## Contributing
+Contributions welcome! See details in [CONTRIBUTING.md](CONTRIBUTING.md). 
 
 Please note that the `irg` package is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By contributing to this package, you agree to abide by its terms.
 
+## References
+
+[[1]](https://www.journals.uchicago.edu/doi/abs/10.1086/667590) Bischof, R., Loe, L. E., Meisingset, E. L., Zimmermann, B., Van Moorter, B., & Mysterud, A. (2012). A migratory northern ungulate in the pursuit of spring: jumping or surfing the green wave? *The American Naturalist*, 180(4), 407-424.
