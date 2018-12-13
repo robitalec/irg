@@ -68,8 +68,7 @@ scale_doy <-
 		check_truelength(DT)
 
 		check_col(DT, doy, 'doy')
+		overwrite_col(DT, 't')
 
-		jul01 <- data.table(jul = 1:366,
-												t = seq(0, 1, length.out = 366))
-		DT[, t := jul01$t[.SD[[1]]], .SDcols = doy]
-	}
+		DT[, t := julseq$t[.SD[[1]]], .SDcols = doy]
+}
