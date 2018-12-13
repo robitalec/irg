@@ -13,10 +13,18 @@ irg(DT)
 Extended data.table 'irg' column of instantaneous rate of green-up calculated for each day of the year, for each individual and year.
 }
 \description{
-IRG
+Wrapper function for one step IRG calculation. Only defaults.
 }
 \details{
-data.table must have columns 'id', 'yr', 'DayOfYear', '
+data.table must have columns:
+
+\itemize{
+\item 'id' - individual identifier
+\item 'yr' - year of observation
+\item 'NDVI' - NDVI value
+\item 'DayOfYear' - day of year/julian day of observation
+\item 'SummaryQA' - summary quality value for each sample (provided by MODIS)
+}
 }
 \examples{
 # Load data.table
@@ -25,7 +33,7 @@ library(data.table)
 # Read in example data
 ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
 
-# Calculate IRG for each day of the year
+# Calculate IRG for each day of the year and individual
 out <- irg(ndvi)
 }
 \seealso{

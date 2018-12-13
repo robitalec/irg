@@ -105,9 +105,17 @@ calc_irg <-
 
 #' IRG
 #'
+#' Wrapper function for one step IRG calculation. Only defaults.
 #'
+#' data.table must have columns:
 #'
-#' data.table must have columns 'id', 'yr', 'DayOfYear', '
+#' \itemize{
+#'   \item 'id' - individual identifier
+#'   \item 'yr' - year of observation
+#'   \item 'NDVI' - NDVI value
+#'   \item 'DayOfYear' - day of year/julian day of observation
+#'   \item 'SummaryQA' - summary quality value for each sample (provided by MODIS)
+#' }
 #'
 #' @inheritParams filter_qa
 #'
@@ -126,11 +134,9 @@ calc_irg <-
 #' # Read in example data
 #' ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
 #'
-#' # Calculate IRG for each day of the year
+#' # Calculate IRG for each day of the year and individual
 #' out <- irg(ndvi)
 irg <- function(DT) {
-	# NSE error
-
 	filter_ndvi(DT)
 	scale_doy(DT)
 	scale_ndvi(DT)
