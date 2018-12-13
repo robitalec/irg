@@ -144,7 +144,7 @@ model_params <- function(DT,
 #'
 #' Model parameter data.table appended with 'fitted' column of double logistic model of NDVI for a full year. Calculated at the daily scale with the following formula from Bischoff et al. (2012).
 #'
-#' \deqn{\frac{1}{1 + \exp{\frac{xmidS - t}{scalS}}} - \frac{1}{1 + \exp{\frac{xmidA - t}{scalA}}}}
+#' \deqn{scaled = \frac{1}{1 + \exp{\frac{xmidS - t}{scalS}}} - \frac{1}{1 + \exp{\frac{xmidA - t}{scalA}}}}
 #'
 #'
 #' @references
@@ -185,7 +185,6 @@ model_ndvi <- function(DT) {
 	check_col(DT, 'xmidA')
 	check_col(DT, 'scalS')
 	check_col(DT, 'scalA')
-
 
 	fitDT <- DT[rep(1:.N, each = 366)][, t := julseq$t]
 

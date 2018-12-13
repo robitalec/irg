@@ -12,7 +12,7 @@ model_ndvi(DT)
 \value{
 Model parameter data.table appended with 'fitted' column of double logistic model of NDVI for a full year. Calculated at the daily scale with the following formula from Bischoff et al. (2012).
 
-\deqn{\frac{1}{1 + \exp{\frac{xmidS - t}{scalS}}} - \frac{1}{1 + \exp{\frac{xmidA - t}{scalA}}}}
+\deqn{scaled = \frac{1}{1 + \exp{\frac{xmidS - t}{scalS}}} - \frac{1}{1 + \exp{\frac{xmidA - t}{scalA}}}}
 }
 \description{
 Fit double logistic model to NDVI time series given parameters estimated with model_params.

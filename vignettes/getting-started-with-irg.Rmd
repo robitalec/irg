@@ -76,7 +76,20 @@ Filtering steps in `irg` use a baseline "winterNDVI" as described by Bischoff et
 
 ## Modeling 
 
+
+
+### model_ndvi
+
+
+
+$$scaled = \frac{1}{1 + e^ \frac{xmidS - t}{scalS}} - \frac{1}{1 + e^ \frac{xmidA - t}{scalA}}$$
+
+
+
 ## IRG
+
+$$IRG = \frac{e ^ \frac{t + xmidS}{scalS}}{2 scalS e ^ \frac{t + xmidS}{scalS} + scalS e ^ \frac{2t}{scalS} + scalS e ^ \frac{2midS}{scalS}}$$
+
 
 
 

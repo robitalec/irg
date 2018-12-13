@@ -29,6 +29,9 @@ The DT argument expects a data.table of model estimated parameters for double lo
 The scaled argument is used to optionally rescale the IRG result to 0-1, for each year and individual.
 
 The id argument is used to split between sampling units. This may be a point id, polygon id, pixel id, etc. depending on your analysis. This should match the id provided to filtering functions.
+The formula used is described in Bischoff et al. (2012):
+
+(exp((t + xmidS) / scalS)) / (2 * scalS * (exp(1) ^ ((t + xmidS) / scalS)) + (scalS * (exp(1) ^ ((2 * t) / scalS))) + (scalS * exp(1) ^ ((2 * xmidS) / scalS)))
 }
 \examples{
 # Load data.table
