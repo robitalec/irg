@@ -12,10 +12,11 @@ status](https://gitlab.com/robit.a/irg/badges/master/pipeline.svg)](https://gitl
 
 `irg` is an R package for calculating the instantaneous rate of green-up
 (IRG). It can be used to fit a double logistic curve to a time series of
-normalized difference vegetation index (NDVI) and calculate springness,
-as described in Bischoff et al. (2012) [\[1\]](#references). Remote
-sensing imagery from MODIS is collected frequently with high temporal
-resolution (albeit lower spatial resolution than LANDSAT).
+normalized difference vegetation index (NDVI) and calculate IRG, as
+described in Bischoff et al. (2012) [\[1\]](#references). Remote sensing
+imagery from MODIS is collected frequently with high temporal resolution
+(albeit with lower spatial resolution than LANDSAT).
+<!-- missing a sentence or two... -->
 
 ## Approach
 
@@ -37,6 +38,38 @@ Install with [`remotes`](https://github.com/r-lib/remotes).
 ``` r
 remotes::install_gitlab('robit.a/irg')
 ```
+
+## Usage
+
+IRG is calculated by filtering an NDVI time series, scaling variables,
+modeling the time series with a double logistic curve and taking the
+first derivative of this curve.
+
+Here, we use the meta function `irg`. Alternatively, use the filtering,
+scaling, modeling and IRG functions separately (see [Getting started
+with IRG]()).
+
+``` r
+library(data.table)
+library(ggplot2)
+library(irg)
+
+# Load package data
+ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
+
+# Calculate IRG using example data: a raw NDVI time series
+IRG <- irg(ndvi)
+#> Warning in calc_irg(model_ndvi(m)): NAs found in DT, IRG will be set to NA.
+
+# Plot one year (please excuse the manual color scale)
+ggplot(IRG[yr == 2007]) +
+    geom_line(aes(t, irg, color = '#14c62f'), show.legend = TRUE) +
+    geom_line(aes(t, fitted, color = '#47694d'), show.legend = TRUE) +
+    scale_color_identity("", labels = c('NDVI', 'IRG'), guide = 'legend') + 
+    labs(y = 'scaled IRG, NDVI')
+```
+
+<img src="man/figures/README-unnamed-chunk-2-1.png" width="650px" style="display: block; margin: auto;" />
 
 ## Contributing
 
