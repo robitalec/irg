@@ -3,7 +3,7 @@
 has not yet been a stable, usable release suitable for the
 public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
-[![develVersion](https://img.shields.io/badge/devel%20version-0.0.8.9000-blue.svg?style=flat)](https://github.com/robitalec/irg)
+[![develVersion](https://img.shields.io/badge/devel%20version-0.0.9.9000-blue.svg?style=flat)](https://github.com/robitalec/irg)
 [![pipeline
 status](https://gitlab.com/robit.a/irg/badges/master/pipeline.svg)](https://gitlab.com/robit.a/irg/commits/master)
 [![codecov](https://codecov.io/gl/robit.a/irg/branch/master/graph/badge.svg)](https://codecov.io/gl/robit.a/irg)
@@ -15,8 +15,11 @@ status](https://gitlab.com/robit.a/irg/badges/master/pipeline.svg)](https://gitl
 normalized difference vegetation index (NDVI) and calculate IRG, as
 described in Bischoff et al. (2012) [\[1\]](#references). Remote sensing
 imagery from MODIS is collected frequently with high temporal resolution
-(albeit with lower spatial resolution than LANDSAT).
-<!-- missing a sentence or two... -->
+(albeit with lower spatial resolution than LANDSAT). IRG helps identify
+the timing of green-up and can be used to determine if migratory animals
+are “surfing” a green-wave of high quality forage or if non-migratory
+animals are selecting available resources at the peak IRG in their
+environments.
 
 ## Approach
 
@@ -59,17 +62,20 @@ ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
 
 # Calculate IRG using example data: a raw NDVI time series
 IRG <- irg(ndvi)
-#> Warning in calc_irg(model_ndvi(m)): NAs found in DT, IRG will be set to NA.
 
-# Plot one year (please excuse the manual color scale)
-ggplot(IRG[yr == 2007]) +
+# Plot one year for one individual (please excuse the manual color scale)
+ggplot(IRG[yr == 2007 & id == 12377]) +
     geom_line(aes(t, irg, color = '#14c62f'), show.legend = TRUE) +
     geom_line(aes(t, fitted, color = '#47694d'), show.legend = TRUE) +
     scale_color_identity("", labels = c('NDVI', 'IRG'), guide = 'legend') + 
-    labs(y = 'scaled IRG, NDVI')
+    labs(y = '')
 ```
 
-<img src="man/figures/README-README-1.png" width="650px" style="display: block; margin: auto;" />
+<img src="man/figures/README-ggIRG-1.png" style="max-width:100%;min-width:40px;margin:0px auto;"/>
+
+## Functions
+
+<img src="man/figures/functions-grphviz.png" style="max-width:100%;min-width:40px;float:center;"/>
 
 ## Contributing
 
