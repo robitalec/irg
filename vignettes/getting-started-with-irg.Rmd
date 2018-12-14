@@ -44,6 +44,7 @@ The columns required are (though names can be different and specified at input):
 
 * id: sampling unit identification (point id, polygon id, ...)
 * yr: year of sample
+* DayOfYear: 
 * DayOfYear: julian day
 * SummaryQA: Quality reliability of pixel
 
@@ -63,7 +64,8 @@ library(data.table)
 
 ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
 
-ndvi
+# or look at the help page
+?ndvi
 ```
 
 #### data.frame
