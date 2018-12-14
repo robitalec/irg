@@ -1,6 +1,8 @@
 #' Scale NDVI
 #'
-#' Using filtered NDVI time series, scale it to 0-1
+#' Using filtered NDVI time series, scale it to 0-1.
+#'
+#' This functions expects the input \code{DT} is the output of previous four filtering steps, or \code{filter_ndvi}.
 #'
 #' @inheritParams filter_qa
 #'

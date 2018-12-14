@@ -38,11 +38,12 @@
 #' scale_doy(ndvi)
 #' scale_ndvi(ndvi)
 #'
+#' # Guess starting parameters
+#' model_start(ndvi)
+#'
 #' # Double logistic model parameters given starting parameters for nls
 #' mods <- model_params(
 #'   ndvi,
-#'   xmidS = 0.44,
-#'   xmidA = 0.80,
 #'   scalS = 0.05,
 #'   scalA = 0.01
 #' )

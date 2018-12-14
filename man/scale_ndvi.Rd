@@ -13,7 +13,10 @@ scale_ndvi(DT)
 data.table with appended 'scaled' column of 0-1 scaled NDVI.
 }
 \description{
-Using filtered NDVI time series, scale it to 0-1
+Using filtered NDVI time series, scale it to 0-1.
+}
+\details{
+This functions expects the input \code{DT} is the output of previous four filtering steps, or \code{filter_ndvi}.
 }
 \examples{
 # Load data.table

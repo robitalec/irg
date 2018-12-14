@@ -10,7 +10,7 @@
 #'
 #' Formula and arguments \code{xmidS}, \code{xmidA}, \code{scalS}, \code{scalA} following this from Bischoff et al. (2012).
 #'
-#' \deqn{\frac{1}{1 + \exp{\frac{xmidS - t}{scalS}}} - \frac{1}{1 + \exp{\frac{xmidA - t}{scalA}}}}
+#' \deqn{fitted = \frac{1}{1 + \exp{\frac{xmidS - t}{scalS}}} - \frac{1}{1 + \exp{\frac{xmidA - t}{scalA}}}}
 #'
 #' @inheritParams filter_winter
 #' @param DT data.table of NDVI time series. Also optionally starting estimates. See Details.
@@ -44,15 +44,19 @@
 #' scale_doy(ndvi)
 #' scale_ndvi(ndvi)
 #'
-#' # Double logistic model parameters given starting parameters for nls
+#' # Guess starting parameters for xmidS and xmidA
+#' model_start(ndvi)
+#'
+#' # Double logistic model parameters
+#' #   given global starting parameters for scalS, scalA
+#' #   and output of model_start for xmidS, xmidA
 #' mods <- model_params(
 #'   ndvi,
-#'   xmidS = 0.44,
-#'   xmidA = 0.80,
 #'   scalS = 0.05,
 #'   scalA = 0.01
 #' )
 model_params <- function(DT,
+												 returns = NULL,
 												 id = 'id',
 												 year = 'yr',
 												 xmidS = NULL,
@@ -144,7 +148,7 @@ model_params <- function(DT,
 #'
 #' Model parameter data.table appended with 'fitted' column of double logistic model of NDVI for a full year. Calculated at the daily scale with the following formula from Bischoff et al. (2012).
 #'
-#' \deqn{scaled = \frac{1}{1 + \exp{\frac{xmidS - t}{scalS}}} - \frac{1}{1 + \exp{\frac{xmidA - t}{scalA}}}}
+#' \deqn{fitted = \frac{1}{1 + \exp{\frac{xmidS - t}{scalS}}} - \frac{1}{1 + \exp{\frac{xmidA - t}{scalA}}}}
 #'
 #' (See the "Getting started with irg vignette" for a better formatted formula.)
 #'
@@ -167,18 +171,21 @@ model_params <- function(DT,
 #' scale_doy(ndvi)
 #' scale_ndvi(ndvi)
 #'
-#' # Double logistic model parameters given starting parameters for nls
+#' # Guess starting parameters for xmidS and xmidA
+#' model_start(ndvi)
+#'
+#' # Double logistic model parameters
+#' #   given global starting parameters for scalS, scalA
+#' #   and output of model_start for xmidS, xmidA
 #' mods <- model_params(
 #'   ndvi,
-#'   xmidS = 0.44,
-#'   xmidA = 0.80,
 #'   scalS = 0.05,
 #'   scalA = 0.01
 #' )
 #'
 #' # Fit double logistic curve to NDVI time series for the whole year
 #' fittedNDVI <- model_ndvi(mods)
-model_ndvi <- function(DT) {
+model_ndvi <- function(DT, observed = FALSE) {
 	# NSE error
 	xmidS <- xmidA <- scalS <- scalA <- fitted <- NULL
 

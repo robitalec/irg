@@ -13,11 +13,29 @@ model_start(DT, id = "id", year = "yr")
 
 \item{year}{year column name. default is 'yr'.}
 }
+\value{
+The input DT \code{data.table} appended with \code{xmidS} and \code{xmidA} columns. Note - we curently do not attempt to guess appropriate starting values for \code{scalS} and \code{scalA}.
+}
 \description{
 Try guessing starting parameters for model_params and model_ndvi.
 }
 \details{
 The id argument is used to split between sampling units. This may be a point id, polygon id, pixel id, etc. depending on your analysis. This should match the id provided to filtering functions.
+}
+\examples{
+# Load data.table
+library(data.table)
+
+# Read in example data
+ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
+
+# Filter and scale NDVI time series
+filter_ndvi(ndvi)
+scale_doy(ndvi)
+scale_ndvi(ndvi)
+
+# Guess starting parameters for xmidS and xmidA
+model_start(ndvi)
 }
 \seealso{
 Other model: \code{\link{model_ndvi}},
