@@ -43,7 +43,7 @@ IRG is calculated by filtering an NDVI time series, scaling variables, modeling 
 
 Here, we use the meta function `irg`. Alternatively, use the filtering, scaling, modeling and IRG functions separately (see [Getting started with IRG]()). 
 
-```{r, eval = TRUE, out.width='650px',fig.align='center'}
+```{r README, eval = TRUE, out.width='650px',fig.align='center'}
 library(data.table)
 library(ggplot2)
 library(irg)

@@ -69,7 +69,7 @@ ggplot(IRG[yr == 2007]) +
     labs(y = 'scaled IRG, NDVI')
 ```
 
-<img src="man/figures/README-unnamed-chunk-2-1.png" width="650px" style="display: block; margin: auto;" />
+<img src="man/figures/README-README-1.png" width="650px" style="display: block; margin: auto;" />
 
 ## Contributing
 
