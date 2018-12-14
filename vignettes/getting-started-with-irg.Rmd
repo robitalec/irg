@@ -9,23 +9,22 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r setup, include = FALSE}
+```{r knitrsetup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   eval = FALSE
 )
-
 options(scipen = 9999)
 ```
 
-The `irg` package opts for a tabular calculation of the instantaneous rate of green-up (IRG) as opposed to a raster based approach. Sampling MODIS imagery is left up to the user and a prerequisite for all functions. The main input (`DT`) for all functions is a [`data.table`](https://github.com/Rdatatable/data.table) of an NDVI time series. The sampling unit (`id`) is flexible (a decision for the user) though we would anticipate points or polygons, or maybe a pixel. All functions leverage the speed of `data.table` to efficiently filter, scale, and model NDVI time series and calculate IRG. 
+The `irg` package opts for a tabular calculation of the instantaneous rate of green-up (IRG) as opposed to a raster based approach. Sampling MODIS imagery is left up to the user and a prerequisite for all functions. The main input (`DT`) for all functions is a [`data.table`](https://github.com/Rdatatable/data.table) of an NDVI time series. The sampling unit (`id`) is flexible (a decision for the user) though we would anticipate points or polygons, or maybe a pixel. All functions leverage the speed of `data.table` to efficiently filter, scale and model NDVI time series, and calculate IRG. 
 
 
 ## Setup
 Install the latest version with [`remotes`](https://github.com/r-lib/remotes). 
 
-```{r}
+```{r remotes}
 remotes::instal_gitlab('robit.a/irg')
 ```
 
@@ -40,12 +39,12 @@ No external dependencies.
 ### Input data
 `irg` requires an NDVI time series in a  `data.table`. 
 
-The columns required are (though names can be different and specified at input):
+Though names can be different and specified at input, the default names and required columns are:
 
 * id: sampling unit identification (point id, polygon id, ...)
 * yr: year of sample
-* DayOfYear: 
 * DayOfYear: julian day
+* NDVI: sampled NDVI value
 * SummaryQA: Quality reliability of pixel
 
 SummaryQA details:
@@ -58,7 +57,7 @@ SummaryQA details:
 
 Let's take a look at the example data. 
 
-```{r, eval = TRUE}
+```{r extdata, eval = TRUE}
 library(irg)
 library(data.table)
 
@@ -68,10 +67,14 @@ ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
 ?ndvi
 ```
 
+```{r printdata, eval = TRUE, echo = FALSE}
+knitr::kable(ndvi[90:95])
+```
+
 #### data.frame
 If your data is a `data.frame`, convert it by reference:
 
-```{r}
+```{r setdt}
 # Pretend
 DF <- as.data.frame(ndvi)
 
@@ -82,16 +85,17 @@ setDT(DF)
 #### Sampling NDVI
 Though `irg` is not involved in the sampling step, it is important that the input data matches the package's expectations.
 
-We used the incredible [Google Earth Engine](http://earthengine.google.com/) to sample MODIS NDVI (MOD13Q1.006)<!--share script/another vignette?-->. There are also R packages:  [`MODIStsp`](https://github.com/ropensci/MODIStsp), [`raster`](https://github.com/rspatial/raster), and others (let us know)...
+We used the incredible [Google Earth Engine](http://earthengine.google.com/) to sample MODIS NDVI (MOD13Q1.006)<!--share script/another vignette?-->. There are also R packages specific to MODIS ([`MODIStsp`](https://github.com/ropensci/MODIStsp)) and general purpose raster operations ([`raster`](https://github.com/rspatial/raster)), and others (let us know)...
 
 #### Temporal extent
 Filtering steps in `irg` use a baseline "winterNDVI" and upper quantile as described by Bischoff et al. (2012). These steps require multiple years of sampled NDVI for each `id`. In addition, make sure to include all samples throughout the year, leaving the filtering for `irg`. 
 
 
+
 ## Functions 
-```{r graph, eval = TRUE, echo = FALSE}
+```{r functGraphViz, eval = TRUE, echo = FALSE, self_contained = FALSE}
 library(DiagrammeR)
-grViz(
+g <- grViz(
 	"
 	digraph irg_functions  {
 	graph [rankdir=LR, compound=TRUE, fontsize = 28]
@@ -143,7 +147,9 @@ grViz(
 
 	}
 	", width = 700, height = 600)
+g
 ```
+
 
 ```{r, eval = TRUE, echo = FALSE}
 fs <-
