@@ -5,6 +5,42 @@ filter_ndvi(ndvi)
 scale_doy(ndvi)
 scale_ndvi(ndvi)
 
+
+test_that("model_start works", {
+	## column checks
+	copyNDVI <- copy(ndvi)[, scaled := NULL]
+	expect_error(
+		model_start(copyNDVI),
+		'scaled column not found in DT - did you filter and scale?'
+	)
+
+	copyNDVI <- copy(ndvi)[, t := NULL]
+	expect_error(
+		model_start(copyNDVI),
+		't column not found in DT - did you scale doy?'
+	)
+
+	copyNDVI <- copy(ndvi)[, id := NULL]
+	expect_error(
+		model_start(copyNDVI),
+		"id \\('id'\\) column not found in DT"
+	)
+
+	copyNDVI <- copy(ndvi)[, yr := NULL]
+	expect_error(
+		model_start(copyNDVI),
+		"year \\('yr'\\) column not found in DT"
+	)
+
+	expect_true(all(
+		c('id', 'yr', 'xmidS_start', 'xmidA_start') %in%
+			colnames(model_start(ndvi))
+	))
+
+})
+
+
+
 test_that("model_params works", {
 	expect_error(
 		model_params(ndvi),

@@ -14,7 +14,7 @@ model_start(DT, id = "id", year = "yr")
 \item{year}{year column name. default is 'yr'.}
 }
 \value{
-The input DT \code{data.table} appended with \code{xmidS} and \code{xmidA} columns. Note - we curently do not attempt to guess appropriate starting values for \code{scalS} and \code{scalA}.
+The input DT \code{data.table} appended with \code{xmidS_start} and \code{xmidA_start} columns. Note - we curently do not attempt to guess appropriate starting values for \code{scalS} and \code{scalA}.
 }
 \description{
 Try guessing starting parameters for model_params and model_ndvi.

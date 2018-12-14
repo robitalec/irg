@@ -212,20 +212,37 @@ model_ndvi <- function(DT, observed = FALSE) {
 #'
 #' The id argument is used to split between sampling units. This may be a point id, polygon id, pixel id, etc. depending on your analysis. This should match the id provided to filtering functions.
 #'
+#' @DT filtered and scaled data.table of NDVI time series. Expects columns 'scaled' and 't' are present.
 #' @inheritParams model_params
 #'
 #' @family model
 #'
 #' @return
+#'
+#' The input DT `data.table` appended with \code{xmidS_start} and \code{xmidA_start} columns. Note - we curently do not attempt to guess appropriate starting values for \code{scalS} and \code{scalA}.
+#'
 #' @export
 #'
 #' @examples
+#' # Load data.table
+#' library(data.table)
+#'
+#' # Read in example data
+#' ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
+#'
+#' # Filter and scale NDVI time series
+#' filter_ndvi(ndvi)
+#' scale_doy(ndvi)
+#' scale_ndvi(ndvi)
+#'
+#' # Guess starting parameters for xmidS and xmidA
+#' model_start(ndvi)
 model_start <- function(DT, id = 'id', year = 'yr') {
 	# NSE errors
 	difS <- difA <- scaled <- xmidS <- xmidA <- NULL
 
 	check_col(DT, 'scaled', extra = ' - did you filter and scale?')
-	check_col(DT, 't', extra = ' - did you filter and scale?')
+	check_col(DT, 't', extra = ' - did you scale doy?')
 	check_col(DT, id, 'id')
 	check_col(DT, year, 'year')
 
@@ -237,17 +254,18 @@ model_start <- function(DT, id = 'id', year = 'yr') {
 		 by = c(id, year)]
 
 	data.table::setkey(DT, 'scaled')
-	DT[difS > 0, xmidS := .SD[list(0.5), t, roll = 'nearest'],
+	DT[difS > 0, xmidS_start := .SD[list(0.5), t, roll = 'nearest'],
 		 by = c(id, year), .SDcols = c('scaled', 't')]
-	DT[difS < 0, xmidA := .SD[list(0.5), t, roll = 'nearest'],
+	DT[difS < 0, xmidA_start := .SD[list(0.5), t, roll = 'nearest'],
 		 by = c(id, year), .SDcols = c('scaled', 't')]
 
-	DT[, xmidS := .SD[!is.na(xmidS), xmidS[1]], by = c(id, year)]
-	DT[, xmidA := .SD[!is.na(xmidA), xmidA[1]], by = c(id, year)]
+	DT[, xmidS_start := .SD[!is.na(xmidS_start), xmidS_start[1]],
+		 by = c(id, year)]
+	DT[, xmidA_start := .SD[!is.na(xmidA_start), xmidA_start[1]],
+		 by = c(id, year)]
 
 
-	DT[xmidA < xmidS, xmidA := xmidA + 0.3]
-
+	DT[xmidA_start < xmidS_start, xmidA_start := xmidA_start + 0.3]
 
 	data.table::set(DT, j = c('difS', 'difA'), value = NULL)
 
