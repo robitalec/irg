@@ -63,6 +63,9 @@ model_start(ndvi)
 #   and output of model_start for xmidS, xmidA
 mods <- model_params(
   ndvi,
+  returns = 'models',
+  xmidS = 'xmidS_start',
+  xmidA = 'xmidA_start',
   scalS = 0.05,
   scalA = 0.01
 )

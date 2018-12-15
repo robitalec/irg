@@ -44,8 +44,8 @@
 #' mods <- model_params(
 #'   ndvi,
 #'   return = 'models',
-#'   xmidS = 'xmidS',
-#'   xmidA = 'xmidA',
+#'   xmidS = 'xmidS_start',
+#'   xmidA = 'xmidA_start',
 #'   scalS = 0.05,
 #'   scalA = 0.01
 #' )

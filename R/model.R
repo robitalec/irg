@@ -124,6 +124,9 @@ model_start <- function(DT, id = 'id', year = 'yr') {
 #' #   and output of model_start for xmidS, xmidA
 #' mods <- model_params(
 #'   ndvi,
+#'   returns = 'models',
+#'   xmidS = 'xmidS_start',
+#'   xmidA = 'xmidA_start',
 #'   scalS = 0.05,
 #'   scalA = 0.01
 #' )
@@ -262,9 +265,25 @@ model_params <- function(DT,
 #' # Guess starting parameters for xmidS and xmidA
 #' model_start(ndvi)
 #'
+#' ## Two options: fit to full year or observed data
+#' # Option 1 - returns = 'models'
+#'
 #' # Double logistic model parameters
 #' #   given global starting parameters for scalS, scalA
 #' #   and output of model_start for xmidS, xmidA
+#' mods <- model_params(
+#'   ndvi,
+#'   returns = 'models',
+#'   xmidS = 'xmidS_start',
+#'   xmidA = 'xmidA_start',
+#'   scalS = 0.05,
+#'   scalA = 0.01
+#' )
+#'
+#' # Fit to the whole year (requires assignment)
+#' fit <- model_ndvi(mods, observed = FALSE)
+#'
+#' # Option 2 - returns = 'columns'
 #' model_params(
 #'   ndvi,
 #'   returns = 'columns',
@@ -275,10 +294,8 @@ model_params <- function(DT,
 #' )
 #'
 #' # Fit double logistic curve to NDVI time series for the observed days
-#' model_ndvi(mods, observed = TRUE)
+#' model_ndvi(ndvi, observed = TRUE)
 #'
-#' # OR: fit to the whole year (requires assignment)
-#' fit <- model_ndvi(mods, observed = FALSE)
 model_ndvi <- function(DT, observed = TRUE) {
 	# NSE error
 	xmidS <- xmidA <- scalS <- scalA <- fitted <- NULL
