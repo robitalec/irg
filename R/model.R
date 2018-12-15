@@ -1,8 +1,10 @@
 #' Estimate model parameters
 #'
-#' Estimate parameters for fitting double logistic curve.
+#' Model estimated parameters for fitting double logistic curve.
 #'
-#' Arguments \code{xmidS}, \code{xmidA}, \code{scalS}, \code{scalA} allow users to provide global starting estimates to be used for all models. Alternatively, leave NULL and provide those arguments as columns (with matching names) in DT, to provide starting estimates for each id and year. See \code{\link{nls}} for more details on starting parameters.
+#' Arguments \code{xmidS}, \code{xmidA}, \code{scalS}, \code{scalA} allow users to provide either group level or global starting estimates to be used for all models.
+#'
+#' Either: a character indicating the column name which stores a group level starting parameter (possibly created by \code{\link{model_start}} OR a numeric value used as a global value for all models. See \code{\link{nls}} for more details on starting parameters.
 #'
 #' Default value for the year column is 'yr'. If you only have one year of data, set to NULL.
 #'
@@ -19,12 +21,13 @@
 #' @param xmidA starting estimates. see Details. - "fall inflection point"
 #' @param scalS starting estimates. see Details. - "scale parameter for spring green-up portion of the NDVI curve"
 #' @param scalA starting estimates. see Details. - "scale parameter for fall dry-down portion of the NDVI curve"
+#' @param returns either 'models' or 'columns'. 'models' will return a data.table of model outcomes by id and year. 'columns' will append model estimate parameters to the input DT.
 #'
 #' @family model
 #'
 #' @return
 #'
-#' data.table of model estimated parameters for double logistic model.
+#' data.table of model estimated parameters for double logistic model. If any rows are NULL, `nls` could not fit a model given starting parameters to the data provided.
 #'
 #' @references
 #'   \url{https://www.journals.uchicago.edu/doi/abs/10.1086/667590}
@@ -71,20 +74,29 @@ model_params <- function(DT,
 	check_col(DT, id, 'id')
 	check_col(DT, year, 'year')
 
-	if (is.null(xmidS)) {
-		check_col(DT, 'xmidS')
+	if (is.character(xmidS)) {
+		check_col(DT, xmidS, 'xmidS')
 	}
 
-	if (is.null(xmidA)) {
-		check_col(DT, 'xmidA')
+	if (is.character(xmidA)) {
+		check_col(DT, xmidA, 'xmidA')
 	}
 
-	if (is.null(scalS)) {
-		check_col(DT, 'scalS')
+	if (is.character(scalS)) {
+		check_col(DT, scalS, 'scalS')
 	}
 
-	if (is.null(scalA)) {
-		check_col(DT, 'scalA')
+	if (is.character(scalA)) {
+		check_col(DT, scalA, 'scalA')
+	}
+
+	if (is.null(returns)) {
+		stop('argument "returns" is NULL, must provide one of "models" or "columns"')
+	}
+
+	if (is.null(xmidS) | is.null(xmidA) | is.null(scalS) | is.null(scalA)) {
+		stop('starting parameters must be provided.
+				 either a column name or global value. ')
 	}
 
 	comb <- unique(

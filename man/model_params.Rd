@@ -4,11 +4,13 @@
 \alias{model_params}
 \title{Estimate model parameters}
 \usage{
-model_params(DT, id = "id", year = "yr", xmidS = NULL,
-  xmidA = NULL, scalS = NULL, scalA = NULL)
+model_params(DT, returns = NULL, id = "id", year = "yr",
+  xmidS = NULL, xmidA = NULL, scalS = NULL, scalA = NULL)
 }
 \arguments{
 \item{DT}{data.table of NDVI time series. Also optionally starting estimates. See Details.}
+
+\item{returns}{either 'models' or 'columns'. 'models' will return a data.table of model outcomes by id and year. 'columns' will append model estimate parameters to the input DT.}
 
 \item{id}{id column. default is 'id'. See details.}
 
@@ -26,7 +28,7 @@ model_params(DT, id = "id", year = "yr", xmidS = NULL,
 data.table of model estimated parameters for double logistic model.
 }
 \description{
-Estimate parameters for fitting double logistic curve.
+Model estimated parameters for fitting double logistic curve.
 }
 \details{
 Arguments \code{xmidS}, \code{xmidA}, \code{scalS}, \code{scalA} allow users to provide global starting estimates to be used for all models. Alternatively, leave NULL and provide those arguments as columns (with matching names) in DT, to provide starting estimates for each id and year. See \code{\link{nls}} for more details on starting parameters.
