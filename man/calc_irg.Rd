@@ -4,18 +4,18 @@
 \alias{calc_irg}
 \title{IRG}
 \usage{
-calc_irg(DT, fitted = TRUE, scaled = TRUE, id = "id", year = "yr")
+calc_irg(DT, id = "id", year = "yr", scaled = TRUE)
 }
 \arguments{
 \item{DT}{data.table of model parameters (output from model_params).}
 
-\item{fitted}{boolean indicating if input DT is the result of model_ndvi.}
-
-\item{scaled}{boolean indicating if irg should be rescaled between 0-1 within id and year. If TRUE, provide id and year. Default is TRUE.}
-
 \item{id}{id column. default is 'id'. See details.}
 
 \item{year}{year column name. default is 'yr'.}
+
+\item{scaled}{boolean indicating if irg should be rescaled between 0-1 within id and year. If TRUE, provide id and year. Default is TRUE.}
+
+\item{fitted}{boolean indicating if input DT is the result of model_ndvi.}
 }
 \value{
 Extended data.table 'irg' column of instantaneous rate of green-up calculated for each day of the year, for each individual and year.
@@ -53,21 +53,18 @@ model_start(ndvi)
 # Double logistic model parameters given starting parameters for nls
 mods <- model_params(
   ndvi,
+  return = 'models',
+  xmidS = 'xmidS',
+  xmidA = 'xmidA',
   scalS = 0.05,
   scalA = 0.01
 )
 
-## Option 1: fitted = FALSE
-# Calculate IRG for each day of the year
-#   directly from model_params
-calc_irg(mods, fitted = FALSE)
-
-## Option 2: fitted = TRUE
-# Fit double log to NDVI
-fittedNDVI <- model_ndvi(mods)
+# Fit double logistic curve to NDVI time series
+fit <- model_ndvi(mods, observed = FALSE)
 
 # Calculate IRG for each day of the year
-calc_irg(fittedNDVI, fitted = TRUE)
+calc_irg(fit)
 }
 \seealso{
 Other irg: \code{\link{irg}}

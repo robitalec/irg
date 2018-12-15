@@ -4,10 +4,12 @@
 \alias{model_ndvi}
 \title{Model NDVI time series}
 \usage{
-model_ndvi(DT)
+model_ndvi(DT, observed = TRUE)
 }
 \arguments{
 \item{DT}{data.table of model parameters (output from model_params).}
+
+\item{observed}{boolean indicating if a full year of fitted values should be returned (observed = FALSE) or if only observed values will be fit (observed = TRUE)}
 }
 \value{
 Model parameter data.table appended with 'fitted' column of double logistic model of NDVI for a full year. Calculated at the daily scale with the following formula from Bischoff et al. (2012).
@@ -37,14 +39,20 @@ model_start(ndvi)
 # Double logistic model parameters
 #   given global starting parameters for scalS, scalA
 #   and output of model_start for xmidS, xmidA
-mods <- model_params(
+model_params(
   ndvi,
+  returns = 'columns',
+  xmidS = 'xmidS_start',
+  xmidA = 'xmidA_start',
   scalS = 0.05,
   scalA = 0.01
 )
 
-# Fit double logistic curve to NDVI time series for the whole year
-fittedNDVI <- model_ndvi(mods)
+# Fit double logistic curve to NDVI time series for the observed days
+model_ndvi(mods, observed = TRUE)
+
+# OR: fit to the whole year (requires assignment)
+fit <- model_ndvi(mods, observed = FALSE)
 }
 \references{
 \url{https://www.journals.uchicago.edu/doi/abs/10.1086/667590}
