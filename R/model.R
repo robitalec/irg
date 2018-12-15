@@ -214,13 +214,22 @@ model_ndvi <- function(DT, observed = FALSE) {
 	check_col(DT, 'scalS')
 	check_col(DT, 'scalA')
 
-	fitDT <- DT[rep(1:.N, each = 366)][, t := julseq$t]
+	if (observed) {
+		DT[, fitted :=
+			 	(1 / (1 + exp((xmidS - t) / scalS))) -
+			 	(1 / (1 + exp((xmidA - t) / scalA)))]
+		return(DT)
+	} else {
+		fitDT <- DT[rep(1:.N, each = 366)][, t := julseq$t]
 
-	fitDT[, fitted :=
-					(1 / (1 + exp((xmidS - t) / scalS))) -
-					(1 / (1 + exp((xmidA - t) / scalA)))]
+		fitDT[, fitted :=
+						(1 / (1 + exp((xmidS - t) / scalS))) -
+						(1 / (1 + exp((xmidA - t) / scalA)))]
 
-	return(fitDT)
+		return(fitDT)
+	}
+
+
 }
 
 
