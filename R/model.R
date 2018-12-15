@@ -147,7 +147,15 @@ model_params <- function(DT,
 	y = comb$yr,
 	SIMPLIFY = FALSE)
 
-	data.table::rbindlist(m, fill = TRUE)
+	m <- data.table::rbindlist(m, fill = TRUE)
+
+	if (returns == 'models') {
+		return(m)
+	} else if (returns == 'columns') {
+		return(DT[m, c('xmidS', 'xmidA', 'scalS', 'scalA') :=
+								.(xmidS, xmidA, scalS, scalA),
+							on = c(id, year)])
+	}
 }
 
 
