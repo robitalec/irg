@@ -131,6 +131,8 @@ irg <- function(DT) {
 	scale_doy(DT)
 	scale_ndvi(DT)
 	model_start(DT)
-	m <- model_params(DT, scalS = 0.05, scalA = 0.1)
-	return(calc_irg(model_ndvi(m)))
+	model_params(DT, returns = 'columns',
+							 xmidS = 'xmidS', xmidA = 'xmidA',
+							 scalS = 0.05, scalA = 0.1)
+	return(calc_irg(model_ndvi(DT, observed = FALSE)))
 }
