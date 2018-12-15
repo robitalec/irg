@@ -69,6 +69,8 @@ model_params <- function(DT,
 	# NSE errors
 	. <- yr <- NULL
 
+	check_truelength(DT)
+
 	check_col(DT, 'scaled', extra = ' - did you filter and scale?')
 
 	check_col(DT, id, 'id')
