@@ -69,7 +69,7 @@ ggplot(IRG[yr == 2007 & id == 12377]) +
 
 <img src="man/figures/functions-grphviz.png" style="max-width:100%;min-width:40px;float:center;"/>
 
-
+  
 ## Contributing
 Contributions welcome! See details in [CONTRIBUTING.md](CONTRIBUTING.md). 
 
