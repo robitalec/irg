@@ -85,6 +85,8 @@ test_that("model_params works", {
 									%in%
 										colnames(mods)))
 
+	expect_true(nrow(mods) < nrow(ndvi))
+
 	model_params(
 		ndvi,
 		returns = 'columns',
@@ -100,40 +102,38 @@ test_that("model_params works", {
 
 })
 
-# mods <- model_params(
-# 	ndvi,
-# 	xmidS = 0.44,
-# 	xmidA = 0.80,
-# 	scalS = 0.05,
-# 	scalA = 0.01
-# )
-#
-# test_that("model_ndvi works", {
-# 	copyMods <- copy(mods)[, xmidS := NULL]
-# 	expect_error(
-# 		model_ndvi(copyMods),
-# 		'xmidS column not found in DT'
-# 	)
-#
-# 	copyMods <- copy(mods)[, xmidA := NULL]
-# 	expect_error(
-# 		model_ndvi(copyMods),
-# 		'xmidA column not found in DT'
-# 	)
-#
-# 	copyMods <- copy(mods)[, scalS := NULL]
-# 	expect_error(
-# 		model_ndvi(copyMods),
-# 		'scalS column not found in DT'
-# 	)
-#
-# 	copyMods <- copy(mods)[, scalA := NULL]
-# 	expect_error(
-# 		model_ndvi(copyMods),
-# 		'scalA column not found in DT'
-# 	)
-#
-# 	expect_true(all(c('id', 'yr', 'xmidS', 'xmidA', 'scalS', 'fitted')
-# 									%in%
-# 										colnames(model_ndvi(mods))))
-# })
+
+test_that("model_ndvi works", {
+	copyNDVI <- copy(ndvi)[, xmidS := NULL]
+	expect_error(
+		model_ndvi(copyNDVI),
+		'xmidS column not found in DT'
+	)
+
+	copyNDVI <- copy(ndvi)[, xmidA := NULL]
+	expect_error(
+		model_ndvi(copyNDVI),
+		'xmidA column not found in DT'
+	)
+
+	copyNDVI <- copy(ndvi)[, scalS := NULL]
+	expect_error(
+		model_ndvi(copyNDVI),
+		'scalS column not found in DT'
+	)
+
+	copyNDVI <- copy(ndvi)[, scalA := NULL]
+	expect_error(
+		model_ndvi(copyNDVI),
+		'scalA column not found in DT'
+	)
+
+	expect_true(all(c('id', 'yr', 'xmidS', 'xmidA', 'scalS', 'fitted')
+									%in%
+										colnames(model_ndvi(copyNDVI))))
+
+
+	copyNDVI <- copy(ndvi)
+	expect_true(nrow(ndvi) == nrow(model_ndvi(copyNDVI)))
+
+})

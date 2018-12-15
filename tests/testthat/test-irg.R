@@ -7,6 +7,7 @@ scale_ndvi(ndvi)
 
 mods <- model_params(
 	ndvi,
+	returns = 'models',
 	xmidS = 0.44,
 	xmidA = 0.80,
 	scalS = 0.05,
