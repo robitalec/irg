@@ -31,13 +31,15 @@
 #' model_start(ndvi)
 model_start <- function(DT, id = 'id', year = 'yr') {
 	# NSE errors
-	difS <- difA <- scaled <- xmidS <- xmidA <- NULL
+	difS <- difA <- scaled <- NULL
 
 	check_col(DT, 'scaled', extra = ' - did you filter and scale?')
 	check_col(DT, 't', extra = ' - did you scale doy?')
 	check_col(DT, id, 'id')
 	check_col(DT, year, 'year')
 
+	overwrite_col(DT, 'xmidS_start')
+	overwrite_col(DT, 'xmidA_start')
 
 	data.table::setkey(DT, 't')
 	DT[, difS := scaled - data.table::shift(scaled, type = 'lag'),
@@ -289,11 +291,11 @@ model_ndvi <- function(DT, observed = TRUE) {
 	check_col(DT, 'scalA')
 
 	if (observed) {
-		DT[, fitted :=
+		na.omit(DT)[, fitted :=
 			 	(1 / (1 + exp((xmidS - t) / scalS))) -
 			 	(1 / (1 + exp((xmidA - t) / scalA)))]
 		return(DT)
-	} else {
+	} else if (!observed) {
 		fitDT <- DT[rep(1:.N, each = 366)][, t := julseq$t]
 
 		fitDT[, fitted :=
@@ -301,5 +303,7 @@ model_ndvi <- function(DT, observed = TRUE) {
 						(1 / (1 + exp((xmidA - t) / scalA)))]
 
 		return(fitDT)
+	} else{
+		stop('missing observed - must be TRUE/FALSE')
 	}
 }

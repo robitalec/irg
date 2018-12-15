@@ -64,8 +64,10 @@ calc_irg <-
 		# NSE error
 		xmidS <- scalS <- irg <- NULL
 
+		check_truelength(DT)
 		check_col(DT, 'xmidS')
 		check_col(DT, 'scalS')
+		check_col(DT, 't')
 
 		if (any(unlist(DT[, lapply(.SD, function(x)
 			any(is.na(x)))]))) {

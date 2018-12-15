@@ -1,6 +1,7 @@
 context("test-model")
 
-ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
+ndvi <- fread(
+	system.file("extdata", "ndvi.csv", package = "irg"))[yr < 2007]
 filter_ndvi(ndvi)
 scale_doy(ndvi)
 scale_ndvi(ndvi)
@@ -38,8 +39,6 @@ test_that("model_start works", {
 	))
 
 })
-
-model_start(ndvi)
 
 test_that("model_params works", {
 
@@ -103,6 +102,16 @@ test_that("model_params works", {
 })
 
 
+model_params(
+	ndvi,
+	returns = 'columns',
+	xmidS = 'xmidS_start',
+	xmidA = 'xmidA_start',
+	scalS = 0.05,
+	scalA = 0.01
+)
+
+
 test_that("model_ndvi works", {
 	copyNDVI <- copy(ndvi)[, xmidS := NULL]
 	expect_error(
@@ -128,12 +137,14 @@ test_that("model_ndvi works", {
 		'scalA column not found in DT'
 	)
 
-	expect_true(all(c('id', 'yr', 'xmidS', 'xmidA', 'scalS', 'fitted')
+	modNDVI <- model_ndvi(ndvi, observed = FALSE)
+	print(colnames(modNDVI))
+	expect_true(all(c('id', 'yr',
+										'xmidS', 'xmidA', 'scalS', 'scalA', 'fitted')
 									%in%
-										colnames(model_ndvi(copyNDVI))))
+										colnames(modNDVI)))
 
+	expect_true(nrow(ndvi) < nrow(modNDVI))
 
-	copyNDVI <- copy(ndvi)
-	expect_true(nrow(ndvi) == nrow(model_ndvi(copyNDVI)))
-
+	expect_true(nrow(ndvi) == nrow(model_ndvi(ndvi, observed = TRUE)))
 })
