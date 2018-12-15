@@ -138,7 +138,6 @@ test_that("model_ndvi works", {
 	)
 
 	modNDVI <- model_ndvi(ndvi, observed = FALSE)
-	print(colnames(modNDVI))
 	expect_true(all(c('id', 'yr',
 										'xmidS', 'xmidA', 'scalS', 'scalA', 'fitted')
 									%in%

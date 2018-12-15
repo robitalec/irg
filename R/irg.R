@@ -15,7 +15,6 @@
 #'
 #' @inheritParams model_ndvi
 #' @inheritParams model_params
-#' @param fitted boolean indicating if input DT is the result of model_ndvi.
 #' @param scaled boolean indicating if irg should be rescaled between 0-1 within id and year. If TRUE, provide id and year. Default is TRUE.
 #'
 #' @return
@@ -129,12 +128,14 @@ calc_irg <-
 #' # Calculate IRG for each day of the year and individual
 #' out <- irg(ndvi)
 irg <- function(DT) {
+	check_truelength(DT)
+
 	filter_ndvi(DT)
 	scale_doy(DT)
 	scale_ndvi(DT)
 	model_start(DT)
 	model_params(DT, returns = 'columns',
-							 xmidS = 'xmidS', xmidA = 'xmidA',
+							 xmidS = 'xmidS_start', xmidA = 'xmidA_start',
 							 scalS = 0.05, scalA = 0.1)
 	return(calc_irg(model_ndvi(DT, observed = FALSE)))
 }

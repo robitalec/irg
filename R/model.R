@@ -31,7 +31,7 @@
 #' model_start(ndvi)
 model_start <- function(DT, id = 'id', year = 'yr') {
 	# NSE errors
-	difS <- difA <- scaled <- NULL
+	difS <- difA <- scaled <- xmidS_start <- xmidA_start <- NULL
 
 	check_col(DT, 'scaled', extra = ' - did you filter and scale?')
 	check_col(DT, 't', extra = ' - did you scale doy?')
@@ -291,7 +291,7 @@ model_ndvi <- function(DT, observed = TRUE) {
 	check_col(DT, 'scalA')
 
 	if (observed) {
-		na.omit(DT)[, fitted :=
+		DT[, fitted :=
 			 	(1 / (1 + exp((xmidS - t) / scalS))) -
 			 	(1 / (1 + exp((xmidA - t) / scalA)))]
 		return(DT)

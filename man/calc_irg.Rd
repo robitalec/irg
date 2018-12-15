@@ -14,8 +14,6 @@ calc_irg(DT, id = "id", year = "yr", scaled = TRUE)
 \item{year}{year column name. default is 'yr'.}
 
 \item{scaled}{boolean indicating if irg should be rescaled between 0-1 within id and year. If TRUE, provide id and year. Default is TRUE.}
-
-\item{fitted}{boolean indicating if input DT is the result of model_ndvi.}
 }
 \value{
 Extended data.table 'irg' column of instantaneous rate of green-up calculated for each day of the year, for each individual and year.
