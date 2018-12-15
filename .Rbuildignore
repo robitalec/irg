@@ -2,7 +2,9 @@
 ^CONTRIBUTING\.md$
 ^data-raw$
 ^LICENSE\.md$
-^README\.Rmd$
+^README\.Rmd$\
+^README\.md$
 ^irg\.Rproj$
 ^\.Rproj\.user$
 ^\.gitlab-ci\.yml$
+^cran-comments.md$
