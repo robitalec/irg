@@ -25,13 +25,15 @@ model_params(DT, returns = NULL, id = "id", year = "yr",
 \item{scalA}{starting estimates. see Details. - "scale parameter for fall dry-down portion of the NDVI curve"}
 }
 \value{
-data.table of model estimated parameters for double logistic model.
+data.table of model estimated parameters for double logistic model. If any rows are NULL, \code{nls} could not fit a model given starting parameters to the data provided.
 }
 \description{
 Model estimated parameters for fitting double logistic curve.
 }
 \details{
-Arguments \code{xmidS}, \code{xmidA}, \code{scalS}, \code{scalA} allow users to provide global starting estimates to be used for all models. Alternatively, leave NULL and provide those arguments as columns (with matching names) in DT, to provide starting estimates for each id and year. See \code{\link{nls}} for more details on starting parameters.
+Arguments \code{xmidS}, \code{xmidA}, \code{scalS}, \code{scalA} allow users to provide either group level or global starting estimates to be used for all models.
+
+Either: a character indicating the column name which stores a group level starting parameter (possibly created by \code{\link{model_start}} OR a numeric value used as a global value for all models. See \code{\link{nls}} for more details on starting parameters.
 
 Default value for the year column is 'yr'. If you only have one year of data, set to NULL.
 

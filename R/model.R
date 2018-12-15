@@ -99,10 +99,14 @@ model_params <- function(DT,
 				 either a column name or global value. ')
 	}
 
-	comb <- unique(
-		DT[, .SD, .SDcols =
-			 	c(id, year, intersect(colnames(DT),
-			 												c('xmidS', 'xmidA', 'scalS', 'scalA')))])
+	params <- list(xmidS = xmidS, xmidA = xmidA,
+								 scalS = scalS, scalA = scalA)
+	hasit <- params[params %in% colnames(DT)]
+	doesnt <- params[!(params %in% colnames(DT))]
+	comb <- unique(DT[, .SD, .SDcols = unlist(c(id, year, hasit))])
+	comb[, (names(doesnt)) := (doesnt)]
+	whichchar <- params[unlist(lapply(params, is.character))]
+	setnames(comb, unlist(whichchar), names(whichchar))
 
 	if (any(comb[, .(checkdup = .N > 1),
 							 by = c(id, year)]$checkdup)) {
@@ -112,39 +116,27 @@ model_params <- function(DT,
 
 	m <- mapply(function(i, y) {
 		tryCatch(
-			c(list(id = i, yr = y),
+			c(list(id = i, year = y),
 				stats::coef(
 					stats::nls(
 						formula = scaled ~
 							(1 / (1 + exp((xmidS - t) / scalS))) -
 							(1 / (1 + exp((xmidA - t) / scalA))),
-						data = DT[id == i & yr == y],
+						data = DT[get(id) == i & get(year) == y],
 						start = list(
-							xmidS =
-								ifelse(is.null(xmidS),
-											 comb[id == i & yr == y][['xmidS']],
-											 xmidS),
-							xmidA =
-								ifelse(is.null(xmidA),
-											 comb[id == i & yr == y][['xmidA']],
-											 xmidA),
-							scalS =
-								ifelse(is.null(scalS),
-											 comb[id == i & yr == y][['scalS']],
-											 scalS),
-							scalA =
-								ifelse(is.null(scalA),
-											 comb[id == i & yr == y][['scalA']],
-											 scalA)
+							xmidS = comb[get(id) == i & get(year) == y, xmidS],
+							xmidA = comb[get(id) == i & get(year) == y, xmidA],
+							scalS = comb[get(id) == i & get(year) == y, scalS],
+							scalA = comb[get(id) == i & get(year) == y, scalA]
 						)
 					)
 				)),
 			error = function(e)
-				list(id = i, yr = y)
+				list(id = i, year = y)
 		)
 	},
-	i = comb$id,
-	y = comb$yr,
+	i = comb[[id]],
+	y = comb[[year]],
 	SIMPLIFY = FALSE)
 
 	m <- data.table::rbindlist(m, fill = TRUE)
