@@ -108,7 +108,9 @@ model_params <- function(DT,
 	comb <- unique(DT[, .SD, .SDcols = unlist(c(id, year, hasit))])
 	comb[, (names(doesnt)) := (doesnt)]
 	whichchar <- params[unlist(lapply(params, is.character))]
-	setnames(comb, unlist(whichchar), names(whichchar))
+	setnames(comb,
+					 c(id, year, unlist(whichchar)),
+					 c('id', 'yr', names(whichchar)))
 
 	if (any(comb[, .(checkdup = .N > 1),
 							 by = c(id, year)]$checkdup)) {
@@ -118,27 +120,27 @@ model_params <- function(DT,
 
 	m <- mapply(function(i, y) {
 		tryCatch(
-			c(list(id = i, year = y),
+			c(list(id = i, yr = y),
 				stats::coef(
 					stats::nls(
 						formula = scaled ~
 							(1 / (1 + exp((xmidS - t) / scalS))) -
 							(1 / (1 + exp((xmidA - t) / scalA))),
-						data = DT[get(id) == i & get(year) == y],
+						data = DT[id == i & yr == y],
 						start = list(
-							xmidS = comb[get(id) == i & get(year) == y, xmidS],
-							xmidA = comb[get(id) == i & get(year) == y, xmidA],
-							scalS = comb[get(id) == i & get(year) == y, scalS],
-							scalA = comb[get(id) == i & get(year) == y, scalA]
+							xmidS = comb[id == i & yr == y, xmidS],
+							xmidA = comb[id == i & yr == y, xmidA],
+							scalS = comb[id == i & yr == y, scalS],
+							scalA = comb[id == i & yr == y, scalA]
 						)
 					)
 				)),
 			error = function(e)
-				list(id = i, year = y)
+				list(id = i, yr = y)
 		)
 	},
-	i = comb[[id]],
-	y = comb[[year]],
+	i = comb$id,
+	y = comb$yr,
 	SIMPLIFY = FALSE)
 
 	m <- data.table::rbindlist(m, fill = TRUE)
@@ -146,6 +148,8 @@ model_params <- function(DT,
 	if (returns == 'models') {
 		return(m)
 	} else if (returns == 'columns') {
+		setnames(m, c('id', 'yr'), c(id, year))
+
 		return(DT[m, c('xmidS', 'xmidA', 'scalS', 'scalA') :=
 								.(xmidS, xmidA, scalS, scalA),
 							on = c(id, year)])
