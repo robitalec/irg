@@ -37,6 +37,6 @@ test_that("scale_doy works", {
 	expect_true("t" %in% colnames(scale_doy(ndvi)))
 
 	# Did it rescale to 0-1?
-	expect_lte(max(ndvi$t), 1)
-	expect_gte(min(ndvi$t), 0)
+	expect_lte(max(ndvi$t, na.rm = TRUE), 1)
+	expect_gte(min(ndvi$t, na.rm = TRUE), 0)
 })
