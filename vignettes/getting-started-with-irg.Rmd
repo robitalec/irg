@@ -1,7 +1,7 @@
 ---
-title: "Getting started with irg"
-author: "Alec L. Robitaille"
-date: "`r Sys.Date()`"
+title: 'Getting started with irg'
+author: 'Alec L. Robitaille'
+date: '`r Sys.Date()`'
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Getting started with irg}
@@ -12,7 +12,7 @@ vignette: >
 ```{r knitrsetup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>",
+  comment = '#>',
   eval = FALSE
 )
 options(scipen = 9999)
@@ -61,7 +61,7 @@ Let's take a look at the example data.
 library(irg)
 library(data.table)
 
-ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
+ndvi <- fread(system.file('extdata', 'ndvi.csv', package = 'irg'))
 
 # or look at the help page
 ?ndvi
@@ -88,11 +88,11 @@ Though `irg` is not involved in the sampling step, it is important that the inpu
 We used the incredible [Google Earth Engine](http://earthengine.google.com/) to sample MODIS NDVI (MOD13Q1.006)<!--share script/another vignette?-->. There are also R packages specific to MODIS ([`MODIStsp`](https://github.com/ropensci/MODIStsp)) and general purpose raster operations ([`raster`](https://github.com/rspatial/raster)), and others (let us know)...
 
 #### Temporal extent
-Filtering steps in `irg` use a baseline "winterNDVI" and upper quantile as described by Bischoff et al. (2012). These steps require multiple years of sampled NDVI for each `id`. In addition, make sure to include all samples throughout the year, leaving the filtering for `irg`. 
+Filtering steps in `irg` use a baseline 'winterNDVI' and upper quantile as described by Bischoff et al. (2012). These steps require multiple years of sampled NDVI for each `id`. In addition, make sure to include all samples throughout the year, leaving the filtering for `irg`. 
 
 
 
-## Functions 
+## Workflow 
 ```{r functGraphViz, eval = TRUE, echo = FALSE, self_contained = FALSE}
 library(DiagrammeR)
 g <- grViz(
@@ -151,9 +151,11 @@ g
 ```
 
 
+
+
 ```{r, eval = TRUE, echo = FALSE}
 fs <-
-	data.table(functions = as.character(lsf.str("package:irg")))[, 
+	data.table(functions = as.character(lsf.str('package:irg')))[, 
              arguments := paste(unlist(formalArgs(functions)), 
             									 collapse = ', ' ), 
              by = functions]
@@ -161,7 +163,7 @@ fs <-
 
 There are `r nrow(fs[grepl('filter', functions)])` filtering functions, `r nrow(fs[grepl('scale', functions)])` scaling functions, `r nrow(fs[grepl('model', functions)])` modeling functions and `r nrow(fs[grepl('irg', functions)])` IRG functions. 
 
-The `irg::irg` function is a wrapper for all steps - filtering, scaling, modeling and calculating IRG in one step. At this point, only defaults. 
+The `irg::irg` function is a wrapper for all steps - filtering, scaling, modeling and calculating IRG in one step. At this point, only defaults. Here's 5 rows from the result. 
 
 For options, head to the steps below. 
 
@@ -173,40 +175,117 @@ out <- irg(ndvi)
 knitr::kable(out[between(t, 0.4, 0.5)][1:5, .(id, yr, t, fitted, irg)])
 ```
 
-### Filtering
 
-There are `r nrow(fs[grepl('filter', functions)])` filtering functions.
+## Filtering
+There are `r nrow(fs[grepl('filter', functions)])` filtering functions. 
 
 ```{r, echo = FALSE, eval = TRUE}
-fs[grepl('qa', functions), order := 1]
-fs[grepl('winter', functions), order := 2]
-fs[grepl('roll', functions), order := 3]
-fs[grepl('top', functions), order := 4]
-knitr::kable(fs[grepl('filter', functions), .(order, functions, arguments)])
+# fs[grepl('qa', functions), order := 1]
+# fs[grepl('winter', functions), order := 2]
+# fs[grepl('roll', functions), order := 3]
+# fs[grepl('top', functions), order := 4]
+knitr::kable(fs[grepl('filter', functions), .(functions, arguments)])
+```
+
+
+```{r, eval = FALSE}
+# Load data.table
+library(data.table)
+library(irg)
+
+# Read in example data
+ndvi <- fread(system.file('extdata', 'ndvi.csv', package = 'irg'))
+
+# Filter NDVI time series
+filter_qa(ndvi, qa = 'SummaryQA', good = c(0, 1))
+
+filter_winter(ndvi, probs = 0.025, limits = c(60L, 300L),
+							doy = 'DayOfYear', id = 'id')
+
+filter_roll(ndvi, window = 3L, id = 'id', method = 'median')
+
+filter_top(ndvi, probs = 0.925, id = 'id')
+
 ```
 
 
 
 
 ### Scaling
+Two scaling functions are use to scale the day of year column and filtered NDVI time series between 0-1. 
+
+
+```{r}
+# Scale variables
+scale_doy(ndvi, doy = 'DayOfYear')
+scale_ndvi(ndvi)
+
+```
+
+
 
 ### Modeling 
-
-
-
-#### model_ndvi
-
-
+Three functions are used to model the NDVI times series to a double logistic curve, as described by Bischoff et al. (2012). 
 
 $$fitted = \frac{1}{1 + e^ \frac{xmidS - t}{scalS}} - \frac{1}{1 + e^ \frac{xmidA - t}{scalA}}$$
+
+Two options from this point are available: fitting NDVI and calculating IRG for observed data only, or for the full year. 
+
+To calculate for the every day of every year, specify `returns = 'models'` in `model_params`, `observed = FALSE` in `model_ndvi` and assign the output of `model_ndvi`. 
+
+```{r}
+# Guess starting parameters
+model_start(ndvi, id = 'id', year = 'yr')
+
+# Double logistic model parameters given starting parameters for nls
+mods <- model_params(
+  ndvi,
+  returns = 'models',
+  id = 'id', year = 'yr',
+  xmidS = 'xmidS_start', xmidA = 'xmidA_start',
+  scalS = 0.05,
+  scalA = 0.01
+)
+
+# Fit double log to NDVI
+fit <- model_ndvi(mods, observed = FALSE)
+```
+
+Alternatively, to calculate for the observed data only, specify `returns = 'columns'` in `model_params` and  `observed = TRUE` in `model_ndvi`. 
+
+```{r}
+# Guess starting parameters
+model_start(ndvi, id = 'id', year = 'yr')
+
+# Double logistic model parameters given starting parameters for nls
+model_params(
+  ndvi,
+  returns = 'columns',
+  id = 'id', year = 'yr',
+  xmidS = 'xmidS_start', xmidA = 'xmidA_start',
+  scalS = 0.05,
+  scalA = 0.01
+)
+
+# Fit double log to NDVI
+ model_ndvi(mods, observed = TRUE)
+```
+
 
 
 
 ### IRG
 
 $$IRG = \frac{e ^ \frac{t + xmidS}{scalS}}{2 scalS e ^ \frac{t + xmidS}{scalS} + scalS e ^ \frac{2t}{scalS} + scalS e ^ \frac{2midS}{scalS}}$$
+Finally, calculate IRG:
 
+```{r}
+# Calculate IRG for each day of the year
+calc_irg(fit)
 
+# or for observed data
+calc_irg(ndvi)
+```
 
 
 <!-- Visualizing
