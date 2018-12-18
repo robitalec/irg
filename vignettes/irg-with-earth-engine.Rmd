@@ -1,0 +1,93 @@
+---
+title: "Using Earth Engine with irg"
+author: "Alec L. Robitaille"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Sampling
+
+```{js}
+// ## Extract NDVI for IRG 
+// # Alec Robitaille
+// # November 2018
+
+// ## Image Import
+// NDVI
+var ndvi = ee.ImageCollection('MODIS/006/MOD13Q1');
+
+
+// ## Feature Collection Import
+// Points
+var points = ee.FeatureCollection('users/alr201/IRG/48hr-caribou');
+
+// ## Filter
+ndvi = ndvi.filter(ee.Filter.calendarRange(2007, 2013, 'year'));
+
+// ## Add year
+var addYear = function(img) {
+  return(img.addBands(ee.Image(img.date().get('year')).rename('yr')));
+};
+
+ndvi = ndvi.map(addYear);
+
+// ## Sample
+var samplePts = function(img) {
+  return img.reduceRegions(points, ee.Reducer.mean())
+            .copyProperties(points);
+};
+
+var reduced = ndvi.map(samplePts).flatten();
+
+// ## Export
+var outputString  = '48hr-2007-2013-NDVI-caribou';
+Export.table.toDrive(reduced, outputString, 'IRG');
+
+```
+
+# Quantiles in EE
+
+```{js}
+// ## Just quantiles for IRG 
+// # Alec Robitaille
+// # December 2018
+
+// ## Image Import
+// NDVI
+var ndvi = ee.ImageCollection('MODIS/006/MOD13Q1');
+
+
+// ## Feature Collection Import
+// Points
+var points = ee.FeatureCollection('users/alr201/IRG/48hr-caribou').limit(2);
+
+// ## Filter
+ndvi = ndvi.filter(ee.Filter.calendarRange(2007, 2013, 'year'));
+
+// ## Mask
+var quantile = function(img) {
+  var qa = img.select('SummaryQA');
+  return img.updateMask(qa.lt(2));
+};
+
+ndvi = ndvi.map(quantile);
+
+// ## Quantiles
+ndvi = ndvi.select('NDVI').reduce(ee.Reducer.percentile([2.5, 92.5]));
+
+// ## Sample
+var samplePts = function(img) {
+  return img.reduceRegions(points, ee.Reducer.mean())
+            .copyProperties(points);
+};
+
+var reduced = ndvi.map(samplePts).flatten();
+
+// ## Export
+var outputString  = '48hr-2007-2013-NDVI-caribou';
+Export.table.toDrive(reduced, outputString, 'IRG');
+```
