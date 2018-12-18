@@ -51,6 +51,8 @@ Export.table.toDrive(reduced, outputString, 'IRG');
 
 # Quantiles in EE
 
+*note: currently this uses 0.3 and 0.93 instead of 0.25 and 0.925*
+
 ```{js}
 // ## Just quantiles for IRG 
 // # Alec Robitaille
