@@ -71,25 +71,26 @@ var points = ee.FeatureCollection('users/alr201/IRG/48hr-caribou').limit(2);
 ndvi = ndvi.filter(ee.Filter.calendarRange(2007, 2013, 'year'));
 
 // ## Mask
-var quantile = function(img) {
+var qaMask = function(img) {
   var qa = img.select('SummaryQA');
   return img.updateMask(qa.lt(2));
 };
 
-ndvi = ndvi.map(quantile);
+ndvi = ndvi.map(qaMask);
 
 // ## Quantiles
 ndvi = ndvi.select('NDVI').reduce(ee.Reducer.percentile([2.5, 92.5]));
 
 // ## Sample
-var samplePts = function(img) {
-  return img.reduceRegions(points, ee.Reducer.mean())
-            .copyProperties(points);
-};
-
-var reduced = ndvi.map(samplePts).flatten();
+var reduced = ndvi.reduceRegions(points.limit(10), ee.Reducer.mean(), 30)
+                  .copyProperties(points.limit(10));
 
 // ## Export
 var outputString  = '48hr-2007-2013-NDVI-caribou';
 Export.table.toDrive(reduced, outputString, 'IRG');
+
+// ## Map
+Map.addLayer(ndvi.select('NDVI_p3'), null, 'winter');
+Map.addLayer(ndvi.select('NDVI_p93'), null, 'top');
+Map.addLayer(ndvi, null, 'both');
 ```
