@@ -38,7 +38,7 @@ filter_qa <-
 	check_col(DT, qa, 'qa')
 
 	DT[get(qa) %in% good, good := TRUE][is.na(good), good := FALSE]
-	DT[(good), filtered := NDVI]
+	DT[(good), filtered := as.integer(NDVI)]
 	DT[!(good), filtered := NA]
 	set(DT, j = 'good', value = NULL)
 }
@@ -53,7 +53,7 @@ filter_qa <-
 #' @inheritParams filter_qa
 #' @param probs quantile probability to determine "winterNDVI". default is 0.025.
 #' @param limits integer vector indicating limit days of absolute winter (snow cover, etc.). default = 60 days after Jan 1 and 65 days before Jan 1.
-#' @param doy julian day column. default is 'DayOfYear'.
+#' @param doy julian day column. default is 'DayOfYear'. integer type.
 #' @param id id column. default is 'id'. See details.
 #'
 #'
@@ -92,6 +92,10 @@ filter_winter <-
 		check_col(DT, id, 'id')
 		check_col(DT, 'filtered', extra = ', did you run filter_qa?')
 		overwrite_col(DT, 'winter')
+
+		if (typeof(DT[[doy]]) != 'integer') {
+			DT[, (doy) := as.integer(.SD), .SDcols = doy]
+		}
 
 		if (typeof(limits) != 'integer') {
 			limits <- as.integer(limits)
