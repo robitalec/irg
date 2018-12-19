@@ -2,7 +2,9 @@
 title: 'Getting started with irg'
 author: 'Alec L. Robitaille'
 date: '`r Sys.Date()`'
-output: rmarkdown::html_vignette
+output: 
+  rmarkdown::html_vignette:
+    toc: true
 vignette: >
   %\VignetteIndexEntry{Getting started with irg}
   %\VignetteEngine{knitr::rmarkdown}
@@ -211,7 +213,7 @@ filter_top(ndvi, probs = 0.925, id = 'id')
 
 
 
-### Scaling
+## Scaling
 Two scaling functions are use to scale the day of year column and filtered NDVI time series between 0-1. 
 
 
@@ -223,7 +225,7 @@ scale_ndvi(ndvi)
 
 
 
-### Modeling 
+## Modeling 
 Three functions are used to model the NDVI times series to a double logistic curve, as described by Bischoff et al. (2012). 
 
 $$fitted = \frac{1}{1 + e^ \frac{xmidS - t}{scalS}} - \frac{1}{1 + e^ \frac{xmidA - t}{scalA}}$$
@@ -273,7 +275,7 @@ model_params(
 
 
 
-### IRG
+## IRG
 
 $$IRG = \frac{e ^ \frac{t + xmidS}{scalS}}{2 scalS e ^ \frac{t + xmidS}{scalS} + scalS e ^ \frac{2t}{scalS} + scalS e ^ \frac{2midS}{scalS}}$$
 Finally, calculate IRG:

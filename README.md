@@ -32,7 +32,8 @@ for the user) though we would anticipate points or polygons, or maybe a
 pixel. All functions leverage the speed of `data.table` to efficiently
 filter, scale, and model NDVI time series and calculate IRG.
 
-More details in the first vignette: [Getting started with IRG]().
+More details in the first vignette: [Getting started with
+IRG](http://irg.robitalec.ca/articles/getting-started-with-irg.html).
 
 ## Installation
 
@@ -50,7 +51,8 @@ first derivative of this curve.
 
 Here, we use the meta function `irg`. Alternatively, use the filtering,
 scaling, modeling and IRG functions separately (see [Getting started
-with IRG]()).
+with
+IRG](http://irg.robitalec.ca/articles/getting-started-with-irg.html)).
 
 ``` r
 library(data.table)
