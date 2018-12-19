@@ -1,0 +1,70 @@
+pandoc: '2.5'
+pkgdown: 1.1.0
+pkgdown_sha: ~
+articles:
+  getting-started-with-irg: getting-started-with-irg.html
+
+
+destination: ../irg-web/public/
+url: http://irg.robitalec.ca
+
+
+template:
+  params:
+    bootswatch: yeti
+#    ganalytics: "UA-130501037-2"
+
+reference:
+  - title: Filtering
+    desc: ~
+    contents:
+    - '`filter_qa`'
+    - '`filter_winter`'
+    - '`filter_roll`'
+    - '`filter_top`'
+  - title: Scaling
+    desc: ~
+    contents:
+    - '`scale_doy`'
+    - '`scale_ndvi`'
+  - title: Modeling
+    desc: ~
+    contents:
+    - '`model_start`'
+    - '`model_params`'
+    - '`model_ndvi`'
+  - title: Instantaneous rate of green-up
+    desc: ~
+    contents:
+    - '`calc_irg`'
+  - title: Meta functions
+    desc: ~
+    contents:
+    - '`filter_ndvi`'
+    - '`irg`'
+  - title: Package data
+    desc: ~
+    contents:
+    - '`ndvi`'
+
+navbar:
+  left:
+    home:
+      icon: fa-home fa-lg
+      href: index.html
+    reference:
+      text: "Reference"
+      href: reference/index.html
+    articles:
+      text: "Vignettes"
+      menu:
+      - text: Getting started with irg
+        href: articles/getting-started-with-irg.html
+
+    news:
+      text: "News"
+      href: news/index.html
+
+news:
+- one_page: true
+
