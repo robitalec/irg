@@ -7,7 +7,7 @@
 model_start(DT, id = "id", year = "yr")
 }
 \arguments{
-\item{DT}{data.table of NDVI time series. Also optionally starting estimates. See Details.}
+\item{DT}{filtered and scaled data.table of NDVI time series. Expects columns 'scaled' and 't' are present.}
 
 \item{id}{id column. default is 'id'. See details.}
 

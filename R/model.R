@@ -4,7 +4,7 @@
 #'
 #' The id argument is used to split between sampling units. This may be a point id, polygon id, pixel id, etc. depending on your analysis. This should match the id provided to filtering functions.
 #'
-#' @DT filtered and scaled data.table of NDVI time series. Expects columns 'scaled' and 't' are present.
+#' @param DT filtered and scaled data.table of NDVI time series. Expects columns 'scaled' and 't' are present.
 #' @inheritParams model_params
 #'
 #' @family model
