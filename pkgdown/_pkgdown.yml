@@ -60,7 +60,6 @@ navbar:
       menu:
       - text: Getting started with irg
         href: articles/getting-started-with-irg.html
-
     news:
       text: "News"
       href: news/index.html
