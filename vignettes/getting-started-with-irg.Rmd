@@ -25,7 +25,7 @@ The `irg` package opts for a tabular calculation of the instantaneous rate of gr
 Install the latest version with [`remotes`](https://github.com/r-lib/remotes). 
 
 ```{r remotes}
-remotes::instal_gitlab('robit.a/irg')
+remotes::install_gitlab('robit.a/irg')
 ```
 
 ### Packages
@@ -219,7 +219,6 @@ Two scaling functions are use to scale the day of year column and filtered NDVI 
 # Scale variables
 scale_doy(ndvi, doy = 'DayOfYear')
 scale_ndvi(ndvi)
-
 ```
 
 
@@ -268,7 +267,7 @@ model_params(
 )
 
 # Fit double log to NDVI
- model_ndvi(mods, observed = TRUE)
+ model_ndvi(ndvi, observed = TRUE)
 ```
 
 
