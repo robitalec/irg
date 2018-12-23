@@ -1,5 +1,9 @@
 # v 0.1.0
-Initial release
+
+Initial release and:
+
+* added DOI to description
+* removed man for internal functions
 
 # Test environments
 * Linux: R 3.5
