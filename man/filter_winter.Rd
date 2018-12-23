@@ -14,7 +14,7 @@ filter_winter(DT, probs = 0.025, limits = c(60L, 300L),
 
 \item{limits}{integer vector indicating limit days of absolute winter (snow cover, etc.). default = 60 days after Jan 1 and 65 days before Jan 1.}
 
-\item{doy}{julian day column. default is 'DayOfYear'.}
+\item{doy}{julian day column. default is 'DayOfYear'. integer type.}
 
 \item{id}{id column. default is 'id'. See details.}
 }
