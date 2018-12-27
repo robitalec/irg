@@ -37,8 +37,14 @@ filter_qa <-
 	check_col(DT, 'NDVI')
 	check_col(DT, qa, 'qa')
 
+	if (typeof(DT[['NDVI']]) != 'integer') {
+		warning('casting NDVI column as integer')
+		DT[, 'NDVI' := as.integer(NDVI)]
+	}
+
+
 	DT[get(qa) %in% good, good := TRUE][is.na(good), good := FALSE]
-	DT[(good), filtered := as.integer(NDVI)]
+	DT[(good), filtered := NDVI]
 	DT[!(good), filtered := NA]
 	set(DT, j = 'good', value = NULL)
 }
@@ -94,7 +100,7 @@ filter_winter <-
 		overwrite_col(DT, 'winter')
 
 		if (typeof(DT[[doy]]) != 'integer') {
-			DT[, (doy) := as.integer(.SD), .SDcols = doy]
+			DT[, (doy) := as.integer(.SD[[1]]), .SDcols = doy]
 		}
 
 		if (typeof(limits) != 'integer') {

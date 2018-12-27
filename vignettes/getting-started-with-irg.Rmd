@@ -33,7 +33,7 @@ remotes::install_gitlab('robit.a/irg')
 ### Packages
 `irg` depends on two packages (and `stats`):
 
-* [`data.table`](https://github.com/Rdatatable/data.table) for all tabular processing (hint: everything!)
+* [`data.table`](https://github.com/Rdatatable/data.table) for all tabular processing 
 * [`RcppRoll`](https://github.com/kevinushey/RcppRoll) for fast rolling medians in `filter_roll`. 
 
 No external dependencies. 
