@@ -90,6 +90,13 @@ Please note that the `irg` package is released with a [Contributor Code
 of Conduct](CODE_OF_CONDUCT.md). By contributing to this package, you
 agree to abide by its terms.
 
+## Thanks
+
+To [Mike Laforge](https://mammalspatialecology.weebly.com/)
+([@MamlSpatialEco](https://twitter.com/MamlSpatialEco)) and [Eric Vander
+Wal](https://weel.gitlab.io) for thoughtful discussion that stimulated
+development of this package.
+
 ## References
 
 [\[1\]](https://www.journals.uchicago.edu/doi/abs/10.1086/667590)
