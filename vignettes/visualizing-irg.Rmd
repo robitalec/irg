@@ -1,0 +1,38 @@
+---
+title: 'Visualizing irg results'
+author: 'Alec L. Robitaille'
+date: '`r Sys.Date()`'
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+vignette: >
+  %\VignetteIndexEntry{Getting started with irg}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r knitrsetup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = '#>',
+  eval = FALSE
+)
+options(scipen = 9999)
+```
+
+
+# Visualizing
+
+`irg` uses `data.table` instead of `raster` methods for speed
+
+## Single id 
+
+`ggplot2` like README
+facet year
+
+## Landscape 
+
+merge irg to x, y
+if regular grid (ideal) easy cast to raster 
+
+`mapview`?
