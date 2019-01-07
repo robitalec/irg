@@ -1,3 +1,6 @@
+# v 0.1.1
+* minor edits to 'Getting Started' vignette
+
 # v 0.1.0
 ## Initial release
 
