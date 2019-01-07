@@ -232,7 +232,7 @@ $$fitted = \frac{1}{1 + e^ \frac{xmidS - t}{scalS}} - \frac{1}{1 + e^ \frac{xmid
 
 Two options from this point are available: fitting NDVI and calculating IRG for observed data only, or for the full year. 
 
-To calculate for the every day of every year, specify `returns = 'models'` in `model_params`, `observed = FALSE` in `model_ndvi` and assign the output of `model_ndvi`. 
+To calculate for every day of every year, specify `returns = 'models'` in `model_params`, `observed = FALSE` in `model_ndvi` and assign the output of `model_ndvi`. 
 
 ```{r}
 # Guess starting parameters
