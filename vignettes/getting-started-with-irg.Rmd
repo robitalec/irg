@@ -287,23 +287,3 @@ calc_irg(fit)
 # or for observed data
 calc_irg(ndvi)
 ```
-
-
-<!-- Visualizing
-We don't use raster methods on purpose to take advantage of `data.table` speed. If you want to visualize your results, make single graphs (see vignette-graphing TODO and maybe a raster graphing vignette TODO). 
-
--->
-<!-- 
-Use 
-
-`alloc.col(ndvi)`
-
-to ensure you have columns allocated 
-
-
-data.table by reference changes to DT
-except where DT is grown e.g.
-model_ndvi, calc_irg, irg
-
-then merge back the observed days
--->
