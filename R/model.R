@@ -184,8 +184,7 @@ model_params <- function(DT,
 					 c(id, year, unlist(whichchar)),
 					 c('id', 'yr', names(whichchar)))
 
-	if (any(comb[, .(checkdup = .N > 1),
-							 by = c(id, year)]$checkdup)) {
+	if (any(comb[, .N > 1, by = c(id, year)])) {
 		stop('non unique values for id (and year),
 				  check duplicate starting parameters')
 	}
