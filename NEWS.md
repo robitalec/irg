@@ -1,7 +1,7 @@
 # v 0.1.1
 * minor edits to 'Getting Started' vignette
 
-# v 0.1.0
+# v 0.1.0 (2019-01-04)
 ## Initial release
 
 One vignette ('Getting started with irg') and: 
