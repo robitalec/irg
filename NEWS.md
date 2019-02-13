@@ -1,4 +1,5 @@
-# v 0.1.1
+# v 0.1.1 
+* fixed data.table recycling change ([#23](https://gitlab.com/robit.a/irg/issues/23))
 * minor edits to 'Getting Started' vignette
 
 # v 0.1.0 (2019-01-04)
