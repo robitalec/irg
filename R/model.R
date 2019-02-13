@@ -313,7 +313,7 @@ model_ndvi <- function(DT, observed = TRUE) {
 			 	(1 / (1 + exp((xmidA - t) / scalA)))]
 		return(DT)
 	} else if (!observed) {
-		fitDT <- DT[rep(1:.N, each = 366)][, t := julseq$t]
+		fitDT <- DT[rep(1:.N, each = 366)][, t := rep(julseq$t, length.out = .N)]
 
 		fitDT[, fitted :=
 						(1 / (1 + exp((xmidS - t) / scalS))) -
