@@ -41,17 +41,18 @@ var samplePts = function(img) {
             .copyProperties(points);
 };
 
-var reduced = ndvi.map(samplePts).flatten();
+var reduced = ndvi.map(samplePts)
+									.flatten()
+									.filter(ee.Filter.neq('NDVI', null));
 
 // ## Export
 var outputString  = '48hr-2007-2013-NDVI-caribou';
 Export.table.toDrive(reduced, outputString, 'IRG');
-
 ```
 
 # Quantiles in EE
 
-*note: currently this uses 0.3 and 0.93 instead of 0.25 and 0.925*
+*note: currently this uses 0.3 and 0.93 instead of 0.25 and 0.925* 
 
 ```{js}
 // ## Just quantiles for IRG 
