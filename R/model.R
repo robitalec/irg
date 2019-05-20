@@ -48,9 +48,9 @@ model_start <- function(DT, id = 'id', year = 'yr') {
 		 by = c(id, year)]
 
 	data.table::setkey(DT, 'scaled')
-	DT[difS > 0, xmidS_start := .SD[list(0.5), t, roll = 'nearest'],
+	DT[difS > 0, xmidS_start := .SD[list(0.5), t, roll = 'nearest'][[1]],
 		 by = c(id, year), .SDcols = c('scaled', 't')]
-	DT[difS < 0, xmidA_start := .SD[list(0.5), t, roll = 'nearest'],
+	DT[difS < 0, xmidA_start := .SD[list(0.5), t, roll = 'nearest'][[1]],
 		 by = c(id, year), .SDcols = c('scaled', 't')]
 
 	DT[, xmidS_start := .SD[!is.na(xmidS_start), xmidS_start[1]],
