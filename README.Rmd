@@ -55,11 +55,11 @@ ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
 # Calculate IRG using example data: a raw NDVI time series
 IRG <- irg(ndvi)
 
-# Plot one year for one individual (please excuse the manual color scale)
-ggplot(IRG[yr == 2007 & id == 12377]) +
+# Plot IRG and NDVI for 1 year at 1 point (please excuse the manual color scale)
+ggplot(IRG[yr == 2007 & id == sample(id, 1)]) +
 	geom_line(aes(t, irg, color = '#14c62f'), show.legend = TRUE) +
 	geom_line(aes(t, fitted, color = '#47694d'), show.legend = TRUE) +
-	scale_color_identity("", labels = c('NDVI', 'IRG'), guide = 'legend') + 
+	scale_color_identity("", labels = c('IRG', 'NDVI'), guide = 'legend') +
 	labs(y = '')
 ```
 
