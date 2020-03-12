@@ -3,7 +3,7 @@
 state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
-[![develVersion](https://img.shields.io/badge/devel%20version-0.1.1-blue.svg?style=flat)](https://github.com/robitalec/irg)
+[![](https://img.shields.io/badge/devel%20version-0.1.1-blue.svg)](https://github.com/robitalec/irg)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/irg)](https://cran.r-project.org/package=irg)
 [![pipeline
@@ -67,15 +67,18 @@ ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
 # Calculate IRG using example data: a raw NDVI time series
 IRG <- irg(ndvi)
 
-# Plot one year for one individual (please excuse the manual color scale)
-ggplot(IRG[yr == 2007 & id == 12377]) +
-    geom_line(aes(t, irg, color = '#14c62f'), show.legend = TRUE) +
-    geom_line(aes(t, fitted, color = '#47694d'), show.legend = TRUE) +
-    scale_color_identity("", labels = c('NDVI', 'IRG'), guide = 'legend') + 
-    labs(y = '')
+# Plot IRG and NDVI for 1 year at 1 point (please excuse the manual color scale)
+cols <- c('IRG' = '#14c62f', 'NDVI' = '#47694d')
+ggplot(IRG[yr == 2007 & id == sample(id, 1)], aes(x = t)) +
+    geom_line(aes(y = irg, color = 'IRG')) +
+    geom_line(aes(y = fitted, color = 'NDVI')) +
+    scale_color_manual(values = cols) +
+    labs(y = '', color = '')
 ```
 
-<img src="man/figures/README-ggIRG-1.png" style="max-width:100%;min-width:40px;margin:0px auto;"/>
+<img src="man/figures/README-ggIRG-1.png" width="100%" />
+
+<!-- <img src="man/figures/README-ggIRG-1.png" style="max-width:100%;min-width:40px;margin:0px auto;"/> -->
 
 ## Functions
 
