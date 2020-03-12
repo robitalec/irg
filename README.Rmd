@@ -56,14 +56,15 @@ ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
 IRG <- irg(ndvi)
 
 # Plot IRG and NDVI for 1 year at 1 point (please excuse the manual color scale)
-ggplot(IRG[yr == 2007 & id == sample(id, 1)]) +
-	geom_line(aes(t, irg, color = '#14c62f'), show.legend = TRUE) +
-	geom_line(aes(t, fitted, color = '#47694d'), show.legend = TRUE) +
-	scale_color_identity("", labels = c('IRG', 'NDVI'), guide = 'legend') +
-	labs(y = '')
+cols <- c('IRG' = '#14c62f', 'NDVI' = '#47694d')
+ggplot(IRG[yr == 2007 & id == sample(id, 1)], aes(x = t)) +
+	geom_line(aes(y = irg, color = 'IRG')) +
+	geom_line(aes(y = fitted, color = 'NDVI')) +
+	scale_color_manual(values = cols) +
+	labs(y = '', color = '')
 ```
 
-<img src="man/figures/README-ggIRG-1.png" style="max-width:100%;min-width:40px;margin:0px auto;"/>
+<!-- <img src="man/figures/README-ggIRG-1.png" style="max-width:100%;min-width:40px;margin:0px auto;"/> -->
 
 
 ## Functions
