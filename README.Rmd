@@ -17,8 +17,7 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.path = "man/figures/README-",
-  out.width = "100%",
-  eval = FALSE
+  out.width = "100%"
 )
 ```
 # irg
@@ -34,7 +33,7 @@ More details in the first vignette: [Getting started with IRG](http://irg.robita
 
 Install with [`remotes`](https://github.com/r-lib/remotes). 
 
-```{r}
+```{r, eval = FALSE}
 remotes::install_gitlab('robit.a/irg')
 ```
 
@@ -44,7 +43,7 @@ IRG is calculated by filtering an NDVI time series, scaling variables, modeling 
 
 Here, we use the meta function `irg`. Alternatively, use the filtering, scaling, modeling and IRG functions separately (see [Getting started with IRG](http://irg.robitalec.ca/articles/getting-started-with-irg.html)). 
 
-```{r ggIRG, eval = FALSE}
+```{r ggIRG, message = FALSE, warning = FALSE}
 library(data.table)
 library(ggplot2)
 library(irg)
