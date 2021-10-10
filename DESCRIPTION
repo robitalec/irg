@@ -27,5 +27,5 @@ Imports:
     RcppRoll,
     stats
 VignetteBuilder: knitr
-URL: http://irg.robitalec.ca/
+URL: http://irg.robitalec.ca/, https://gitlab.com/robit.a/irg
 BugReports: https://gitlab.com/robit.a/irg/issues
