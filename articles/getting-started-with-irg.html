@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Getting started with irg • irg</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/yeti/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
@@ -40,7 +40,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
+    <span class="fa fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -49,7 +49,7 @@
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
+    Vignettes
      
     <span class="caret"></span>
   </a>
@@ -60,12 +60,12 @@
   </ul>
 </li>
 <li>
-  <a href="../news/index.html">Changelog</a>
+  <a href="../news/index.html">News</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://gitlab.com/robit.a/irg/">
+  <a href="https://github.com/robitalec/irg/">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -89,7 +89,7 @@
             
             <h4 class="date">2021-11-23</h4>
       
-      <small class="dont-index">Source: <a href="https://gitlab.com/robit.a/irg/blob/master/vignettes/getting-started-with-irg.Rmd"><code>vignettes/getting-started-with-irg.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/robitalec/irg/blob/master/vignettes/getting-started-with-irg.Rmd"><code>vignettes/getting-started-with-irg.Rmd</code></a></small>
       <div class="hidden name"><code>getting-started-with-irg.Rmd</code></div>
 
     </div>
@@ -136,7 +136,7 @@
 </ul>
 <p>Let’s take a look at the example data.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://irg.robitalec.ca/">irg</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/robitalec/irg">irg</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com">data.table</a></span><span class="op">)</span>
 
 <span class="va">ndvi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/fread.html">fread</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">'extdata'</span>, <span class="st">'ndvi.csv'</span>, package <span class="op">=</span> <span class="st">'irg'</span><span class="op">)</span><span class="op">)</span>
@@ -223,8 +223,8 @@
 <div id="workflow" class="section level2">
 <h2 class="hasAnchor">
 <a href="#workflow" class="anchor"></a>Workflow</h2>
-<div id="htmlwidget-1b351ef17e74730fd735" style="width:700px;height:600px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-1b351ef17e74730fd735">{"x":{"diagram":"\n\tdigraph irg_functions  {\n\tgraph [rankdir=LR, compound=TRUE, fontsize = 28]\n\n\tnode[shape=none, fontsize=28]\n\n\tsubgraph cluster_filt{\n\tlabel= \"1)\"; labeljust=\"l\";\n\tFiltering -> filter_ndvi [dir=none]\n\tfilter_ndvi -> filter_qa [dir=none]\n\tfilter_ndvi -> filter_winter [dir=none]\n  filter_ndvi -> filter_roll [dir=none]\n  filter_ndvi -> filter_top [dir=none]\n\n\tfilter_top -> filter_roll -> filter_winter -> filter_qa [dir=back]\n\t{rank=same; filter_qa; filter_winter; filter_roll; filter_top}\n\t}\n\n\tsubgraph cluster_scal{\n  label= \"2)\" labeljust=\"l\";\n\n\tScaling -> scale_doy [dir=none]\n\tScaling -> scale_ndvi [dir=none]\n\t}\n\n\tsubgraph cluster_mod{\n  label= \"3)\" labeljust=\"l\";\n\n\tModeling -> model_start [dir=none]\n\tModeling -> model_params [dir=none]\n\tModeling -> model_ndvi [dir=none]\n\n\tmodel_ndvi -> model_params -> model_start [dir=back]\n\t{rank=same; model_ndvi; model_params; model_start}\n\t}\n\n\tsubgraph cluster_irg{\n  label= \"4)\" labeljust=\"l\";\n\n\tIRG -> calc_irg [dir=none]\n\t}\n\n  Filtering -> Scaling -> Modeling -> IRG\n\t\n\t# irg -> Filtering\n\t# irg -> Scaling\n\t# irg -> Modeling\n\t# irg -> IRG\n\n\t}\n\t","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><p>There are 5 filtering functions, 2 scaling functions, 3 modeling functions and 2 IRG functions.</p>
+<div id="htmlwidget-8e55f47d0d83bfbb6ac2" style="width:700px;height:600px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-8e55f47d0d83bfbb6ac2">{"x":{"diagram":"\n\tdigraph irg_functions  {\n\tgraph [rankdir=LR, compound=TRUE, fontsize = 28]\n\n\tnode[shape=none, fontsize=28]\n\n\tsubgraph cluster_filt{\n\tlabel= \"1)\"; labeljust=\"l\";\n\tFiltering -> filter_ndvi [dir=none]\n\tfilter_ndvi -> filter_qa [dir=none]\n\tfilter_ndvi -> filter_winter [dir=none]\n  filter_ndvi -> filter_roll [dir=none]\n  filter_ndvi -> filter_top [dir=none]\n\n\tfilter_top -> filter_roll -> filter_winter -> filter_qa [dir=back]\n\t{rank=same; filter_qa; filter_winter; filter_roll; filter_top}\n\t}\n\n\tsubgraph cluster_scal{\n  label= \"2)\" labeljust=\"l\";\n\n\tScaling -> scale_doy [dir=none]\n\tScaling -> scale_ndvi [dir=none]\n\t}\n\n\tsubgraph cluster_mod{\n  label= \"3)\" labeljust=\"l\";\n\n\tModeling -> model_start [dir=none]\n\tModeling -> model_params [dir=none]\n\tModeling -> model_ndvi [dir=none]\n\n\tmodel_ndvi -> model_params -> model_start [dir=back]\n\t{rank=same; model_ndvi; model_params; model_start}\n\t}\n\n\tsubgraph cluster_irg{\n  label= \"4)\" labeljust=\"l\";\n\n\tIRG -> calc_irg [dir=none]\n\t}\n\n  Filtering -> Scaling -> Modeling -> IRG\n\t\n\t# irg -> Filtering\n\t# irg -> Scaling\n\t# irg -> Modeling\n\t# irg -> IRG\n\n\t}\n\t","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><p>There are 5 filtering functions, 2 scaling functions, 3 modeling functions and 2 IRG functions.</p>
 <p>The <code><a href="../reference/irg.html">irg::irg</a></code> function is a wrapper for all steps - filtering, scaling, modeling and calculating IRG in one step. At this point, only defaults. Here’s 5 rows from the result.</p>
 <p>For options, head to the steps below.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
@@ -354,7 +354,7 @@
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Load data.table</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com">data.table</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://irg.robitalec.ca/">irg</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/robitalec/irg">irg</a></span><span class="op">)</span>
 
 <span class="co"># Read in example data</span>
 <span class="va">ndvi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/fread.html">fread</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">'extdata'</span>, <span class="st">'ndvi.csv'</span>, package <span class="op">=</span> <span class="st">'irg'</span><span class="op">)</span><span class="op">)</span>
