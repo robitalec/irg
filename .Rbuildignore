@@ -9,3 +9,4 @@
 ^\.gitlab-ci\.yml$
 ^cran-comments.md$
 ^pkgdown/*$
+^\.github$
