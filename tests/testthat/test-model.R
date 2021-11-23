@@ -7,6 +7,8 @@ scale_doy(ndvi)
 scale_ndvi(ndvi)
 
 
+
+# model_start -------------------------------------------------------------
 test_that("model_start works", {
 	## column checks
 	copyNDVI <- copy(ndvi)[, scaled := NULL]
@@ -40,6 +42,8 @@ test_that("model_start works", {
 
 })
 
+
+# model_params ------------------------------------------------------------
 test_that("model_params works", {
 
 	expect_error(
@@ -112,6 +116,8 @@ model_params(
 )
 
 
+
+# model_ndvi --------------------------------------------------------------
 test_that("model_ndvi works", {
 	copyNDVI <- copy(ndvi)[, xmidS := NULL]
 	expect_error(

@@ -16,6 +16,8 @@ model_params(
 
 model_ndvi(ndvi, observed = TRUE)
 
+
+# calc_irg ----------------------------------------------------------------
 test_that("calc_irg works", {
 	copyNDVI <- copy(ndvi)[, xmidS := NULL]
 	expect_error(

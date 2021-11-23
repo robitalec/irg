@@ -4,7 +4,8 @@ ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
 
 
 
-### scale_ndvi ###########################################
+
+# scale_ndvi --------------------------------------------------------------
 test_that("scale_ndvi works", {
 
 	# Columns mising are detected
@@ -26,7 +27,8 @@ test_that("scale_ndvi works", {
 	expect_gte(min(ndvi$scaled, na.rm = TRUE), 0)
 })
 
-### scale_doy ###########################################
+
+# scale_doy ---------------------------------------------------------------
 test_that("scale_doy works", {
 
 	# Columns mising are detected

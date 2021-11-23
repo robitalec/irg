@@ -5,7 +5,8 @@ ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
 #TODO: add test alloc.col?
 
 
-### filter_qa ###########################################
+
+# filter_qa ---------------------------------------------------------------
 test_that("filter qa works", {
 
 	# Columns mising are detected
@@ -25,7 +26,8 @@ test_that("filter qa works", {
 
 ndviqa <- filter_qa(copy(ndvi))
 
-### filter_winter ######################################
+
+# filter_winter -----------------------------------------------------------
 test_that("filter winter works", {
 
 	# Columns mising are detected
@@ -56,7 +58,7 @@ test_that("filter winter works", {
 ndviwnt <- filter_winter(copy(ndviqa))
 
 
-### filter_roll ########################################
+# filter_roll -------------------------------------------------------------
 test_that("filter roll works", {
 	# Columns mising are detected
 	expect_error(filter_roll(ndvi),
@@ -77,7 +79,8 @@ test_that("filter roll works", {
 
 ndviroll <- filter_roll(ndviwnt)
 
-### filter_top ########################################
+
+# filter_top --------------------------------------------------------------
 test_that("filter top works", {
 	# Columns mising are detected
 	expect_error(filter_top(ndvi),
@@ -99,7 +102,8 @@ test_that("filter top works", {
 
 })
 
-### filter_ndvi #######################################
+
+# filter_ndvi -------------------------------------------------------------
 test_that("filter ndvi meta works", {
 	# Overwrite top column
 	expect_warning(filter_ndvi(copy(ndvi)[, filtered := 1]),
