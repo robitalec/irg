@@ -4,11 +4,8 @@ always_allow_html: yes
 ---
 
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
- [![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
-  `r badger::badge_devel("robitalec/irg", "blue")`
-  [![CRAN status](https://www.r-pkg.org/badges/version/irg)](https://cran.r-project.org/package=irg)
- [![pipeline status](https://gitlab.com/robit.a/irg/badges/master/pipeline.svg)](https://gitlab.com/robit.a/irg/commits/master)
- [![codecov](https://codecov.io/gl/robit.a/irg/branch/master/graph/badge.svg)](https://codecov.io/gl/robit.a/irg)
+[![lifecycle](https://img.shields.io/badge/lifecycle-experimental-blue.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![CRAN status](https://www.r-pkg.org/badges/version/irg)](https://cran.r-project.org/package=irg)
  
 
 
@@ -20,28 +17,44 @@ knitr::opts_chunk$set(
   out.width = "100%"
 )
 ```
+
 # irg
 `irg` is an R package for calculating the instantaneous rate of green-up (IRG). It can be used to fit a double logistic curve to a time series of normalized difference vegetation index (NDVI) and calculate IRG, as described in Bischoff et al. (2012) [[1]](#references). Remote sensing imagery from MODIS is collected frequently with high temporal resolution (albeit with lower spatial resolution than LANDSAT). IRG helps identify the timing of green-up and can be used to determine if migratory animals are "surfing" a green-wave of high quality forage or if non-migratory animals are selecting available resources at the peak IRG in their environments. 
 
 ## Approach
 The `irg` package opts for a tabular calculation of IRG as opposed to a raster based approach. Sampling MODIS imagery is left up to the user and a prerequisite for all functions. The main input (`DT`) for all functions is a [`data.table`](https://github.com/Rdatatable/data.table) of an NDVI time series. The sampling unit (`id`) is flexible (a decision for the user) though we would anticipate points or polygons, or maybe a pixel. All functions leverage the speed of `data.table` to efficiently filter, scale, and model NDVI time series and calculate IRG. 
 
-More details in the first vignette: [Getting started with IRG](http://irg.robitalec.ca/articles/getting-started-with-irg.html). 
+More details in the first vignette: [Getting started with IRG](https://github.com/robitalec/irg/articles/getting-started-with-irg.html). 
 
 
 ## Installation
 
-Install with [`remotes`](https://github.com/r-lib/remotes). 
+Install with CRAN
 
 ```{r, eval = FALSE}
-remotes::install_gitlab('robit.a/irg')
+# Install 
+install.packages('preparelocs')
 ```
+
+or R-universe
+
+```{r, eval = FALSE}
+# Enable the robitalec universe
+options(repos = c(
+    robitalec = 'https://robitalec.r-universe.dev',
+    CRAN = 'https://cloud.r-project.org'))
+
+# Install 
+install.packages('preparelocs')
+```
+
+
 
 ## Usage
 
 IRG is calculated by filtering an NDVI time series, scaling variables, modeling the time series with a double logistic curve and taking the first derivative of this curve. 
 
-Here, we use the meta function `irg`. Alternatively, use the filtering, scaling, modeling and IRG functions separately (see [Getting started with IRG](http://irg.robitalec.ca/articles/getting-started-with-irg.html)). 
+Here, we use the meta function `irg`. Alternatively, use the filtering, scaling, modeling and IRG functions separately (see [Getting started with IRG](https://robitalec.github.io/irg/articles/getting-started-with-irg.html)). 
 
 ```{r ggIRG, message = FALSE, warning = FALSE}
 library(data.table)

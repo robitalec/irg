@@ -2,13 +2,9 @@
 [![Project Status: Active – The project has reached a stable, usable
 state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
-[![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
-[![](https://img.shields.io/badge/devel%20version-0.1.1-blue.svg)](https://github.com/robitalec/irg)
+[![lifecycle](https://img.shields.io/badge/lifecycle-experimental-blue.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/irg)](https://cran.r-project.org/package=irg)
-[![pipeline
-status](https://gitlab.com/robit.a/irg/badges/master/pipeline.svg)](https://gitlab.com/robit.a/irg/commits/master)
-[![codecov](https://codecov.io/gl/robit.a/irg/branch/master/graph/badge.svg)](https://codecov.io/gl/robit.a/irg)
 
 # irg
 
@@ -35,14 +31,27 @@ pixel. All functions leverage the speed of `data.table` to efficiently
 filter, scale, and model NDVI time series and calculate IRG.
 
 More details in the first vignette: [Getting started with
-IRG](http://irg.robitalec.ca/articles/getting-started-with-irg.html).
+IRG](https://github.com/robitalec/irg/articles/getting-started-with-irg.html).
 
 ## Installation
 
-Install with [`remotes`](https://github.com/r-lib/remotes).
+Install with CRAN
 
 ``` r
-remotes::install_gitlab('robit.a/irg')
+# Install 
+install.packages('preparelocs')
+```
+
+or R-universe
+
+``` r
+# Enable the robitalec universe
+options(repos = c(
+    robitalec = 'https://robitalec.r-universe.dev',
+    CRAN = 'https://cloud.r-project.org'))
+
+# Install 
+install.packages('preparelocs')
 ```
 
 ## Usage
@@ -54,7 +63,7 @@ first derivative of this curve.
 Here, we use the meta function `irg`. Alternatively, use the filtering,
 scaling, modeling and IRG functions separately (see [Getting started
 with
-IRG](http://irg.robitalec.ca/articles/getting-started-with-irg.html)).
+IRG](https://robitalec.github.io/irg/articles/getting-started-with-irg.html)).
 
 ``` r
 library(data.table)
@@ -86,7 +95,7 @@ ggplot(IRG[yr == 2007 & id == sample(id, 1)], aes(x = t)) +
 
 ## Contributing
 
-Contributions welcome\! See details in
+Contributions welcome! See details in
 [CONTRIBUTING.md](CONTRIBUTING.md).
 
 Please note that the `irg` package is released with a [Contributor Code
