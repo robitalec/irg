@@ -1,0 +1,57 @@
+# -----------------------------------------------------------
+# CITATION file created with {cffr} R package, v0.1.1
+# See also: https://docs.ropensci.org/cffr/
+# -----------------------------------------------------------
+ 
+cff-version: 1.2.0
+message: 'To cite package "irg" in publications use:'
+type: software
+license: GPL-3.0-only
+title: 'irg: Instantaneous Rate of Green Up'
+version: 0.1.1
+abstract: Fits a double logistic function to NDVI time series and calculates instantaneous
+  rate of green (IRG) according to methods described in Bischoff et al. (2012) <doi:10.1086/667590>.
+authors:
+- family-names: Robitaille
+  given-names: Alec L.
+  email: robit.alec@gmail.com
+  orcid: https://orcid.org/0000-0002-4706-1762
+preferred-citation:
+  type: manual
+  title: 'irg: Instantaneous Rate of Green Up'
+  authors:
+  - family-names: Robitaille
+    given-names: Alec L.
+    email: robit.alec@gmail.com
+    orcid: https://orcid.org/0000-0002-4706-1762
+  version: 0.1.1
+  abstract: Fits a double logistic function to NDVI time series and calculates instantaneous
+    rate of green (IRG) according to methods described in Bischoff et al. (2012) <doi:10.1086/667590>.
+  repository: https://CRAN.R-project.org/package=irg
+  repository-code: https://github.com/robitalec/irg
+  url: https://robitalec.github.io/irg/
+  contact:
+  - family-names: Robitaille
+    given-names: Alec L.
+    email: robit.alec@gmail.com
+    orcid: https://orcid.org/0000-0002-4706-1762
+  keywords:
+  - irg
+  - modis
+  - ndvi
+  - r
+  license: GPL-3.0-only
+  year: '2021'
+repository: https://CRAN.R-project.org/package=irg
+repository-code: https://github.com/robitalec/irg
+url: https://robitalec.github.io/irg/
+contact:
+- family-names: Robitaille
+  given-names: Alec L.
+  email: robit.alec@gmail.com
+  orcid: https://orcid.org/0000-0002-4706-1762
+keywords:
+- irg
+- modis
+- ndvi
+- r
