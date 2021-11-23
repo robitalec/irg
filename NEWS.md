@@ -1,3 +1,9 @@
+# v 0.1.2
+
+* switched to a pkgdown site with gh actions
+* switched to R CMD check with gh actions
+* updated links throughout, made a redirect page for old site
+
 # v 0.1.1 (2019-02-13) 
 * fixed data.table recycling change ([#23](https://gitlab.com/robit.a/irg/issues/23))
 * minor edits to 'Getting Started' vignette
