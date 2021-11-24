@@ -28,6 +28,7 @@ ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
 scale_doy(ndvi)
 }
 \seealso{
-Other scale: \code{\link{scale_ndvi}}
+Other scale: 
+\code{\link{scale_ndvi}()}
 }
 \concept{scale}

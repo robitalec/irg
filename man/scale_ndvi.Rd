@@ -30,6 +30,7 @@ filter_ndvi(ndvi)
 scale_ndvi(ndvi)
 }
 \seealso{
-Other scale: \code{\link{scale_doy}}
+Other scale: 
+\code{\link{scale_doy}()}
 }
 \concept{scale}

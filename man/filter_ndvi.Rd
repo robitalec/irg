@@ -26,8 +26,10 @@ ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
 filter_ndvi(ndvi)
 }
 \seealso{
-Other filter: \code{\link{filter_qa}},
-  \code{\link{filter_roll}}, \code{\link{filter_top}},
-  \code{\link{filter_winter}}
+Other filter: 
+\code{\link{filter_qa}()},
+\code{\link{filter_roll}()},
+\code{\link{filter_top}()},
+\code{\link{filter_winter}()}
 }
 \concept{filter}
