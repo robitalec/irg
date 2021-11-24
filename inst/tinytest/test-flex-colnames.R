@@ -12,20 +12,20 @@ setnames(ndvi_new_names,
 				 c('identity', 'year', 'day_of_year', 'ndvi', 'qa'))
 
 # Filter QA
-expect_equal(filter_qa(ndvi_new_names, qa = 'qa'),
+expect_equal(filter_qa(ndvi_new_names, ndvi = 'ndvi', qa = 'qa'),
 						 nrow(ndvi_new_names))
 
 # Filter winter
-expect_equal(
-	{filter_qa(ndvi_new_names, qa = 'qa')
-		filter_winter(ndvi, probs = 0.025, limits = c(60L, 300L),
-									doy = 'day_of_year', id = 'identity')
+expect_equal({
+	filter_qa(ndvi_new_names, ndvi = 'ndvi', qa = 'qa')
+	filter_winter(ndvi, probs = 0.025, limits = c(60L, 300L),
+								doy = 'day_of_year', id = 'identity')
 	},
 	nrow(ndvi_new_names))
 
 # Filter roll
 expect_equal({
-	filter_qa(ndvi_new_names, qa = 'qa')
+	filter_qa(ndvi_new_names, ndvi = 'ndvi', qa = 'qa')
 	filter_winter(ndvi, probs = 0.025, limits = c(60L, 300L),
 								doy = 'day_of_year', id = 'identity')
 	},
@@ -33,7 +33,7 @@ expect_equal({
 
 # Filter top
 expect_equal({
-	filter_qa(ndvi, qa = 'qa', good = c(0, 1))
+	filter_qa(ndvi, ndvi = 'ndvi', qa = 'qa', good = c(0, 1))
 	filter_winter(ndvi, probs = 0.025, limits = c(60L, 300L),
 								doy = 'day_of_year', id = 'identity')
 	filter_roll(ndvi, window = 3L, id = 'identity')

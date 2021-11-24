@@ -5,6 +5,7 @@
 #' @param DT data.table of NDVI time series
 #' @param qa QA column. default is 'SummaryQA'.
 #' @param good values which correspond to quality pixels. default is 0 and 1.
+#' @param ndvi ndvi column name. default is 'NDVI'.
 #'
 #' @return filtered data.table with appended 'filtered' column of "quality" NDVI.
 #' @import data.table
@@ -20,9 +21,10 @@
 #' # Read example data
 #' ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
 #'
-#' filter_qa(ndvi, qa = 'SummaryQA', good = c(0, 1))
+#' filter_qa(ndvi, ndvi = 'NDVI', qa = 'SummaryQA', good = c(0, 1))
 filter_qa <-
 	function(DT,
+					 ndvi = 'NDVI',
 					 qa = 'SummaryQA',
 					 good = c(0, 1)) {
 	# NSE Errors
@@ -34,19 +36,18 @@ filter_qa <-
 		stop('qa must be length 1')
 	}
 
-	check_col(DT, 'NDVI')
+	check_col(DT, ndvi, 'NDVI')
 	check_col(DT, qa, 'qa')
 
-	if (typeof(DT[['NDVI']]) != 'integer') {
-		warning('casting NDVI column as integer')
-		DT[, 'NDVI' := as.integer(NDVI)]
+	if (typeof(DT[[ndvi]]) != 'integer') {
+		warning('casting ', ndvi, ' column as integer')
+		DT[, (ndvi) := as.integer(.SD[[1]]), .SDcols = c(ndvi)]
 	}
 
-
-	DT[get(qa) %in% good, good := TRUE][is.na(good), good := FALSE]
-	DT[(good), filtered := NDVI]
-	DT[!(good), filtered := NA]
-	set(DT, j = 'good', value = NULL)
+	DT[, good_bool := .SD[[1]] %in% good, .SDcols = c(qa)]
+	DT[(good_bool), filtered := .SD[[1]], .SDcols = c(ndvi)]
+	DT[!(good_bool), filtered := NA]
+	set(DT, j = 'good_bool', value = NULL)
 }
 
 
