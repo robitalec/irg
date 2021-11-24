@@ -51,3 +51,20 @@ expect_equal(nrow({
 ndvi_new_names <- copy(ndvi_new_names_raw)
 expect_equal(nrow(scale_doy(ndvi_new_names, doy = 'day_of_year')),
 						 nrow(ndvi_new_names))
+
+
+# Model
+ndvi_new_names <- copy(ndvi_new_names_raw)
+expect_equal(nrow({
+	filter_qa(ndvi_new_names, ndvi = 'ndvi', qa = 'qa', good = c(0, 1))
+	filter_winter(ndvi_new_names, probs = 0.025, limits = c(60L, 300L),
+								doy = 'day_of_year', id = 'identity')
+	filter_roll(ndvi_new_names, window = 3L, id = 'identity')
+	filter_top(ndvi_new_names, probs = 0.925, id = 'identity')
+	scale_doy(ndvi, doy = 'day_of_year')
+	scale_ndvi(ndvi)
+	model_start(ndvi, id = 'identity', year = 'year')
+	}),
+	nrow(ndvi_new_names)
+)
+
