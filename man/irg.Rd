@@ -37,6 +37,7 @@ ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
 out <- irg(ndvi)
 }
 \seealso{
-Other irg: \code{\link{calc_irg}}
+Other irg: 
+\code{\link{calc_irg}()}
 }
 \concept{irg}

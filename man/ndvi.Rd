@@ -3,7 +3,8 @@
 \name{ndvi}
 \alias{ndvi}
 \title{Raw NDVI Time Series}
-\format{A data.table with 2530 rows and 5 variables:
+\format{
+A data.table with 2530 rows and 5 variables:
 \itemize{
 \item id - individual identifier
 \item yr - year of sample
@@ -19,7 +20,8 @@ SummaryQA details:
 \item 1 - Marginal data, useful but look at detailed QA for more information
 \item 2 - Pixel covered with snow/ice
 \item 3 - Pixel is cloudy
-}}
+}
+}
 \description{
 A data.table containing NDVI samples for ten points over ten years (2002-2012).
 }

@@ -38,7 +38,8 @@ scale_ndvi(ndvi)
 model_start(ndvi)
 }
 \seealso{
-Other model: \code{\link{model_ndvi}},
-  \code{\link{model_params}}
+Other model: 
+\code{\link{model_ndvi}()},
+\code{\link{model_params}()}
 }
 \concept{model}
