@@ -44,11 +44,10 @@ filter_qa <-
 		DT[, (ndvi) := as.integer(.SD[[1]]), .SDcols = c(ndvi)]
 	}
 
-
-	DT[get(qa) %in% good, good := TRUE][is.na(good), good := FALSE]
-	DT[(good), filtered := NDVI]
-	DT[!(good), filtered := NA]
-	set(DT, j = 'good', value = NULL)
+	DT[, good_bool := .SD[[1]] %in% good, .SDcols = c(qa)]
+	DT[(good_bool), filtered := .SD[[1]], .SDcols = c(ndvi)]
+	DT[!(good_bool), filtered := NA]
+	set(DT, j = 'good_bool', value = NULL)
 }
 
 
