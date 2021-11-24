@@ -23,6 +23,7 @@
 #' filter_qa(ndvi, qa = 'SummaryQA', good = c(0, 1))
 filter_qa <-
 	function(DT,
+					 ndvi = 'NDVI',
 					 qa = 'SummaryQA',
 					 good = c(0, 1)) {
 	# NSE Errors
@@ -34,7 +35,7 @@ filter_qa <-
 		stop('qa must be length 1')
 	}
 
-	check_col(DT, 'NDVI')
+	check_col(DT, ndvi, 'NDVI')
 	check_col(DT, qa, 'qa')
 
 	if (typeof(DT[['NDVI']]) != 'integer') {
