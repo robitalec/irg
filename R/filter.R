@@ -39,9 +39,9 @@ filter_qa <-
 	check_col(DT, ndvi, 'NDVI')
 	check_col(DT, qa, 'qa')
 
-	if (typeof(DT[['NDVI']]) != 'integer') {
-		warning('casting NDVI column as integer')
-		DT[, 'NDVI' := as.integer(NDVI)]
+	if (typeof(DT[[ndvi]]) != 'integer') {
+		warning('casting ', ndvi, ' column as integer')
+		DT[, (ndvi) := as.integer(.SD[[1]]), .SDcols = c(ndvi)]
 	}
 
 
