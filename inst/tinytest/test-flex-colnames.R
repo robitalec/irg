@@ -47,5 +47,7 @@ expect_equal(nrow({
 	nrow(ndvi_new_names)
 )
 
-# scale_doy(ndvi_new_names)
-# scale_ndvi(ndvi_new_names)
+# Scale
+ndvi_new_names <- copy(ndvi_new_names_raw)
+expect_equal(nrow(scale_doy(ndvi_new_names, doy = 'day_of_year')),
+						 nrow(ndvi_new_names))
