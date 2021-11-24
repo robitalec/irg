@@ -5,6 +5,7 @@
 #' @param DT data.table of NDVI time series
 #' @param qa QA column. default is 'SummaryQA'.
 #' @param good values which correspond to quality pixels. default is 0 and 1.
+#' @param ndvi ndvi column name. default is 'NDVI'.
 #'
 #' @return filtered data.table with appended 'filtered' column of "quality" NDVI.
 #' @import data.table
@@ -20,7 +21,7 @@
 #' # Read example data
 #' ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
 #'
-#' filter_qa(ndvi, qa = 'SummaryQA', good = c(0, 1))
+#' filter_qa(ndvi, ndvi = 'NDVI', qa = 'SummaryQA', good = c(0, 1))
 filter_qa <-
 	function(DT,
 					 ndvi = 'NDVI',
