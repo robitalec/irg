@@ -2,6 +2,7 @@
 
 * switched to a pkgdown site with gh actions
 * switched to R CMD check with gh actions
+* switch testing to `tinytest`
 * updated links throughout, made a redirect page for old site
 
 # v 0.1.1 (2019-02-13) 
