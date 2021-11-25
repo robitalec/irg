@@ -181,7 +181,7 @@ model_params <- function(DT,
 	comb[, (names(doesnt)) := (doesnt)]
 	whichchar <- params[unlist(lapply(params, is.character))]
 
-	setnames(comb, unlist(whichchar), names(whichchar))
+	if (length(whichchar) > 0) setnames(comb, unlist(whichchar), names(whichchar))
 
 	if (any(comb[, .(checkdup = .N > 1),
 							 by = c(id, year)]$checkdup)) {
