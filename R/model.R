@@ -199,15 +199,15 @@ model_params <- function(DT,
 						formula = scaled ~
 							(1 / (1 + exp((xmidS - t) / scalS))) -
 							(1 / (1 + exp((xmidA - t) / scalA))),
-						data = DT[id == i & yr == y],
+						data = DT[key, on = c(id, year)],
 						start = list(
-							xmidS = comb[id == i & yr == y, xmidS],
-							xmidA = comb[id == i & yr == y, xmidA],
-							scalS = comb[id == i & yr == y, scalS],
-							scalA = comb[id == i & yr == y, scalA]
+							xmidS = comb[key, on = c(id, year)][, xmidS],
+							xmidA = comb[key, on = c(id, year)][, xmidA],
+							scalS = comb[key, on = c(id, year)][, scalS],
+							scalA = comb[key, on = c(id, year)][, scalA]
 						)
 					)
-				)),
+				))},
 			error = function(e)
 				list(id = i, yr = y)
 		)
