@@ -180,9 +180,8 @@ model_params <- function(DT,
 	comb <- unique(DT[, .SD, .SDcols = unlist(c(id, year, hasit))])
 	comb[, (names(doesnt)) := (doesnt)]
 	whichchar <- params[unlist(lapply(params, is.character))]
-	setnames(comb,
-					 c(id, year, unlist(whichchar)),
-					 c('id', 'yr', names(whichchar)))
+
+	setnames(comb, unlist(whichchar), names(whichchar))
 
 	if (any(comb[, .(checkdup = .N > 1),
 							 by = c(id, year)]$checkdup)) {
