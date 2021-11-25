@@ -85,7 +85,7 @@ calc_irg <-
 			check_col(DT, id, 'id')
 			check_col(DT, year, 'year')
 
-			DT[, irg :=
+			DT[!is.na(irg), irg :=
 				 	(irg - min(irg, na.rm = TRUE)) /
 				 	(max(irg, na.rm = TRUE) - min(irg, na.rm = TRUE)),
 				 by = c(id, year)]
