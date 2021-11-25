@@ -170,7 +170,8 @@ The formula used is described in Bischoff et al. (2012):</p>
 <p>(See the "Getting started with irg vignette" for a better formatted formula.)</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other irg: <code><a href='irg.html'>irg</a></code></p></div>
+    <div class='dont-index'><p>Other irg: 
+<code><a href='irg.html'>irg</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='r-in'><span class='co'># Load data.table</span></span>
@@ -287,30 +288,18 @@ The formula used is described in Bischoff et al. (2012):</p>
 <span class='r-in'><span class='co'># Calculate IRG for each day of the year</span></span>
 <span class='r-in'><span class='fu'>calc_irg</span><span class='op'>(</span><span class='va'>fit</span><span class='op'>)</span></span>
 <span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>NAs found in DT, IRG will be set to NA.</span>
-<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>no non-missing arguments to min; returning Inf</span>
-<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>no non-missing arguments to max; returning -Inf</span>
-<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>no non-missing arguments to min; returning Inf</span>
-<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>no non-missing arguments to min; returning Inf</span>
-<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>no non-missing arguments to max; returning -Inf</span>
-<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>no non-missing arguments to min; returning Inf</span>
-<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>no non-missing arguments to min; returning Inf</span>
-<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>no non-missing arguments to max; returning -Inf</span>
-<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>no non-missing arguments to min; returning Inf</span>
-<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>no non-missing arguments to min; returning Inf</span>
-<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>no non-missing arguments to max; returning -Inf</span>
-<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>no non-missing arguments to min; returning Inf</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>        id   yr     xmidS     xmidA      scalS      scalA           t</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>     1:  2 2003 0.4964268 0.7941240 0.05571006 0.02009980 0.000000000</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>     2:  2 2003 0.4964268 0.7941240 0.05571006 0.02009980 0.002739726</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>     3:  2 2003 0.4964268 0.7941240 0.05571006 0.02009980 0.005479452</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>     4:  2 2003 0.4964268 0.7941240 0.05571006 0.02009980 0.008219178</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>     5:  2 2003 0.4964268 0.7941240 0.05571006 0.02009980 0.010958904</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>    ---                                                              </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 20126:  3 2012 0.4041541 0.8097318 0.08376870 0.01252067 0.989041096</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 20127:  3 2012 0.4041541 0.8097318 0.08376870 0.01252067 0.991780822</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 20128:  3 2012 0.4041541 0.8097318 0.08376870 0.01252067 0.994520548</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 20129:  3 2012 0.4041541 0.8097318 0.08376870 0.01252067 0.997260274</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 20130:  3 2012 0.4041541 0.8097318 0.08376870 0.01252067 1.000000000</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        id   yr     xmidS     xmidA      scalS      scalA nls_error           t</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     1:  2 2003 0.4964268 0.7941240 0.05571006 0.02009980           0.000000000</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     2:  2 2003 0.4964268 0.7941240 0.05571006 0.02009980           0.002739726</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     3:  2 2003 0.4964268 0.7941240 0.05571006 0.02009980           0.005479452</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     4:  2 2003 0.4964268 0.7941240 0.05571006 0.02009980           0.008219178</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     5:  2 2003 0.4964268 0.7941240 0.05571006 0.02009980           0.010958904</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    ---                                                                        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 21590:  3 2012 0.4041541 0.8097318 0.08376870 0.01252067           0.989041096</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 21591:  3 2012 0.4041541 0.8097318 0.08376870 0.01252067           0.991780822</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 21592:  3 2012 0.4041541 0.8097318 0.08376870 0.01252067           0.994520548</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 21593:  3 2012 0.4041541 0.8097318 0.08376870 0.01252067           0.997260274</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 21594:  3 2012 0.4041541 0.8097318 0.08376870 0.01252067           1.000000000</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>               fitted          irg</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>     1:  0.0001348922 6.496844e-05</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>     2:  0.0001416908 9.216898e-05</span>
@@ -318,11 +307,11 @@ The formula used is described in Bischoff et al. (2012):</p>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>     4:  0.0001563332 1.507500e-04</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>     5:  0.0001642123 1.822720e-04</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>    ---                           </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 20126: -0.0009268256 4.552599e-04</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 20127: -0.0008971293 3.358220e-04</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 20128: -0.0008683673 2.202136e-04</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 20129: -0.0008405135 1.083125e-04</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 20130: -0.0008135419 0.000000e+00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 21590: -0.0009268256 4.552599e-04</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 21591: -0.0008971293 3.358220e-04</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 21592: -0.0008683673 2.202136e-04</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 21593: -0.0008405135 1.083125e-04</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 21594: -0.0008135419 0.000000e+00</span>
 </pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
