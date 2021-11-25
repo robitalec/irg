@@ -208,11 +208,13 @@ model_params <- function(DT,
 					)
 				))},
 			error = function(e)
-				list(id = i, yr = y)
+				setNames(list(i, y, e), c(id, year, 'nls_error')),
+			warning = function(w)
+				setNames(list(i, y, w), c(id, year, 'warning'))
 		)
 	},
-	i = comb$id,
-	y = comb$yr,
+	i = comb[[id]],
+	y = comb[[year]],
 	SIMPLIFY = FALSE)
 
 	m <- data.table::rbindlist(m, fill = TRUE)
@@ -220,8 +222,6 @@ model_params <- function(DT,
 	if (returns == 'models') {
 		return(m)
 	} else if (returns == 'columns') {
-		setnames(m, c('id', 'yr'), c(id, year))
-
 		return(DT[m, c('xmidS', 'xmidA', 'scalS', 'scalA') :=
 								.(xmidS, xmidA, scalS, scalA),
 							on = c(id, year)])
