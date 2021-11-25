@@ -1,7 +1,4 @@
 
-[![Project Status: Active – The project has reached a stable, usable
-state and is being actively
-developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-blue.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/irg)](https://cran.r-project.org/package=irg)
@@ -11,24 +8,23 @@ status](https://www.r-pkg.org/badges/version/irg)](https://cran.r-project.org/pa
 `irg` is an R package for calculating the instantaneous rate of green-up
 (IRG). It can be used to fit a double logistic curve to a time series of
 normalized difference vegetation index (NDVI) and calculate IRG, as
-described in Bischoff et al. (2012) [\[1\]](#references). Remote sensing
-imagery from MODIS is collected frequently with high temporal resolution
-(albeit with lower spatial resolution than LANDSAT). IRG helps identify
-the timing of green-up and can be used to determine if migratory animals
-are “surfing” a green-wave of high quality forage or if non-migratory
-animals are selecting available resources at the peak IRG in their
-environments.
+described in Bischoff et al. (2012) [\[1\]](#references). At the moment,
+the `irg` package is designed to work with MODIS imagery, but we’re
+working on adding other approaches. IRG helps identify the timing of
+green-up and can be used to determine if migratory animals are “surfing”
+a green-wave of high quality forage or if non-migratory animals are
+selecting available resources at the peak IRG in their environments.
 
 ## Approach
 
 The `irg` package opts for a tabular calculation of IRG as opposed to a
-raster based approach. Sampling MODIS imagery is left up to the user and
-a prerequisite for all functions. The main input (`DT`) for all
-functions is a [`data.table`](https://github.com/Rdatatable/data.table)
-of an NDVI time series. The sampling unit (`id`) is flexible (a decision
-for the user) though we would anticipate points or polygons, or maybe a
-pixel. All functions leverage the speed of `data.table` to efficiently
-filter, scale, and model NDVI time series and calculate IRG.
+raster based approach. Sampling imagery is left up to the user and a
+prerequisite for all functions. The main input (`DT`) for all functions
+is a [`data.table`](https://github.com/Rdatatable/data.table) of an NDVI
+time series. The sampling unit (`id`) is flexible (a decision for the
+user) though we would anticipate points or polygons, or maybe a pixel.
+All functions leverage the speed of `data.table` to efficiently filter,
+scale, and model NDVI time series and calculate IRG.
 
 More details in the first vignette: [Getting started with
 IRG](https://github.com/robitalec/irg/articles/getting-started-with-irg.html).
@@ -39,7 +35,7 @@ Install with CRAN
 
 ``` r
 # Install 
-install.packages('preparelocs')
+install.packages('irg')
 ```
 
 or R-universe
@@ -51,7 +47,7 @@ options(repos = c(
     CRAN = 'https://cloud.r-project.org'))
 
 # Install 
-install.packages('preparelocs')
+install.packages('irg')
 ```
 
 ## Usage
@@ -60,9 +56,10 @@ IRG is calculated by filtering an NDVI time series, scaling variables,
 modeling the time series with a double logistic curve and taking the
 first derivative of this curve.
 
-Here, we use the meta function `irg`. Alternatively, use the filtering,
-scaling, modeling and IRG functions separately (see [Getting started
-with
+Here, the example uses use the meta function `irg`. Generally, users
+should opt for the individual filtering, scaling, modeling and irg
+functions separately to tweak settings and column names (see [Getting
+started with
 IRG](https://robitalec.github.io/irg/articles/getting-started-with-irg.html)).
 
 ``` r
