@@ -72,7 +72,8 @@ model_ndvi(ndvi, observed = TRUE)
 \url{https://www.journals.uchicago.edu/doi/abs/10.1086/667590}
 }
 \seealso{
-Other model: \code{\link{model_params}},
-  \code{\link{model_start}}
+Other model: 
+\code{\link{model_params}()},
+\code{\link{model_start}()}
 }
 \concept{model}

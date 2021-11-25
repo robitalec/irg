@@ -5,6 +5,7 @@
 #' @param DT data.table of NDVI time series
 #' @param qa QA column. default is 'SummaryQA'.
 #' @param good values which correspond to quality pixels. default is 0 and 1.
+#' @param ndvi ndvi column name. default is 'NDVI'.
 #'
 #' @return filtered data.table with appended 'filtered' column of "quality" NDVI.
 #' @import data.table
@@ -20,9 +21,10 @@
 #' # Read example data
 #' ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
 #'
-#' filter_qa(ndvi, qa = 'SummaryQA', good = c(0, 1))
+#' filter_qa(ndvi, ndvi = 'NDVI', qa = 'SummaryQA', good = c(0, 1))
 filter_qa <-
 	function(DT,
+					 ndvi = 'NDVI',
 					 qa = 'SummaryQA',
 					 good = c(0, 1)) {
 	# NSE Errors
@@ -34,19 +36,18 @@ filter_qa <-
 		stop('qa must be length 1')
 	}
 
-	check_col(DT, 'NDVI')
+	check_col(DT, ndvi, 'NDVI')
 	check_col(DT, qa, 'qa')
 
-	if (typeof(DT[['NDVI']]) != 'integer') {
-		warning('casting NDVI column as integer')
-		DT[, 'NDVI' := as.integer(NDVI)]
+	if (typeof(DT[[ndvi]]) != 'integer') {
+		warning('casting ', ndvi, ' column as integer')
+		DT[, (ndvi) := as.integer(.SD[[1]]), .SDcols = c(ndvi)]
 	}
 
-
-	DT[get(qa) %in% good, good := TRUE][is.na(good), good := FALSE]
-	DT[(good), filtered := NDVI]
-	DT[!(good), filtered := NA]
-	set(DT, j = 'good', value = NULL)
+	DT[, good_bool := .SD[[1]] %in% good, .SDcols = c(qa)]
+	DT[(good_bool), filtered := .SD[[1]], .SDcols = c(ndvi)]
+	DT[!(good_bool), filtered := NA]
+	set(DT, j = 'good_bool', value = NULL)
 }
 
 
@@ -58,7 +59,7 @@ filter_qa <-
 #'
 #' @inheritParams filter_qa
 #' @param probs quantile probability to determine "winterNDVI". default is 0.025.
-#' @param limits integer vector indicating limit days of absolute winter (snow cover, etc.). default = 60 days after Jan 1 and 65 days before Jan 1.
+#' @param limits integer vector indicating limit days of absolute winter (snow cover, etc.). default is c(60, 300): 60 days after Jan 1 and 65 days before Jan 1.
 #' @param doy julian day column. default is 'DayOfYear'. integer type.
 #' @param id id column. default is 'id'. See details.
 #'
@@ -76,7 +77,7 @@ filter_qa <-
 #'
 #' # Read example data
 #' ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
-#' filter_qa(ndvi, qa = 'SummaryQA', good = c(0, 1))
+#' filter_qa(ndvi, ndvi = 'NDVI', qa = 'SummaryQA', good = c(0, 1))
 #' filter_winter(ndvi, probs = 0.025, limits = c(60L, 300L), doy = 'DayOfYear', id = 'id')
 filter_winter <-
 	function(DT,
@@ -86,7 +87,6 @@ filter_winter <-
 					 id = 'id') {
 		# NSE Errors
 		filtered <- winter <- NULL
-
 
 		check_truelength(DT)
 
@@ -114,7 +114,7 @@ filter_winter <-
 																			 na.rm = TRUE)),
 			 by = bys]
 
-		DT[filtered < winter, filtered := winter][]
+		DT[filtered < winter, filtered := winter]
 
 		DT[get(doy) <= limits[1] | get(doy) >= limits[2],
 			 filtered := winter]
@@ -146,7 +146,7 @@ filter_winter <-
 #' # Read example data
 #' ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
 #'
-#' filter_qa(ndvi, qa = 'SummaryQA', good = c(0, 1))
+#' filter_qa(ndvi, ndvi = 'NDVI', qa = 'SummaryQA', good = c(0, 1))
 #' filter_winter(ndvi, probs = 0.025, limits = c(60L, 300L), doy = 'DayOfYear', id = 'id')
 #' filter_roll(ndvi, window = 3L, id = 'id')
 filter_roll <-
@@ -196,7 +196,7 @@ filter_roll <-
 #' # Read example data
 #' ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
 #'
-#' filter_qa(ndvi, qa = 'SummaryQA', good = c(0, 1))
+#' filter_qa(ndvi, ndvi = 'NDVI', qa = 'SummaryQA', good = c(0, 1))
 #' filter_winter(ndvi, probs = 0.025, limits = c(60L, 300L), doy = 'DayOfYear', id = 'id')
 #' filter_roll(ndvi, window = 3L, id = 'id')
 #' filter_top(ndvi, probs = 0.925, id = 'id')

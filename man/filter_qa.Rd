@@ -4,10 +4,12 @@
 \alias{filter_qa}
 \title{Filter with QA Band}
 \usage{
-filter_qa(DT, qa = "SummaryQA", good = c(0, 1))
+filter_qa(DT, ndvi = "NDVI", qa = "SummaryQA", good = c(0, 1))
 }
 \arguments{
 \item{DT}{data.table of NDVI time series}
+
+\item{ndvi}{ndvi column name. default is 'NDVI'.}
 
 \item{qa}{QA column. default is 'SummaryQA'.}
 
@@ -26,11 +28,13 @@ library(data.table)
 # Read example data
 ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
 
-filter_qa(ndvi, qa = 'SummaryQA', good = c(0, 1))
+filter_qa(ndvi, ndvi = 'NDVI', qa = 'SummaryQA', good = c(0, 1))
 }
 \seealso{
-Other filter: \code{\link{filter_ndvi}},
-  \code{\link{filter_roll}}, \code{\link{filter_top}},
-  \code{\link{filter_winter}}
+Other filter: 
+\code{\link{filter_ndvi}()},
+\code{\link{filter_roll}()},
+\code{\link{filter_top}()},
+\code{\link{filter_winter}()}
 }
 \concept{filter}

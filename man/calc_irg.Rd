@@ -65,6 +65,7 @@ fit <- model_ndvi(mods, observed = FALSE)
 calc_irg(fit)
 }
 \seealso{
-Other irg: \code{\link{irg}}
+Other irg: 
+\code{\link{irg}()}
 }
 \concept{irg}
