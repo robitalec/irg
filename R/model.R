@@ -191,8 +191,9 @@ model_params <- function(DT,
 	}
 
 	m <- mapply(function(i, y) {
-		tryCatch(
-			c(list(id = i, yr = y),
+		tryCatch({
+			key <- as.data.table(setNames(list(i, y), c(id, year)))
+			c(setNames(list(i, y), c(id, year)),
 				stats::coef(
 					stats::nls(
 						formula = scaled ~
