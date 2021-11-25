@@ -1,4 +1,5 @@
 
+[![R-CMD-check](https://github.com/robitalec/irg/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/robitalec/irg/actions/workflows/R-CMD-check.yaml)
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-blue.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/irg)](https://cran.r-project.org/package=irg)
