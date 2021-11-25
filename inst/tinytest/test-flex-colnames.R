@@ -101,3 +101,12 @@ expect_equal(nrow(ndvi_new_names),
 						 nrow(ndvi_new_names_raw))
 
 # irg ---------------------------------------------------------------------
+fit_raw <- copy(fit)
+calc_irg(fit, id, yr)
+expect_equal(nrow(fit),
+						 nrow(fit_raw))
+
+fit_raw_2 <- copy(fit_raw)
+calc_irg(fit_raw, id, yr, scaled = TRUE)
+expect_equal(nrow(fit_raw),
+						 nrow(fit_raw_2))
