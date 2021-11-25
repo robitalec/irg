@@ -4,7 +4,7 @@
 * switched to R CMD check with gh actions
 * switch testing to `tinytest`
 * updated links throughout, made a redirect page for old site
-* fix minor bug to allow flexible column names in `filter_qa`
+* fix minor bug to allow flexible column names in `filter_qa` [#4], `model_params` [#6]
 
 # v 0.1.1 (2019-02-13) 
 * fixed data.table recycling change ([#23](https://gitlab.com/robit.a/irg/issues/23))

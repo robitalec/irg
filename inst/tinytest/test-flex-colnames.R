@@ -5,11 +5,13 @@ ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))[yr < 2007]
 
 
 # Test column names are flexible
+id <- 'identity'
+yr <- 'year'
 ndvi_new_names <- copy(ndvi)
 old_names <- colnames(ndvi_new_names)
 setnames(ndvi_new_names,
 				 old_names,
-				 c('identity', 'year', 'day_of_year', 'ndvi', 'qa'))
+				 c(id, yr, 'day_of_year', 'ndvi', 'qa'))
 ndvi_new_names_raw <- copy(ndvi_new_names)
 
 # Filter QA
@@ -69,7 +71,7 @@ expect_equal(nrow({
 )
 
 ndvi_new_names <- copy(ndvi_new_names_raw)
-expect_equal(nrow({
+expect_equal(colnames({
 	filter_qa(ndvi_new_names, ndvi = 'ndvi', qa = 'qa', good = c(0, 1))
 	filter_winter(ndvi_new_names, probs = 0.025, limits = c(60L, 300L),
 								doy = 'day_of_year', id = 'identity')
@@ -93,7 +95,7 @@ expect_equal(nrow({
 	# Fit to the whole year (requires assignment)
 	fit <- model_ndvi(mods, observed = FALSE)
 }),
-nrow(ndvi_new_names)
+	c(id, yr, 'xmidS', 'xmidA', 'scalS', 'scalA', 'nls_error', 't', 'fitted')
 )
 
 
