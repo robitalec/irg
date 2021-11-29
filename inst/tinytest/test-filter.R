@@ -15,9 +15,12 @@ expect_error(filter_qa(ndvi, qa = 'potato'),
 # qa length 1
 expect_error(filter_qa(ndvi, qa = c('a', 'b')))
 
-# if qa != 0 and != 1, filtered is NULL
-# if qa = 0 or  = 1, filtered is not NULL
 
+# check type of NDVI
+ndvi_int <- copy(ndvi)[, NDVI := as.numeric(NDVI)]
+expect_warning(filter_qa(ndvi_int), 'column as integer', fixed = FALSE)
+
+#
 ndviqa <- filter_qa(copy(ndvi))
 
 
