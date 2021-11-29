@@ -191,8 +191,8 @@ model_params <- function(DT,
 
 	m <- mapply(function(i, y) {
 		tryCatch({
-			key <- as.data.table(setNames(list(i, y), c(id, year)))
-			c(setNames(list(i, y), c(id, year)),
+			key <- as.data.table(stats::setNames(list(i, y), c(id, year)))
+			c(stats::setNames(list(i, y), c(id, year)),
 				stats::coef(
 					stats::nls(
 						formula = scaled ~
@@ -208,9 +208,9 @@ model_params <- function(DT,
 					)
 				))},
 			error = function(e)
-				setNames(list(i, y, e), c(id, year, 'nls_error')),
+				stats::setNames(list(i, y, e), c(id, year, 'nls_error')),
 			warning = function(w)
-				setNames(list(i, y, w), c(id, year, 'warning'))
+				stats::setNames(list(i, y, w), c(id, year, 'warning'))
 		)
 	},
 	i = comb[[id]],
