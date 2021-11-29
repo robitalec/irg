@@ -28,7 +28,7 @@ filter_qa <-
 					 qa = 'SummaryQA',
 					 good = c(0, 1)) {
 	# NSE Errors
-	NDVI <- filtered <- NULL
+	NDVI <- filtered <- good_bool <- NULL
 
 	check_truelength(DT)
 
