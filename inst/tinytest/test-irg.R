@@ -2,6 +2,7 @@ library(data.table)
 library(irg)
 
 ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
+ndvi_raw <- copy(ndvi)
 
 filter_ndvi(ndvi)
 scale_doy(ndvi)
@@ -31,3 +32,11 @@ copyNDVI <- calc_irg(na.omit(copy(ndvi)))
 expect_true(all(
 	c('id', 'yr', 'xmidS', 'scalS', 't', 'irg') %in% colnames(copyNDVI)
 ))
+
+
+
+# irg ---------------------------------------------------------------------
+out <- irg(ndvi)
+check_names <- c('irg', 'fitted', 'scaled', 't')
+
+expect_true(all(check_names %in% colnames(out)))
