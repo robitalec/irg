@@ -46,6 +46,6 @@ overwrite_col <- function(DT = NULL, col = NULL) {
 ## @keywords internal
 check_truelength <- function(DT) {
 	if (truelength(DT) == 0) {
-		stop('please run data.table::alloc.col on your DT to allocate columns')
+		stop('please run data.table::setalloccol on your DT to allocate columns')
 	}
 }

@@ -42,6 +42,12 @@ expect_true(all(
 
 # model_params ------------------------------------------------------------
 expect_error(
+	model_params(ndvi, returns = 'columns'),
+	'starting parameters must be provided',
+	fixed = FALSE
+)
+
+expect_error(
 	model_params(ndvi, xmidS = 'potato'),
 	"xmidS \\('potato'\\) column not found in DT"
 )
@@ -98,6 +104,7 @@ expect_true(all(c('id', 'yr', 'xmidS', 'xmidA', 'scalS', 'scalA')
 									colnames(ndvi)))
 
 
+
 model_params(
 	ndvi,
 	returns = 'columns',
@@ -106,8 +113,6 @@ model_params(
 	scalS = 0.05,
 	scalA = 0.01
 )
-
-
 
 # model_ndvi --------------------------------------------------------------
 copyNDVI <- copy(ndvi)[, xmidS := NULL]

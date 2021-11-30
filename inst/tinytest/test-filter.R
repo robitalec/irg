@@ -15,9 +15,12 @@ expect_error(filter_qa(ndvi, qa = 'potato'),
 # qa length 1
 expect_error(filter_qa(ndvi, qa = c('a', 'b')))
 
-# if qa != 0 and != 1, filtered is NULL
-# if qa = 0 or  = 1, filtered is not NULL
 
+# check type of NDVI
+ndvi_int <- copy(ndvi)[, NDVI := as.numeric(NDVI)]
+expect_warning(filter_qa(ndvi_int), 'column as integer', fixed = FALSE)
+
+#
 ndviqa <- filter_qa(copy(ndvi))
 
 
@@ -41,6 +44,7 @@ expect_warning(filter_winter(copy(ndviqa)[, winter := 1]),
 						 'overwriting winter column')
 
 # Cast to integer silently
+ndviqa[, DayOfYear := as.numeric(DayOfYear)]
 expect_silent(filter_winter(copy(ndviqa), limits = c(10.5, 100.2)))
 
 # sel one id, if above quantile,
