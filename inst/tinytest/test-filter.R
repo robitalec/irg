@@ -44,6 +44,7 @@ expect_warning(filter_winter(copy(ndviqa)[, winter := 1]),
 						 'overwriting winter column')
 
 # Cast to integer silently
+ndviqa[, DayOfYear := as.numeric(DayOfYear)]
 expect_silent(filter_winter(copy(ndviqa), limits = c(10.5, 100.2)))
 
 # sel one id, if above quantile,
