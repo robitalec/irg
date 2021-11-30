@@ -34,14 +34,14 @@ var modis = ee.ImageCollection('MODIS/006/MOD13Q1');
 
 
 // Filter ======================================================================
-modis = modis.filterDate('2018-01-01', '2021-08-01')
+modis = modis.filterDate('2015-01-01', '2020-01-01')
              .filterBounds(features);
 
 
 
 // Process images ==============================================================
 // Add dates
-modis = modis.map(addDates);
+modis = modis.map(addYear);
 
 
 

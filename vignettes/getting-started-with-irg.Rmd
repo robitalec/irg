@@ -269,7 +269,7 @@ model_params(
 )
 
 # Fit double log to NDVI
- model_ndvi(ndvi, observed = TRUE)
+model_ndvi(ndvi, observed = TRUE)
 ```
 
 
@@ -287,3 +287,4 @@ calc_irg(fit)
 # or for observed data
 calc_irg(ndvi)
 ```
+
