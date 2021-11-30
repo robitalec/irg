@@ -17,14 +17,21 @@ function sampleRegions (im) {
 
 
 // Feature ====================================================================
-var features = ee.Geometry.MultiPoint(
-        [[-124.20936676431572, 56.0659251409004],
-         [-124.14344879556572, 56.18227598886774],
-         [-124.45106598306572, 56.243371999516576],
-         [-124.24919220376884, 56.29598913650686],
-         [-123.80012604165947, 56.07818917523702],
-         [-123.96080109048759, 56.19297481990305],
-         [-124.40849396158134, 56.1425113526211]]);
+var features = ee.FeatureCollection(
+        [ee.Feature(ee.Geometry.Point([-124.20936676431572, 56.0659251409004]),
+        {"id": "0"}),
+        ee.Feature(ee.Geometry.Point([-124.14344879556572, 56.18227598886774]),
+        {"id": "1"}),
+        ee.Feature(ee.Geometry.Point([-124.45106598306572, 56.243371999516576]),
+        {"id": "2"}),
+        ee.Feature(ee.Geometry.Point([-124.24919220376884, 56.29598913650686]),
+        {"id": "3"}),
+        ee.Feature(ee.Geometry.Point([-123.80012604165947, 56.07818917523702]),
+        {"id": "4"}),
+        ee.Feature(ee.Geometry.Point([-123.96080109048759, 56.19297481990305]),
+        {"id": "5"}),
+        ee.Feature(ee.Geometry.Point([-124.40849396158134, 56.1425113526211]),
+        {"id": "6"})]);
 
 
 
@@ -55,5 +62,5 @@ var sample = modis.map(sampleRegions)
 // Export ======================================================================
 Export.table.toDrive({
   collection: sample,
-  description: 'sampled-ndvi-modis-MOD13Q1'
+  description: 'sampled-ndvi-MODIS-MOD13Q1'
 });
