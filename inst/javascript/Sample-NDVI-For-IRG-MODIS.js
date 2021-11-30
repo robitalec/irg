@@ -5,7 +5,7 @@
 // Functions ===================================================================
 // Function to grab year from image and add it as a band
 function addYear(img) {
-  img.addBands(ee.Image(img.date().get('year')).rename('yr'));
+  return(img.addBands(ee.Image(img.date().get('year')).rename('yr')));
 }
 
 // Function to sample an image in each region of supplied geometry
