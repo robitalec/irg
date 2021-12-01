@@ -1,5 +1,5 @@
 
-[![lifecycle](https://img.shields.io/badge/lifecycle-experimental-blue.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![lifecycle](https://img.shields.io/badge/lifecycle-active-green.svg)](https://www.tidyverse.org/lifecycle/#active)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/irg)](https://cran.r-project.org/package=irg)
 
@@ -8,12 +8,18 @@ status](https://www.r-pkg.org/badges/version/irg)](https://cran.r-project.org/pa
 `irg` is an R package for calculating the instantaneous rate of green-up
 (IRG). It can be used to fit a double logistic curve to a time series of
 normalized difference vegetation index (NDVI) and calculate IRG, as
-described in Bischoff et al. (2012) [\[1\]](#references). At the moment,
-the `irg` package is designed to work with MODIS imagery, but we’re
-working on adding other approaches. IRG helps identify the timing of
-green-up and can be used to determine if migratory animals are “surfing”
-a green-wave of high quality forage or if non-migratory animals are
-selecting available resources at the peak IRG in their environments.
+described in Bischoff et al. (2012) [\[1\]](#references). IRG helps
+identify the timing of green-up and can be used to determine if
+migratory animals are “surfing” a green-wave of high quality forage or
+if non-migratory animals are selecting available resources at the peak
+IRG in their environments. ~~At the moment, the `irg` package is
+designed to work with MODIS imagery, but we’re working on adding other
+sensors~~.
+
+Update: we recently added an example Landsat 8 dataset. The `irg`
+package functions have been updated to be more flexible to different
+sensors. Let us know (open an issue!) if you use a sensor other than
+MODIS for calculating IRG. Thanks!
 
 ## Approach
 
@@ -75,7 +81,7 @@ IRG <- irg(ndvi)
 
 # Plot IRG and NDVI for 1 year at 1 point (please excuse the manual color scale)
 cols <- c('IRG' = '#14c62f', 'NDVI' = '#47694d')
-ggplot(IRG[yr == 2007 & id == sample(id, 1)], aes(x = t)) +
+ggplot(IRG[yr == sample(yr, 1) & id == sample(id, 1)], aes(x = t)) +
     geom_line(aes(y = irg, color = 'IRG')) +
     geom_line(aes(y = fitted, color = 'NDVI')) +
     scale_color_manual(values = cols) +
