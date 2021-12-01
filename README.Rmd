@@ -83,14 +83,14 @@ library(ggplot2)
 library(irg)
 
 # Load package data
-ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
+ndvi <- fread(system.file("extdata", "sampled-ndvi-MODIS-MOD13Q1.csv", package = "irg"))
 
 # Calculate IRG using example data: a raw NDVI time series
 IRG <- irg(ndvi)
 
 # Plot IRG and NDVI for 1 year at 1 point (please excuse the manual color scale)
 cols <- c('IRG' = '#14c62f', 'NDVI' = '#47694d')
-ggplot(IRG[yr == 2007 & id == sample(id, 1)], aes(x = t)) +
+ggplot(IRG[yr == sample(yr, 1) & id == sample(id, 1)], aes(x = t)) +
 	geom_line(aes(y = irg, color = 'IRG')) +
 	geom_line(aes(y = fitted, color = 'NDVI')) +
 	scale_color_manual(values = cols) +

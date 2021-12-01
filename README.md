@@ -68,7 +68,7 @@ library(ggplot2)
 library(irg)
 
 # Load package data
-ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
+ndvi <- fread(system.file("extdata", "sampled-ndvi-MODIS-MOD13Q1.csv", package = "irg"))
 
 # Calculate IRG using example data: a raw NDVI time series
 IRG <- irg(ndvi)
