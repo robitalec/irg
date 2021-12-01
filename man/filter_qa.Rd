@@ -19,7 +19,15 @@ filter_qa(DT, ndvi = "NDVI", qa = "SummaryQA", good = c(0, 1))
 filtered data.table with appended 'filtered' column of "quality" NDVI.
 }
 \description{
-Using MODIS QA band information, filter the NDVI time series.
+Using QA band information, filter the NDVI time series.
+}
+\details{
+See the details for the example data in ?\code{sampled-ndvi-Landsat-LC08-T1-L2.csv}
+and ?\code{sampled-ndvi-MODIS-MOD13Q1.csv}
+
+For MODIS MOD13Q1, the SummaryQA band
+
+For Landsat
 }
 \examples{
 # Load data.table
