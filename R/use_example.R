@@ -51,5 +51,10 @@ use_example_ee_script <- function(sensor = 'MODIS',
 		stop('sensor must be one of: "MODIS" or "Landsat"')
 	}
 
-  file.copy(from = source_file, to = filename, overwrite = overwrite)
+  result <- file.copy(from = source_file, to = filename, overwrite = overwrite)
+
+  if (result) {
+  	message('Example script saved to: ', '"', filename, '"')
+  }
+
 }
