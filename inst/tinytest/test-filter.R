@@ -7,18 +7,20 @@ ndvi <- fread(system.file("extdata", "sampled-ndvi-MODIS-MOD13Q1.csv", package =
 # Columns mising are detected
 miss <- copy(ndvi)[, NDVI := NULL]
 expect_error(filter_qa(miss),
-						 'column not found in DT')
+						 'must include', fixed = FALSE)
 
 expect_error(filter_qa(ndvi, qa = 'potato'),
-						 'column not found in DT')
+						 'must include', fixed = FALSE)
 
 # qa length 1
-expect_error(filter_qa(ndvi, qa = c('a', 'b')))
+expect_error(filter_qa(ndvi, qa = c('a', 'b')),
+						 'must include', fixed = FALSE)
 
 
 # check type of NDVI
 ndvi_char <- copy(ndvi)[, NDVI := as.character(NDVI)]
-expect_error(filter_qa(ndvi_char), 'is not numeric', fixed = FALSE)
+expect_error(filter_qa(ndvi_char),
+						 'must be numeric', fixed = FALSE)
 
 #
 ndviqa <- filter_qa(copy(ndvi))
@@ -27,17 +29,17 @@ ndviqa <- filter_qa(copy(ndvi))
 # filter_winter -----------------------------------------------------------
 # Columns mising are detected
 expect_error(filter_winter(ndvi),
-						 'column not found in DT')
+						 'must include', fixed = FALSE)
 
 expect_error(filter_winter(ndviqa, doy = 'potato'),
-						 'column not found in DT')
+						 'must include', fixed = FALSE)
 
 expect_error(filter_winter(ndviqa, id = 'potato'),
-						 'column not found in DT')
+						 'must include', fixed = FALSE)
 
 # Probs length 1
 expect_error(filter_winter(ndvi, probs = c(0.2, 0.3)),
-						 'probs must be length 1')
+						 'must be length 1', fixed = FALSE)
 
 # Overwrite winter column
 expect_warning(filter_winter(copy(ndviqa)[, winter := 1]),
@@ -55,13 +57,13 @@ ndviwnt <- filter_winter(copy(ndviqa))
 # filter_roll -------------------------------------------------------------
 # Columns mising are detected
 expect_error(filter_roll(ndvi),
-						 'filtered column not found in DT, did you run filter_qa?')
+						 'must include', fixed = FALSE)
 
 expect_error(filter_roll(ndviqa),
-						 'winter column not found in DT, did you run filter_winter?')
+						 'must include', fixed = FALSE)
 
 expect_error(filter_roll(ndviwnt, id = 'potato'),
-						 'column not found in DT')
+						 'must include', fixed = FALSE)
 
 # Overwrite roll column
 expect_warning(filter_roll(copy(ndviwnt)[, rolled := 1]),
@@ -73,17 +75,17 @@ ndviroll <- filter_roll(ndviwnt)
 # filter_top --------------------------------------------------------------
 # Columns mising are detected
 expect_error(filter_top(ndvi),
-						 'filtered column not found in DT, did you run filter_qa?')
+						 'must include', fixed = FALSE)
 
 expect_error(filter_top(ndviqa),
-						 'winter column not found in DT, did you run filter_winter?')
+						 'must include', fixed = FALSE)
 
 expect_error(filter_top(ndviwnt, id = 'potato'),
-						 'column not found in DT')
+						 'must include', fixed = FALSE)
 
 # Probs length 1
 expect_error(filter_top(ndviwnt, probs = c(0.2, 0.3)),
-						 'probs must be length 1')
+						 'must be length', fixed = FALSE)
 
 # Overwrite top column
 expect_warning(filter_top(copy(ndviroll)[, top := 1]),
