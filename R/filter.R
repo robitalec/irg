@@ -66,7 +66,7 @@ filter_qa <-
 #' @inheritParams filter_qa
 #' @param probs quantile probability to determine "winterNDVI". default is 0.025.
 #' @param limits integer vector indicating limit days of absolute winter (snow cover, etc.). default is c(60, 300): 60 days after Jan 1 and 65 days before Jan 1.
-#' @param doy julian day column. default is 'DayOfYear'. integer type.
+#' @param doy julian day column. default is 'DayOfYear'.
 #' @param id id column. default is 'id'. See details.
 #'
 #'
