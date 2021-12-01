@@ -92,14 +92,40 @@ library(irg)
 # Load package data
 ndvi <- fread(system.file("extdata", "sampled-ndvi-MODIS-MOD13Q1.csv", package = "irg"))
 
-# Calculate IRG using example data: a raw NDVI time series
-IRG <- irg(ndvi)
+# Filter and scale NDVI
+filter_ndvi(ndvi)
+scale_ndvi(ndvi)
+scale_doy(ndvi)
 
-# Plot IRG and NDVI for 1 year at 1 point (please excuse the manual color scale)
+# Guess starting parameters
+model_start(ndvi, id = 'id', year = 'yr')
+
+# Double logistic model parameters given starting parameters for nls
+mods <- model_params(
+  ndvi,
+  returns = 'models',
+  id = 'id', year = 'yr',
+  xmidS = 'xmidS_start', xmidA = 'xmidA_start',
+  scalS = 0.05,
+  scalA = 0.01
+)
+
+# Fit double log to NDVI
+fit <- model_ndvi(mods, observed = FALSE)
+
+# Calculate IRG for each day of the year
+calc_irg(fit)
+
+# Plot IRG and NDVI for 1 year at 1 point
 cols <- c('IRG' = '#14c62f', 'NDVI' = '#47694d')
-ggplot(IRG[yr == sample(yr, 1) & id == sample(id, 1)], aes(x = t)) +
+
+random_yr <- sample(fit$yr, 1)
+random_id <- sample(fit$id, 1)
+
+ggplot(fit[yr == random_yr & id == random_id], aes(x = t)) +
 	geom_line(aes(y = irg, color = 'IRG')) +
 	geom_line(aes(y = fitted, color = 'NDVI')) +
+	geom_point(aes(y = scaled), data = ndvi[yr == random_yr & id == random_id]) + 
 	scale_color_manual(values = cols) +
 	labs(y = '', color = '')
 ```
