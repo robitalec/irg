@@ -108,9 +108,9 @@ filter_winter <-
 
 		bys <- id
 
-		DT[, winter := as.integer(stats::quantile(filtered,
+		DT[, winter := stats::quantile(filtered,
 																			 probs = probs,
-																			 na.rm = TRUE)),
+																			 na.rm = TRUE),
 			 by = bys]
 
 		DT[filtered < winter, filtered := winter]
@@ -166,8 +166,7 @@ filter_roll <-
 		bys <- id
 
 		DT[, rolled :=
-			 	as.integer(RcppRoll::roll_median(filtered, n = 3,
-			 																	 fill = -3000L)),
+			 	RcppRoll::roll_median(filtered, n = 3, fill = -3000L),
 			 by = bys]
 		DT[rolled == -3000, rolled := winter]
 	}
