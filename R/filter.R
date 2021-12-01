@@ -43,6 +43,10 @@ filter_qa <-
 	check_col(DT, ndvi, 'NDVI')
 	check_col(DT, qa, 'qa')
 
+	if (!is.numeric(DT[[ndvi]])) {
+		stop(ndvi, ' column is not numeric')
+	}
+
 	DT[, good_bool := .SD[[1]] %in% good, .SDcols = c(qa)]
 	DT[(good_bool), filtered := .SD[[1]], .SDcols = c(ndvi)]
 	DT[!(good_bool), filtered := NA]
