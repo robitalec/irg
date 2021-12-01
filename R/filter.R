@@ -1,6 +1,10 @@
 #' Filter with QA Band
 #'
-#' Using MODIS QA band information, filter the NDVI time series.
+#' Using QA band information, filter the NDVI time series.
+#'
+#' For MODIS MOD13Q1, the SummaryQA band
+#'
+#' For Landsat
 #'
 #' @param DT data.table of NDVI time series
 #' @param qa QA column. default is 'SummaryQA'.
@@ -38,11 +42,6 @@ filter_qa <-
 
 	check_col(DT, ndvi, 'NDVI')
 	check_col(DT, qa, 'qa')
-
-	if (typeof(DT[[ndvi]]) != 'integer') {
-		warning('casting ', ndvi, ' column as integer')
-		DT[, (ndvi) := as.integer(.SD[[1]]), .SDcols = c(ndvi)]
-	}
 
 	DT[, good_bool := .SD[[1]] %in% good, .SDcols = c(qa)]
 	DT[(good_bool), filtered := .SD[[1]], .SDcols = c(ndvi)]
