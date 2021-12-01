@@ -20,14 +20,9 @@
 #' @export
 #'
 #' @examples
-use_example_extract_ndvi <- function(sensor = 'MODIS', save = FALSE,
-																		 filename = NULL, overwrite = FALSE) {
+use_example_ee_script <- function(sensor = 'MODIS',
+																	filename = NULL, overwrite = FALSE) {
 
-
-	if (save & !is.nulL(filename) & file.exists(filename) & overwrite) {
-		stop('found file at ', filename,
-				 '- set overwrite to TRUE if you would like to save there anyways')
-	}
 
 	if (sensor == 'MODIS') {
 		if (is.null(filename)) {
