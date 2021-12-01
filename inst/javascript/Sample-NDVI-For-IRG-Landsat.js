@@ -4,6 +4,9 @@
 
 // Functions ===================================================================
 // Function to add mask identifying cloud and saturation
+// Mask band = if QA_PIXEL indicates unwanted pixels +
+//             if QA_RADSAT indicates saturated pixels
+// Either = 0 (good), 1 (one of two masking conditions), 2 (both conditions)
 // Adapted from: Examples/Cloud Masking/Landsat8 Surface Reflectance
 function addMask(image) {
   // Bit 0 - Fill
@@ -11,8 +14,8 @@ function addMask(image) {
   // Bit 2 - Cirrus
   // Bit 3 - Cloud
   // Bit 4 - Cloud Shadow
-  var qaMask = image.select('QA_PIXEL').bitwiseAnd(parseInt('11111', 2)).eq(0);
-  var saturationMask = image.select('QA_RADSAT').eq(0);
+  var qaMask = image.select('QA_PIXEL').bitwiseAnd(parseInt('11111', 2)).neq(0);
+  var saturationMask = image.select('QA_RADSAT').neq(0);
   var mask = qaMask.add(saturationMask);
 
   // Apply the scaling factors to the appropriate bands.
