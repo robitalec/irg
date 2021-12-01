@@ -7,7 +7,7 @@ ndvi <- fread(system.file("extdata", "sampled-ndvi-MODIS-MOD13Q1.csv", package =
 # scale_ndvi --------------------------------------------------------------
 # Columns mising are detected
 expect_error(scale_ndvi(ndvi),
-						 'missing one of "rolled", "winter", "top". did you filter?')
+						 'must include', fixed = FALSE)
 
 filter_ndvi(ndvi)
 
@@ -27,7 +27,7 @@ expect_true(min(ndvi$scaled, na.rm = TRUE) >= 0)
 # scale_doy ---------------------------------------------------------------
 # Columns mising are detected
 expect_error(scale_doy(ndvi, doy = 'potato'),
-						 'column not found in DT')
+						 'must include', fixed = FALSE)
 
 # Was t added
 expect_true("t" %in% colnames(scale_doy(ndvi)))
