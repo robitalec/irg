@@ -212,7 +212,6 @@ filter_top <- function(DT,
 	chk::check_names(DT, id)
 	chk::check_names(DT, 'filtered')
 	chk::check_names(DT, 'winter')
-	chk::check_names(DT, 'top')
 	overwrite_col(DT, 'top')
 
 	bys <- id
