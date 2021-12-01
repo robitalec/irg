@@ -29,26 +29,20 @@
 #' ndvi <- fread(system.file("extdata", "sampled-ndvi-MODIS-MOD13Q1.csv", package = "irg"))
 #'
 #' filter_qa(ndvi, ndvi = 'NDVI', qa = 'SummaryQA', good = c(0, 1))
-filter_qa <-
-	function(DT,
-					 ndvi = 'NDVI',
-					 qa = 'SummaryQA',
-					 good = c(0, 1)) {
+filter_qa <- function(DT,
+											ndvi = 'NDVI',
+											qa = 'SummaryQA',
+											good = c(0, 1)) {
 	# NSE Errors
 	NDVI <- filtered <- good_bool <- NULL
 
 	check_truelength(DT)
 
-	if (length(qa) != 1) {
-		stop('qa must be length 1')
-	}
+	chk::chk_length(ndvi)
+	chk::chk_length(qa)
 
-	check_col(DT, ndvi, 'NDVI')
-	check_col(DT, qa, 'qa')
-
-	if (!is.numeric(DT[[ndvi]])) {
-		stop(ndvi, ' column is not numeric')
-	}
+	chk::check_names(DT, c(ndvi, qa))
+	chk::chk_numeric(DT[[ndvi]])
 
 	DT[, good_bool := .SD[[1]] %in% good, .SDcols = c(qa)]
 	DT[(good_bool), filtered := .SD[[1]], .SDcols = c(ndvi)]
