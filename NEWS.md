@@ -1,3 +1,9 @@
+# v 0.1.3
+
+* add new function `use_example_ee_script` to provide users with an example
+script for sampling NDVI with Earth Engine [#10]
+
+
 # v 0.1.2
 
 * switched to a pkgdown site with gh actions [#1]
@@ -6,6 +12,7 @@
 * updated links throughout, made a redirect page for old site
 * fix minor bug to allow flexible column names in `filter_qa` [#4], `model_params` [#6]
 * added testing for flexible column names [#5] [#7]
+
 
 # v 0.1.1 (2019-02-13) 
 * fixed data.table recycling change ([#23](https://gitlab.com/robit.a/irg/issues/23))

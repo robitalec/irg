@@ -1,6 +1,10 @@
 #' Filter with QA Band
 #'
-#' Using MODIS QA band information, filter the NDVI time series.
+#' Using QA band information, filter the NDVI time series.
+#'
+#' For MODIS MOD13Q1, the SummaryQA band
+#'
+#' For Landsat
 #'
 #' @param DT data.table of NDVI time series
 #' @param qa QA column. default is 'SummaryQA'.
@@ -38,11 +42,6 @@ filter_qa <-
 
 	check_col(DT, ndvi, 'NDVI')
 	check_col(DT, qa, 'qa')
-
-	if (typeof(DT[[ndvi]]) != 'integer') {
-		warning('casting ', ndvi, ' column as integer')
-		DT[, (ndvi) := as.integer(.SD[[1]]), .SDcols = c(ndvi)]
-	}
 
 	DT[, good_bool := .SD[[1]] %in% good, .SDcols = c(qa)]
 	DT[(good_bool), filtered := .SD[[1]], .SDcols = c(ndvi)]
@@ -109,15 +108,19 @@ filter_winter <-
 
 		bys <- id
 
-		DT[, winter := as.integer(stats::quantile(filtered,
+		DT[, winter := stats::quantile(filtered,
 																			 probs = probs,
-																			 na.rm = TRUE)),
+																			 na.rm = TRUE),
 			 by = bys]
 
 		DT[filtered < winter, filtered := winter]
 
-		DT[get(doy) <= limits[1] | get(doy) >= limits[2],
-			 filtered := winter]
+		DT[, filtered := fifelse(.SD[[1]] <= limits[1] | .SD[[1]] >= limits[2],
+														 winter,
+														 filtered),
+			 .SDcols = c(doy, 'winter', 'filtered')]
+
+		DT
 }
 
 
@@ -167,8 +170,7 @@ filter_roll <-
 		bys <- id
 
 		DT[, rolled :=
-			 	as.integer(RcppRoll::roll_median(filtered, n = 3,
-			 																	 fill = -3000L)),
+			 	RcppRoll::roll_median(filtered, n = 3, fill = -3000L),
 			 by = bys]
 		DT[rolled == -3000, rolled := winter]
 	}
