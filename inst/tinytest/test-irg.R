@@ -22,11 +22,11 @@ model_ndvi(ndvi, observed = TRUE)
 # calc_irg ----------------------------------------------------------------
 copyNDVI <- copy(ndvi)[, xmidS := NULL]
 expect_error(calc_irg(copyNDVI),
-						 'xmidS column not found in DT')
+						 'must include', fixed = FALSE)
 
 copyNDVI <- copy(ndvi)[, scalS := NULL]
 expect_error(calc_irg(copyNDVI),
-						 'scalS column not found in DT')
+						 'must include', fixed = FALSE)
 
 copyNDVI <- calc_irg(na.omit(copy(ndvi)))
 expect_true(all(
@@ -36,7 +36,7 @@ expect_true(all(
 
 
 # irg ---------------------------------------------------------------------
-out <- irg(ndvi)
+out <- irg(copy(ndvi_raw))
 check_names <- c('irg', 'fitted', 'scaled', 't')
 
 expect_true(all(check_names %in% colnames(out)))
