@@ -1,6 +1,6 @@
 // Sample NDVI for IRG - Landsat
 // Example from irg package https://github.com/robitalec/irg
-// Alec L. Robitaille 
+// Alec L. Robitaille
 
 // Functions ===================================================================
 // Function to add mask identifying cloud and saturation
@@ -48,14 +48,21 @@ function sampleRegions (im) {
 
 
 // Feature ====================================================================
-var features = ee.Geometry.MultiPoint(
-        [[-124.20936676431572, 56.0659251409004],
-         [-124.14344879556572, 56.18227598886774],
-         [-124.45106598306572, 56.243371999516576],
-         [-124.24919220376884, 56.29598913650686],
-         [-123.80012604165947, 56.07818917523702],
-         [-123.96080109048759, 56.19297481990305],
-         [-124.40849396158134, 56.1425113526211]]);
+var features = ee.FeatureCollection(
+        [ee.Feature(ee.Geometry.Point([-109.96, 53.853]),
+        {"id": "0"}),
+        ee.Feature(ee.Geometry.Point([-109.94, 53.852]),
+        {"id": "1"}),
+        ee.Feature(ee.Geometry.Point([-109.95, 53.851]),
+        {"id": "2"}),
+        ee.Feature(ee.Geometry.Point([-109.93, 53.854]),
+        {"id": "3"}),
+        ee.Feature(ee.Geometry.Point([-109.92, 53.853]),
+        {"id": "4"}),
+        ee.Feature(ee.Geometry.Point([-109.94, 53.852]),
+        {"id": "5"}),
+        ee.Feature(ee.Geometry.Point([-109.93, 53.851]),
+        {"id": "6"})]);
 
 
 
