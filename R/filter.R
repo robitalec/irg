@@ -2,6 +2,9 @@
 #'
 #' Using QA band information, filter the NDVI time series.
 #'
+#' See the details for the example data in ?`sampled-ndvi-Landsat-LC08-T1-L2.csv`
+#' and ?`sampled-ndvi-MODIS-MOD13Q1.csv`
+#'
 #' For MODIS MOD13Q1, the SummaryQA band
 #'
 #' For Landsat
