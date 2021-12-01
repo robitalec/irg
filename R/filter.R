@@ -48,6 +48,7 @@ filter_qa <- function(DT,
 	DT[(good_bool), filtered := .SD[[1]], .SDcols = c(ndvi)]
 	DT[!(good_bool), filtered := NA]
 	set(DT, j = 'good_bool', value = NULL)
+	return(DT)
 }
 
 
@@ -119,8 +120,7 @@ filter_winter <- function(DT,
 													 winter,
 													 filtered),
 		 .SDcols = c(doy, 'winter', 'filtered')]
-
-	DT
+	return(DT)
 }
 
 
@@ -247,18 +247,17 @@ filter_top <- function(DT,
 #'
 #' # Use filter_ndvi to apply all filtering steps (with defaults)
 #' filter_ndvi(ndvi)
-filter_ndvi <-
-	function(DT) {
+filter_ndvi <- function(DT) {
 
-		check_truelength(DT)
+	check_truelength(DT)
 
-		overwrite_col(DT, 'filtered')
-		overwrite_col(DT, 'winter')
-		overwrite_col(DT, 'rolled')
-		overwrite_col(DT, 'top')
+	overwrite_col(DT, 'filtered')
+	overwrite_col(DT, 'winter')
+	overwrite_col(DT, 'rolled')
+	overwrite_col(DT, 'top')
 
-		filter_qa(DT)
-		filter_winter(DT)
-		filter_roll(DT)
-		filter_top(DT)
-	}
+	filter_qa(DT)
+	filter_winter(DT)
+	filter_roll(DT)
+	filter_top(DT)
+}
