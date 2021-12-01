@@ -79,49 +79,48 @@ filter_qa <- function(DT,
 #' ndvi <- fread(system.file("extdata", "sampled-ndvi-MODIS-MOD13Q1.csv", package = "irg"))
 #' filter_qa(ndvi, ndvi = 'NDVI', qa = 'SummaryQA', good = c(0, 1))
 #' filter_winter(ndvi, probs = 0.025, limits = c(60L, 300L), doy = 'DayOfYear', id = 'id')
-filter_winter <-
-	function(DT,
-					 probs = 0.025,
-					 limits = c(60L, 300L),
-					 doy = 'DayOfYear',
-					 id = 'id') {
-		# NSE Errors
-		filtered <- winter <- NULL
+filter_winter <- function(DT,
+													probs = 0.025,
+													limits = c(60L, 300L),
+													doy = 'DayOfYear',
+													id = 'id') {
+	# NSE Errors
+	filtered <- winter <- NULL
 
-		check_truelength(DT)
+	check_truelength(DT)
 
-		if (length(probs) != 1) {
-			stop('probs must be length 1')
-		}
+	chk::chk_length(probs)
+	chk::check_names(DT, doy)
+	chk::check_names(DT, id)
+	chk::check_names(DT, 'filtered')
 
-		check_col(DT, doy, 'doy')
-		check_col(DT, id, 'id')
-		check_col(DT, 'filtered', extra = ', did you run filter_qa?')
-		overwrite_col(DT, 'winter')
+	overwrite_col(DT, 'winter')
 
-		if (typeof(DT[[doy]]) != 'integer') {
-			DT[, (doy) := as.integer(.SD[[1]]), .SDcols = doy]
-		}
+	chk::chk_numeric(DT[[doy]])
+	if (!is.integer(DT[[doy]])) {
+		DT[, (doy) := as.integer(.SD[[1]]), .SDcols = doy]
+	}
 
-		if (typeof(limits) != 'integer') {
-			limits <- as.integer(limits)
-		}
+	chk::chk_numeric(limits)
+	if (typeof(limits) != 'integer') {
+		limits <- as.integer(limits)
+	}
 
-		bys <- id
+	bys <- id
 
-		DT[, winter := stats::quantile(filtered,
-																			 probs = probs,
-																			 na.rm = TRUE),
-			 by = bys]
+	DT[, winter := stats::quantile(filtered,
+																 probs = probs,
+																 na.rm = TRUE),
+		 by = bys]
 
-		DT[filtered < winter, filtered := winter]
+	DT[filtered < winter, filtered := winter]
 
-		DT[, filtered := fifelse(.SD[[1]] <= limits[1] | .SD[[1]] >= limits[2],
-														 winter,
-														 filtered),
-			 .SDcols = c(doy, 'winter', 'filtered')]
+	DT[, filtered := fifelse(.SD[[1]] <= limits[1] | .SD[[1]] >= limits[2],
+													 winter,
+													 filtered),
+		 .SDcols = c(doy, 'winter', 'filtered')]
 
-		DT
+	DT
 }
 
 
@@ -158,7 +157,7 @@ filter_roll <-
 					 window = 3L,
 					 id = 'id',
 					 method = 'median'
-					 ) {
+	) {
 		# NSE Errors
 		filtered <- winter <- rolled <- NULL
 
