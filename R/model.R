@@ -159,7 +159,7 @@ model_params <- function(DT,
 		chk::check_names(DT, scalA)
 	}
 
-	chk::chk_null(returns)
+	chk::chk_not_null(returns)
 	chk::chk_subset(returns, c('models', 'columns'))
 
 	if (is.null(xmidS) | is.null(xmidA) | is.null(scalS) | is.null(scalA)) {
@@ -301,7 +301,7 @@ model_ndvi <- function(DT, observed = TRUE) {
 	chk::check_names(DT, 'scalS')
 	chk::check_names(DT, 'scalA')
 
-	chk::chk_null(observed)
+	chk::chk_not_null(observed)
 
 	if (observed) {
 		DT[, fitted :=
