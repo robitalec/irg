@@ -1,28 +1,29 @@
-#' Use an example MODIS MOD13Q1 sampling script for Earth Engine
+#' Use an example sampling script for Earth Engine
 #'
 #' Provides an example script for use in Earth Engine, as a preceeding step
-#' to using the `irg` package. Sample NDVI with MODIS or Landsat, then
-#' use the `irg` package to calculate the instantaneous rate of greenup.
+#' to using the `irg` package. Use the script to sample NDVI in Earth
+#' Engine, then use the `irg` package to calculate the instantaneous rate of green-up.
 #'
 #' @param sensor either 'MODIS' or 'Landsat'
 #' @param filename file name indicating where to save the example script.
-#' Default is "./Sample-NDVI-For-IRG-MODIS.js"
-#' @param overwrite
+#' Default is './Sample-NDVI-For-IRG-MODIS.js' if sensor is 'MODIS' or
+#' 'Sample-NDVI-For-IRG-Landsat.js' if sensor is 'Landsat'.
+#' @param overwrite boolean indicating if the file should overwrite existing
+#' files. default is FALSE.
 #'
 #' @return
 #'
 #' `use_example_ee_script` saves an example NDVI extraction script in the
-#' current working directory, or if `filename` is provided, at the location
-#' provided.
+#' current working directory using a default filename,
+#' or if `filename` is provided, at the location specified.
 #'
 #'
 #' @export
 #'
 #' @examples
 use_example_ee_script <- function(sensor = 'MODIS',
-																	filename = NULL, overwrite = FALSE) {
-
-
+																	filename = NULL,
+																	overwrite = FALSE) {
 	if (sensor == 'MODIS') {
 		if (is.null(filename)) {
 			filename <- 'Sample-NDVI-For-IRG-MODIS.js'
