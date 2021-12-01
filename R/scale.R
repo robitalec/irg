@@ -37,7 +37,7 @@ scale_ndvi <- function(DT) {
 
 	DT[rolled > top, scaled := 1]
 	DT[between(scaled, 0, -0.01), scaled := 0]
-	DT
+	return(DT)
 }
 
 
@@ -72,4 +72,5 @@ scale_doy <- function(DT, doy = 'DayOfYear') {
 	overwrite_col(DT, 't')
 
 	DT[, t := seq(0, 1, length.out = 366)[.SD[[1]]], .SDcols = c(doy)]
+	return(DT)
 }
