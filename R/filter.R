@@ -115,8 +115,12 @@ filter_winter <-
 
 		DT[filtered < winter, filtered := winter]
 
-		DT[get(doy) <= limits[1] | get(doy) >= limits[2],
-			 filtered := winter]
+		DT[, filtered := fifelse(.SD[[1]] <= limits[1] | .SD[[1]] >= limits[2],
+														 winter,
+														 filtered),
+			 .SDcols = c(doy, 'winter', 'filtered')]
+
+		DT
 }
 
 
