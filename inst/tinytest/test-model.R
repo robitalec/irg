@@ -1,7 +1,7 @@
 library(data.table)
 library(irg)
 
-ndvi <- fread(system.file("extdata", "sampled-ndvi-MODIS-MOD13Q1.csv", package = "irg"))[yr < 2007]
+ndvi <- fread(system.file("extdata", "sampled-ndvi-MODIS-MOD13Q1.csv", package = "irg"))
 
 filter_ndvi(ndvi)
 scale_doy(ndvi)
