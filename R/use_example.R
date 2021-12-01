@@ -5,7 +5,6 @@
 #' use the `irg` package to calculate the instantaneous rate of greenup.
 #'
 #' @param sensor either 'MODIS' or 'Landsat'
-#' @param save boolean indicating if the example script should be saved
 #' @param filename file name indicating where to save the example script.
 #' Default is "./Sample-NDVI-For-IRG-MODIS.js"
 #' @param overwrite
@@ -28,18 +27,29 @@ use_example_ee_script <- function(sensor = 'MODIS',
 		if (is.null(filename)) {
 			filename <- 'Sample-NDVI-For-IRG-MODIS.js'
 		}
-		file.copy(from = system.file('javascript', 'Sample-NDVI-For-IRG-MODIS.js',
-																 package = 'irg'),
-							to = filename)
+
+		if (!is.null(filename) && file.exists(filename) && !overwrite) {
+			stop('found file at ', filename,
+					 '\n set overwrite to TRUE if you would like to save there anyways')
+		}
+
+		source_file <- system.file('javascript', 'Sample-NDVI-For-IRG-MODIS.js',
+															 package = 'irg')
 	} else if (sensor == 'Landsat') {
 		if (is.null(filename)) {
 			filename <- 'Sample-NDVI-For-IRG-Landsat.js'
 		}
-		file.copy(from = system.file('javascript', 'Sample-NDVI-For-IRG-Landsat.js',
-																 package = 'irg'),
-							to = filename)
+
+		if (!is.null(filename) && file.exists(filename) && !overwrite) {
+			stop('found file at ', filename,
+					 '\n set overwrite to TRUE if you would like to save there anyways')
+		}
+
+		source_file <- system.file('javascript', 'Sample-NDVI-For-IRG-Landsat.js',
+															 package = 'irg')
 	} else {
 		stop('sensor must be one of: "MODIS" or "Landsat"')
 	}
 
+  file.copy(from = source_file, to = filename, overwrite = overwrite)
 }
