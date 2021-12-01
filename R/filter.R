@@ -39,9 +39,8 @@ filter_qa <- function(DT,
 	check_truelength(DT)
 
 	chk::chk_length(ndvi)
-	chk::chk_length(qa)
-
 	chk::check_names(DT, c(ndvi, qa))
+	chk::chk_length(qa)
 	chk::chk_numeric(DT[[ndvi]])
 
 	DT[, good_bool := .SD[[1]] %in% good, .SDcols = c(qa)]
