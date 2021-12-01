@@ -8,8 +8,7 @@ library(irg)
 
 
 # Data --------------------------------------------------------------------
-ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))[yr < 2007]
-
+ndvi <- fread(system.file("extdata", "sampled-ndvi-MODIS-MOD13Q1.csv", package = "irg"))
 
 
 # Change names ------------------------------------------------------------

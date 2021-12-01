@@ -2,6 +2,9 @@
 #'
 #' Using QA band information, filter the NDVI time series.
 #'
+#' See the details for the example data in ?`sampled-ndvi-Landsat-LC08-T1-L2.csv`
+#' and ?`sampled-ndvi-MODIS-MOD13Q1.csv`
+#'
 #' For MODIS MOD13Q1, the SummaryQA band
 #'
 #' For Landsat
@@ -23,7 +26,7 @@
 #' library(data.table)
 #'
 #' # Read example data
-#' ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
+#' ndvi <- fread(system.file("extdata", "sampled-ndvi-MODIS-MOD13Q1.csv", package = "irg"))
 #'
 #' filter_qa(ndvi, ndvi = 'NDVI', qa = 'SummaryQA', good = c(0, 1))
 filter_qa <-
@@ -43,6 +46,10 @@ filter_qa <-
 	check_col(DT, ndvi, 'NDVI')
 	check_col(DT, qa, 'qa')
 
+	if (!is.numeric(DT[[ndvi]])) {
+		stop(ndvi, ' column is not numeric')
+	}
+
 	DT[, good_bool := .SD[[1]] %in% good, .SDcols = c(qa)]
 	DT[(good_bool), filtered := .SD[[1]], .SDcols = c(ndvi)]
 	DT[!(good_bool), filtered := NA]
@@ -59,7 +66,7 @@ filter_qa <-
 #' @inheritParams filter_qa
 #' @param probs quantile probability to determine "winterNDVI". default is 0.025.
 #' @param limits integer vector indicating limit days of absolute winter (snow cover, etc.). default is c(60, 300): 60 days after Jan 1 and 65 days before Jan 1.
-#' @param doy julian day column. default is 'DayOfYear'. integer type.
+#' @param doy julian day column. default is 'DayOfYear'.
 #' @param id id column. default is 'id'. See details.
 #'
 #'
@@ -75,7 +82,7 @@ filter_qa <-
 #' library(data.table)
 #'
 #' # Read example data
-#' ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
+#' ndvi <- fread(system.file("extdata", "sampled-ndvi-MODIS-MOD13Q1.csv", package = "irg"))
 #' filter_qa(ndvi, ndvi = 'NDVI', qa = 'SummaryQA', good = c(0, 1))
 #' filter_winter(ndvi, probs = 0.025, limits = c(60L, 300L), doy = 'DayOfYear', id = 'id')
 filter_winter <-
@@ -147,7 +154,7 @@ filter_winter <-
 #' library(data.table)
 #'
 #' # Read example data
-#' ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
+#' ndvi <- fread(system.file("extdata", "sampled-ndvi-MODIS-MOD13Q1.csv", package = "irg"))
 #'
 #' filter_qa(ndvi, ndvi = 'NDVI', qa = 'SummaryQA', good = c(0, 1))
 #' filter_winter(ndvi, probs = 0.025, limits = c(60L, 300L), doy = 'DayOfYear', id = 'id')
@@ -196,7 +203,7 @@ filter_roll <-
 #' library(data.table)
 #'
 #' # Read example data
-#' ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
+#' ndvi <- fread(system.file("extdata", "sampled-ndvi-MODIS-MOD13Q1.csv", package = "irg"))
 #'
 #' filter_qa(ndvi, ndvi = 'NDVI', qa = 'SummaryQA', good = c(0, 1))
 #' filter_winter(ndvi, probs = 0.025, limits = c(60L, 300L), doy = 'DayOfYear', id = 'id')
@@ -248,7 +255,7 @@ filter_top <-
 #' library(data.table)
 #'
 #' # Read example data
-#' ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
+#' ndvi <- fread(system.file("extdata", "sampled-ndvi-MODIS-MOD13Q1.csv", package = "irg"))
 #'
 #' # Use filter_ndvi to apply all filtering steps (with defaults)
 #' filter_ndvi(ndvi)

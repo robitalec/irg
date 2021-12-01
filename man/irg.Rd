@@ -31,7 +31,7 @@ data.table must have columns:
 library(data.table)
 
 # Read in example data
-ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
+ndvi <- fread(system.file("extdata", "sampled-ndvi-MODIS-MOD13Q1.csv", package = "irg"))
 
 # Calculate IRG for each day of the year and individual
 out <- irg(ndvi)

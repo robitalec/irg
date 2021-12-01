@@ -1,7 +1,7 @@
 library(data.table)
 library(irg)
 
-ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
+ndvi <- fread(system.file("extdata", "sampled-ndvi-MODIS-MOD13Q1.csv", package = "irg"))
 
 # filter_qa ---------------------------------------------------------------
 # Columns mising are detected
@@ -17,8 +17,8 @@ expect_error(filter_qa(ndvi, qa = c('a', 'b')))
 
 
 # check type of NDVI
-ndvi_int <- copy(ndvi)[, NDVI := as.numeric(NDVI)]
-expect_warning(filter_qa(ndvi_int), 'column as integer', fixed = FALSE)
+ndvi_char <- copy(ndvi)[, NDVI := as.character(NDVI)]
+expect_error(filter_qa(ndvi_char), 'is not numeric', fixed = FALSE)
 
 #
 ndviqa <- filter_qa(copy(ndvi))

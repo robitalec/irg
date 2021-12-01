@@ -1,6 +1,6 @@
 library(data.table)
 
-ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
+ndvi <- fread(system.file("extdata", "sampled-ndvi-MODIS-MOD13Q1.csv", package = "irg"))
 
 # check_col ---------------------------------------------------------------
 expect_error(

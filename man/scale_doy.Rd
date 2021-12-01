@@ -9,7 +9,7 @@ scale_doy(DT, doy = "DayOfYear")
 \arguments{
 \item{DT}{data.table of NDVI time series}
 
-\item{doy}{julian day column. default is 'DayOfYear'. integer type.}
+\item{doy}{julian day column. default is 'DayOfYear'.}
 }
 \value{
 data.table with appended 't' column of 0-1 scaled day of year.
@@ -22,7 +22,7 @@ Scale the day of the year to 0-1 (like NDVI).
 library(data.table)
 
 # Read in example data
-ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
+ndvi <- fread(system.file("extdata", "sampled-ndvi-MODIS-MOD13Q1.csv", package = "irg"))
 
 # Scale DOY
 scale_doy(ndvi)
