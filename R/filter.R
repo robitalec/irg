@@ -152,28 +152,27 @@ filter_winter <- function(DT,
 #' filter_qa(ndvi, ndvi = 'NDVI', qa = 'SummaryQA', good = c(0, 1))
 #' filter_winter(ndvi, probs = 0.025, limits = c(60L, 300L), doy = 'DayOfYear', id = 'id')
 #' filter_roll(ndvi, window = 3L, id = 'id')
-filter_roll <-
-	function(DT,
-					 window = 3L,
-					 id = 'id',
-					 method = 'median'
-	) {
-		# NSE Errors
-		filtered <- winter <- rolled <- NULL
+filter_roll <- function(DT,
+												window = 3L,
+												id = 'id',
+												method = 'median') {
+	# NSE Errors
+	filtered <- winter <- rolled <- NULL
 
-		check_truelength(DT)
-		check_col(DT, id, 'id')
-		check_col(DT, 'filtered', extra = ', did you run filter_qa?')
-		check_col(DT, 'winter', extra = ', did you run filter_winter?')
-		overwrite_col(DT, 'rolled')
+	check_truelength(DT)
+	chk::check_names(DT, id)
+	chk::check_names(DT, 'filtered')
+	chk::check_names(DT, 'winter')
+	overwrite_col(DT, 'rolled')
 
-		bys <- id
+	bys <- id
 
-		DT[, rolled :=
-			 	RcppRoll::roll_median(filtered, n = 3, fill = -3000L),
-			 by = bys]
-		DT[rolled == -3000, rolled := winter]
-	}
+	DT[, rolled :=
+		 	RcppRoll::roll_median(filtered, n = 3, fill = -3000L),
+		 by = bys]
+	DT[rolled == -3000, rolled := winter]
+	return(DT)
+}
 
 #' Filter top NDVI
 #'
