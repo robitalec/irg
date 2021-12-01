@@ -72,5 +72,5 @@ scale_doy <-
 		check_col(DT, doy, 'doy')
 		overwrite_col(DT, 't')
 
-		DT[, t := julseq$t[.SD[[1]]], .SDcols = doy]
+		DT[, t := julseq$t[.SD[[1]]], .SDcols = c(doy)]
 }
