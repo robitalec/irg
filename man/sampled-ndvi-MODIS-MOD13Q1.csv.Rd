@@ -23,7 +23,7 @@ SummaryQA details:
 }
 }
 \description{
-A data.table containing NDVI samples for seven points over ten years (2005-2010).
+A CSV containing NDVI samples for seven points over ten years (2005-2010).
 Data extracted using Earth Engine with the example script provided by the
 \code{use_example_ee_script()} function with sensor set to 'MODIS'.
 }

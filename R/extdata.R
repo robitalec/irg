@@ -1,6 +1,6 @@
 #' Raw Landsat NDVI data
 #'
-#' A data.table containing NDVI samples for seven points over ten years (2005-2010).
+#' A CSV containing NDVI samples for seven points over ten years (2005-2010).
 #' Data extracted using Earth Engine with the example script provided by the
 #' `use_example_ee_script()` function with sensor set to 'Landsat'.
 #'
@@ -37,7 +37,7 @@ NULL
 
 #' Raw MODIS MOD13Q1 NDVI data
 #'
-#' A data.table containing NDVI samples for seven points over ten years (2005-2010).
+#' A CSV containing NDVI samples for seven points over ten years (2005-2010).
 #' Data extracted using Earth Engine with the example script provided by the
 #' `use_example_ee_script()` function with sensor set to 'MODIS'.
 #'
