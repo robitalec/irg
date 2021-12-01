@@ -35,9 +35,9 @@ function calcNDVI(im) {
 }
 
 // Function to grab date from image and add it as a band
-function addDates(img) {
-  var date = img.date();
-  return img.addBands(ee.Image([date.getRelative('day', 'year'),
+function addDates(im) {
+  var date = im.date();
+  return im.addBands(ee.Image([date.getRelative('day', 'year'),
                                 date.get('year')])
                         .rename(['doy', 'year'])).float();
 }
@@ -90,13 +90,13 @@ l8 = l8.map(addMask)
 
 // Sample images ===============================================================
 var sample = l8.map(sampleRegions)
-               .flatten()
-               .filter(ee.Filter.neq('ndvi', null));
+               .flatten();
 
 
 
 // Export ======================================================================
 Export.table.toDrive({
   collection: sample,
-  description: 'sampled-ndvi-Landsat-LC08-T1-L2'
+  description: 'sampled-ndvi-Landsat-LC08-T1-L2',
+  selectors: ['id', 'ndvi', 'mask', 'doy', 'year']
 });
