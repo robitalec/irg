@@ -3,6 +3,16 @@
 // Alec L. Robitaille
 
 // Functions ===================================================================
+function rescaleBands (im) {
+  var viBands = im.select(['NDVI', 'EVI']).multiply(0.0001);
+  var surfBands = im.select('sur_refl_b0.*').multiply(0.0001);
+  var viewBands = im.select(['ViewZenith', 'SolarZenith', 'RelativeAzimuth']).multiply(0.01);
+
+  return(im.addBands(viBands, null, true)
+           .addBands(surfBands, null, true)
+           .addBands(viewBands, null, true));
+}
+
 // Function to grab year from image and add it as a band
 function addYear(img) {
   return(img.addBands(ee.Image(img.date().get('year')).rename('yr')));
@@ -47,7 +57,8 @@ modis = modis.filterDate('2015-01-01', '2020-01-01')
 
 // Process images ==============================================================
 // Add dates
-modis = modis.map(addYear);
+modis = modis.map(addYear)
+             .map(rescaleBands);
 
 
 
@@ -61,5 +72,6 @@ var sample = modis.map(sampleRegions)
 // Export ======================================================================
 Export.table.toDrive({
   collection: sample,
-  description: 'sampled-ndvi-MODIS-MOD13Q1'
+  description: 'sampled-ndvi-MODIS-MOD13Q1',
+  selectors: ['id', 'NDVI', 'SummaryQA', 'DayOfYear', 'yr']
 });
