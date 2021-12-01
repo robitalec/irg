@@ -23,21 +23,22 @@
 #' # Filter and scale NDVI time series
 #' filter_ndvi(ndvi)
 #' scale_ndvi(ndvi)
-scale_ndvi <-
-	function(DT) {
-		# NSE Errors
-		rolled <- winter <- top <- scaled <- NULL
+scale_ndvi <- function(DT) {
+	# NSE Errors
+	rolled <- winter <- top <- scaled <- NULL
 
-		check_truelength(DT)
+	check_truelength(DT)
 
-		if (any(!(c('rolled', 'winter', 'top') %in% colnames(DT)))) {
-			stop('missing one of "rolled", "winter", "top". did you filter?')
-		}
+	chk::check_names(DT, 'filtered')
+	chk::check_names(DT, 'winter')
+	chk::check_names(DT, 'top')
 
-		DT[, scaled := ((rolled - winter) / (top - winter))]
+	DT[, scaled := ((rolled - winter) / (top - winter))]
 
-		DT[rolled > top, scaled := 1]
-	}
+	DT[rolled > top, scaled := 1]
+	DT[between(scaled, 0, -0.01), scaled := 0]
+	DT
+}
 
 
 #' Scale DOY
@@ -62,15 +63,13 @@ scale_ndvi <-
 #'
 #' # Scale DOY
 #' scale_doy(ndvi)
-scale_doy <-
-	function(DT, doy = 'DayOfYear') {
-		# NSE Errors
-		t <- NULL
+scale_doy <- function(DT, doy = 'DayOfYear') {
+	# NSE Errors
+	t <- NULL
 
-		check_truelength(DT)
+	check_truelength(DT)
+	chk::check_names(DT, doy)
+	overwrite_col(DT, 't')
 
-		check_col(DT, doy, 'doy')
-		overwrite_col(DT, 't')
-
-		DT[, t := julseq$t[.SD[[1]]], .SDcols = c(doy)]
+	DT[, t := seq(0, 1, length.out = 366)[.SD[[1]]], .SDcols = c(doy)]
 }
