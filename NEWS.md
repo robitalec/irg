@@ -1,7 +1,7 @@
 # v 0.1.3
 
 * add new function `use_example_ee_script` to provide users with an example
-script for sampling NDVI with Earth Engine
+script for sampling NDVI with Earth Engine [#10]
 
 
 # v 0.1.2
