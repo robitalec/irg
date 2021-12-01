@@ -201,31 +201,27 @@ filter_roll <- function(DT,
 #' filter_winter(ndvi, probs = 0.025, limits = c(60L, 300L), doy = 'DayOfYear', id = 'id')
 #' filter_roll(ndvi, window = 3L, id = 'id')
 #' filter_top(ndvi, probs = 0.925, id = 'id')
-filter_top <-
-	function(DT,
-					 probs = 0.925,
-					 id = 'id') {
-		# NSE Errors
-		top <- filtered <- NULL
+filter_top <- function(DT,
+											 probs = 0.925,
+											 id = 'id') {
+	# NSE Errors
+	top <- filtered <- NULL
 
-		check_truelength(DT)
+	check_truelength(DT)
 
+	chk::chk_length(probs)
+	chk::check_names(DT, id)
+	chk::check_names(DT, 'filtered')
+	chk::check_names(DT, 'winter')
+	chk::check_names(DT, 'top')
+	overwrite_col(DT, 'top')
 
-		if (length(probs) != 1) {
-			stop('probs must be length 1')
-		}
+	bys <- id
 
-		check_col(DT, id, 'id')
-		check_col(DT, 'filtered', extra = ', did you run filter_qa?')
-		check_col(DT, 'winter', extra = ', did you run filter_winter?')
-		overwrite_col(DT, 'top')
-
-		bys <- id
-
-		DT[, top := stats::quantile(filtered, probs, na.rm = TRUE),
-			 by = bys]
-
-	}
+	DT[, top := stats::quantile(filtered, probs, na.rm = TRUE),
+		 by = bys]
+	return(DT)
+}
 
 
 #' Filter NDVI
