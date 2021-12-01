@@ -1,7 +1,7 @@
 library(data.table)
 library(irg)
 
-ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
+ndvi <- fread(system.file("extdata", "sampled-ndvi-MODIS-MOD13Q1.csv", package = "irg"))
 
 # filter_qa ---------------------------------------------------------------
 # Columns mising are detected

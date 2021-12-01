@@ -23,7 +23,7 @@
 #' library(data.table)
 #'
 #' # Read example data
-#' ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
+#' ndvi <- fread(system.file("extdata", "sampled-ndvi-MODIS-MOD13Q1.csv", package = "irg"))
 #'
 #' filter_qa(ndvi, ndvi = 'NDVI', qa = 'SummaryQA', good = c(0, 1))
 filter_qa <-

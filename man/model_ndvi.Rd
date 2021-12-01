@@ -26,7 +26,7 @@ Fit double logistic model to NDVI time series given parameters estimated with mo
 library(data.table)
 
 # Read in example data
-ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
+ndvi <- fread(system.file("extdata", "sampled-ndvi-MODIS-MOD13Q1.csv", package = "irg"))
 
 # Filter and scale NDVI time series
 filter_ndvi(ndvi)

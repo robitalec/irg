@@ -22,7 +22,7 @@ Scale the day of the year to 0-1 (like NDVI).
 library(data.table)
 
 # Read in example data
-ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
+ndvi <- fread(system.file("extdata", "sampled-ndvi-MODIS-MOD13Q1.csv", package = "irg"))
 
 # Scale DOY
 scale_doy(ndvi)
