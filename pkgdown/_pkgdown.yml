@@ -35,6 +35,9 @@ reference:
     contents:
     - '`filter_ndvi`'
     - '`irg`'
+  - title: Example Earth Engine scripts
+    desc:
+    - '`use_example_ee_script'`
   - title: Package data
     desc: ~
     contents:
