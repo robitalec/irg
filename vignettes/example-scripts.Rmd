@@ -20,3 +20,18 @@ knitr::opts_chunk$set(
 library(irg)
 ```
 
+
+## MODIS MOD13Q1 
+
+To access an example script for extracting NDVI from
+MODIS MOD13Q1 imagery in Earth Engine, run: 
+
+```{r, eval = FALSE}
+use_example_ee_script(sensor = 'MODIS')
+```
+
+```{r, echo = FALSE}
+writeLines(readLines(system.file('javascript', 'Sample-NDVI-For-IRG-MODIS.js', 
+											package = 'irg')))
+```
+
