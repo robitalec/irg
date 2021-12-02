@@ -1,15 +1,20 @@
-v 0.1.4
+# v0.1.4.9000 
+
+Development version
+
+
+# v 0.1.4 (2021-12-01)
 
 * add dependency on `chk` package to improve checks, and returned errors
 * use new example data in tests and examples
 
-# v 0.1.3
+# v 0.1.3 (2021-12-01)
 
 * add new function `use_example_ee_script` to provide users with an example
 script for sampling NDVI with Earth Engine [#10]
 * added new example data based on the exports from the example scripts [#11]
 
-# v 0.1.2
+# v 0.1.2 (2021-11-23)
 
 * switched to a pkgdown site with gh actions [#1]
 * switched to R CMD check with gh actions [#2]
@@ -19,7 +24,7 @@ script for sampling NDVI with Earth Engine [#10]
 * added testing for flexible column names [#5] [#7]
 
 
-# v 0.1.1 (2019-02-13) 
+# v 0.1.1 (2019-02-13)
 * fixed data.table recycling change ([#23](https://gitlab.com/robit.a/irg/issues/23))
 * minor edits to 'Getting Started' vignette
 
