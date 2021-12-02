@@ -57,6 +57,8 @@ navbar:
       menu:
       - text: Getting started with irg
         href: articles/getting-started-with-irg.html
+      - text: Example Earth Engine scripts
+        href: articles/example-scripts.html
     news:
       text: "News"
       href: news/index.html

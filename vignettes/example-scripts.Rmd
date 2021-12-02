@@ -1,0 +1,51 @@
+---
+title: "Example Earth Engine scripts"
+output: rmarkdown::html_vignette
+author: 'Alec L. Robitaille'
+date: '`r Sys.Date()`'
+vignette: >
+  %\VignetteIndexEntry{example-scripts}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = ""
+)
+```
+
+```{r setup}
+library(irg)
+```
+
+
+## MODIS MOD13Q1 
+
+To access an example script for extracting NDVI from
+MODIS MOD13Q1 imagery in Earth Engine, run: 
+
+```{r, eval = FALSE}
+use_example_ee_script(sensor = 'MODIS')
+```
+
+```{r, echo = FALSE}
+writeLines(readLines(system.file('javascript', 'Sample-NDVI-For-IRG-MODIS.js', 
+											package = 'irg')))
+```
+
+
+## Landsat 8
+
+To access an example script for extracting NDVI from
+Landsat 8 imagery in Earth Engine, run: 
+
+```{r, eval = FALSE}
+use_example_ee_script(sensor = 'Landsat')
+```
+
+```{r, echo = FALSE}
+writeLines(readLines(system.file('javascript', 'Sample-NDVI-For-IRG-Landsat.js', 
+											package = 'irg')))
+```
