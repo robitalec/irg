@@ -1,0 +1,22 @@
+---
+title: "Example Earth Engine scripts"
+output: rmarkdown::html_vignette
+author: 'Alec L. Robitaille'
+date: '`r Sys.Date()`'
+vignette: >
+  %\VignetteIndexEntry{example-scripts}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = ""
+)
+```
+
+```{r setup}
+library(irg)
+```
+
