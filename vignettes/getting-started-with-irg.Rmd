@@ -23,25 +23,39 @@ options(scipen = 9999)
 The `irg` package opts for a tabular calculation of the instantaneous rate of green-up (IRG) as opposed to a raster based approach. Sampling MODIS imagery is left up to the user and a prerequisite for all functions. The main input (`DT`) for all functions is a [`data.table`](https://github.com/Rdatatable/data.table) of an NDVI time series. The sampling unit (`id`) is flexible (a decision for the user) though we would anticipate points or polygons, or maybe a pixel. All functions leverage the speed of `data.table` to efficiently filter, scale and model NDVI time series, and calculate IRG. 
 
 
-## Setup
-Install the latest version with [`remotes`](https://github.com/r-lib/remotes). 
+## Installation
+Install with CRAN
 
-```{r remotes}
-remotes::install_gitlab('robit.a/irg')
+```{r, eval = FALSE}
+# Install 
+install.packages('irg')
+```
+
+or R-universe
+
+```{r, eval = FALSE}
+# Enable the robitalec universe
+options(repos = c(
+    robitalec = 'https://robitalec.r-universe.dev',
+    CRAN = 'https://cloud.r-project.org'))
+
+# Install 
+install.packages('irg')
 ```
 
 ### Packages
-`irg` depends on two packages (and `stats`):
+`irg` depends on three packages (and `stats`):
 
 * [`data.table`](https://github.com/Rdatatable/data.table) for all tabular processing 
 * [`RcppRoll`](https://github.com/kevinushey/RcppRoll) for fast rolling medians in `filter_roll`. 
+* [`chk`](https://github.com/pre-processing-r/chk) for internal checks. 
 
 No external dependencies. 
 
 ### Input data
 `irg` requires an NDVI time series in a  `data.table`. 
 
-Though names can be different and specified at input, the default names and required columns are:
+Though names can be different and specified at input, but the default names and required columns are:
 
 * id: sampling unit identification (point id, polygon id, ...)
 * yr: year of sample
@@ -85,12 +99,25 @@ setDT(DF)
 ```
 
 #### Sampling NDVI
-Though `irg` is not involved in the sampling step, it is important that the input data matches the package's expectations.
+Though `irg` is not involved in the sampling step, it is important that the
+input data matches the package's expectations.
 
-We used the incredible [Google Earth Engine](http://earthengine.google.com/) to sample MODIS NDVI (MOD13Q1.006)<!--share script/another vignette?-->. There are also R packages specific to MODIS ([`MODIStsp`](https://github.com/ropensci/MODIStsp)) and general purpose raster operations ([`raster`](https://github.com/rspatial/raster)), and others (let us know)...
+We used the incredible [Google Earth Engine](http://earthengine.google.com/) to
+sample MODIS NDVI (MOD13Q1.006). There are also R packages specific to MODIS
+([`MODIStsp`](https://github.com/ropensci/MODIStsp)) and general purpose raster
+operations ([`raster`](https://github.com/rspatial/raster)), and 
+an R interface to Earth Engine [`rgee`](https://github.com/r-spatial/rgee).
+
+Update: we recently added the `use_example_ee_script()` function which 
+offers an example script for extracting NDVI in Earth Engine. There
+are two versions, one for sampling MODIS MOD13Q1 and another for 
+sampling Landsat 8.
 
 #### Temporal extent
-Filtering steps in `irg` use a baseline 'winterNDVI' and upper quantile as described by Bischoff et al. (2012). These steps require multiple years of sampled NDVI for each `id`. In addition, make sure to include all samples throughout the year, leaving the filtering for `irg`. 
+Filtering steps in `irg` use a baseline 'winterNDVI' and upper quantile as
+described by Bischoff et al. (2012). These steps require multiple years of
+sampled NDVI for each `id`. In addition, make sure to include all samples
+throughout the year, leaving the filtering for `irg`.
 
 
 
@@ -163,9 +190,14 @@ fs <-
              by = functions]
 ```
 
-There are `r nrow(fs[grepl('filter', functions)])` filtering functions, `r nrow(fs[grepl('scale', functions)])` scaling functions, `r nrow(fs[grepl('model', functions)])` modeling functions and `r nrow(fs[grepl('irg', functions)])` IRG functions. 
+There are `r nrow(fs[grepl('filter', functions)])` filtering functions, 
+`r nrow(fs[grepl('scale', functions)])` scaling functions, 
+`r nrow(fs[grepl('model', functions)])` modeling functions and 
+`r nrow(fs[grepl('irg', functions)])` IRG functions. 
 
-The `irg::irg` function is a wrapper for all steps - filtering, scaling, modeling and calculating IRG in one step. At this point, only defaults. Here's 5 rows from the result. 
+The `irg::irg` function is a wrapper for all steps - 
+filtering, scaling, modeling and calculating IRG in one step. 
+At this point, only defaults. Here's 5 rows from the result. 
 
 For options, head to the steps below. 
 
@@ -214,7 +246,8 @@ filter_top(ndvi, probs = 0.925, id = 'id')
 
 
 ## Scaling
-Two scaling functions are use to scale the day of year column and filtered NDVI time series between 0-1. 
+Two scaling functions are use to scale the day of year column 
+and filtered NDVI time series between 0-1. 
 
 
 ```{r}
@@ -226,13 +259,17 @@ scale_ndvi(ndvi)
 
 
 ## Modeling 
-Three functions are used to model the NDVI times series to a double logistic curve, as described by Bischoff et al. (2012). 
+Three functions are used to model the NDVI times series to a double 
+logistic curve, as described by Bischoff et al. (2012). 
 
 $$fitted = \frac{1}{1 + e^ \frac{xmidS - t}{scalS}} - \frac{1}{1 + e^ \frac{xmidA - t}{scalA}}$$
 
-Two options from this point are available: fitting NDVI and calculating IRG for observed data only, or for the full year. 
+Two options from this point are available: fitting NDVI and
+calculating IRG for observed data only, or for the full year. 
 
-To calculate for every day of every year, specify `returns = 'models'` in `model_params`, `observed = FALSE` in `model_ndvi` and assign the output of `model_ndvi`. 
+To calculate for every day of every year, specify `returns = 'models'` 
+in `model_params`, `observed = FALSE` in `model_ndvi` and assign the 
+output of `model_ndvi`. 
 
 ```{r}
 # Guess starting parameters
@@ -252,7 +289,8 @@ mods <- model_params(
 fit <- model_ndvi(mods, observed = FALSE)
 ```
 
-Alternatively, to calculate for the observed data only, specify `returns = 'columns'` in `model_params` and  `observed = TRUE` in `model_ndvi`. 
+Alternatively, to calculate for the observed data only, specify 
+`returns = 'columns'` in `model_params` and  `observed = TRUE` in `model_ndvi`. 
 
 ```{r}
 # Guess starting parameters
