@@ -33,10 +33,10 @@ model_start <- function(DT, id = 'id', year = 'yr') {
 	# NSE errors
 	difS <- difA <- scaled <- xmidS_start <- xmidA_start <- NULL
 
-	check_col(DT, 'scaled', extra = ' - did you filter and scale?')
-	check_col(DT, 't', extra = ' - did you scale doy?')
-	check_col(DT, id, 'id')
-	check_col(DT, year, 'year')
+	chk::check_names(DT, 'scaled')
+	chk::check_names(DT, 't')
+	chk::check_names(DT, id)
+	chk::check_names(DT, year)
 
 	overwrite_col(DT, 'xmidS_start')
 	overwrite_col(DT, 'xmidA_start')
@@ -57,7 +57,6 @@ model_start <- function(DT, id = 'id', year = 'yr') {
 		 by = c(id, year)]
 	DT[, xmidA_start := .SD[!is.na(xmidA_start), xmidA_start[1]],
 		 by = c(id, year)]
-
 
 	DT[xmidA_start < xmidS_start, xmidA_start := xmidA_start + 0.3]
 
@@ -143,30 +142,25 @@ model_params <- function(DT,
 
 	check_truelength(DT)
 
-	check_col(DT, 'scaled', extra = ' - did you filter and scale?')
+	chk::check_names(DT, 'scaled')
+	chk::check_names(DT, id)
+	chk::check_names(DT, year)
 
-	check_col(DT, id, 'id')
-	check_col(DT, year, 'year')
-
-	if (is.character(xmidS)) {
-		check_col(DT, xmidS, 'xmidS')
+	if (chk::vld_character(xmidS)) {
+		chk::check_names(DT, xmidS)
+	}
+	if (chk::vld_character(xmidA)) {
+		chk::check_names(DT, xmidA)
+	}
+	if (chk::vld_character(scalS)) {
+		chk::check_names(DT, scalS)
+	}
+	if (chk::vld_character(scalA)) {
+		chk::check_names(DT, scalA)
 	}
 
-	if (is.character(xmidA)) {
-		check_col(DT, xmidA, 'xmidA')
-	}
-
-	if (is.character(scalS)) {
-		check_col(DT, scalS, 'scalS')
-	}
-
-	if (is.character(scalA)) {
-		check_col(DT, scalA, 'scalA')
-	}
-
-	if (is.null(returns)) {
-		stop('argument "returns" is NULL, must provide one of "models" or "columns"')
-	}
+	chk::chk_not_null(returns)
+	chk::chk_subset(returns, c('models', 'columns'))
 
 	if (is.null(xmidS) | is.null(xmidA) | is.null(scalS) | is.null(scalA)) {
 		stop('starting parameters must be provided.
@@ -302,10 +296,12 @@ model_ndvi <- function(DT, observed = TRUE) {
 
 	check_truelength(DT)
 
-	check_col(DT, 'xmidS')
-	check_col(DT, 'xmidA')
-	check_col(DT, 'scalS')
-	check_col(DT, 'scalA')
+	chk::check_names(DT, 'xmidS')
+	chk::check_names(DT, 'xmidA')
+	chk::check_names(DT, 'scalS')
+	chk::check_names(DT, 'scalA')
+
+	chk::chk_not_null(observed)
 
 	if (observed) {
 		DT[, fitted :=
@@ -320,7 +316,5 @@ model_ndvi <- function(DT, observed = TRUE) {
 						(1 / (1 + exp((xmidA - t) / scalA)))]
 
 		return(fitDT)
-	} else{
-		stop('missing observed - must be TRUE/FALSE')
 	}
 }

@@ -18,7 +18,7 @@ ndvi_new_names <- copy(ndvi)
 old_names <- colnames(ndvi_new_names)
 setnames(ndvi_new_names,
 				 old_names,
-				 c(id, yr, 'day_of_year', 'ndvi', 'qa'))
+				 c(id, 'ndvi', 'qa', 'day_of_year', yr))
 ndvi_new_names_raw <- copy(ndvi_new_names)
 
 
@@ -77,9 +77,10 @@ mods <- model_params(
 # Fit to the whole year (requires assignment)
 fit <- model_ndvi(mods, observed = FALSE)
 
-expect_equal(colnames(fit),
-						 c(id, yr, 'xmidS', 'xmidA', 'scalS', 'scalA',
-						 	'nls_error', 't', 'fitted'))
+expect_true(all(
+	c(id, yr, 'xmidS', 'xmidA', 'scalS', 'scalA',
+		't', 'fitted') %in% colnames(fit)
+))
 
 
 # Option 2 - returns = 'columns'

@@ -1,8 +1,13 @@
+v 0.1.4
+
+* add dependency on `chk` package to improve checks, and returned errors
+* use new example data in tests and examples
+
 # v 0.1.3
 
 * add new function `use_example_ee_script` to provide users with an example
 script for sampling NDVI with Earth Engine [#10]
-
+* added new example data based on the exports from the example scripts [#11]
 
 # v 0.1.2
 

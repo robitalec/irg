@@ -1,6 +1,6 @@
 Package: irg
 Title: Instantaneous Rate of Green Up
-Version: 0.1.3.9000
+Version: 0.1.4
 Authors@R: 
     person(given = "Alec L.",
            family = "Robitaille",
@@ -26,7 +26,8 @@ Depends: R (>= 2.10)
 Imports: 
     data.table,
     RcppRoll,
-    stats
+    stats,
+    chk
 VignetteBuilder: knitr
 URL: https://github.com/robitalec/irg, https://robitalec.github.io/irg/
 BugReports: https://github.com/robitalec/irg/issues

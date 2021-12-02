@@ -1,5 +1,5 @@
 
-[![lifecycle](https://img.shields.io/badge/lifecycle-experimental-blue.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![lifecycle](https://img.shields.io/badge/lifecycle-active-green.svg)](https://www.tidyverse.org/lifecycle/#active)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/irg)](https://cran.r-project.org/package=irg)
 
@@ -8,12 +8,18 @@ status](https://www.r-pkg.org/badges/version/irg)](https://cran.r-project.org/pa
 `irg` is an R package for calculating the instantaneous rate of green-up
 (IRG). It can be used to fit a double logistic curve to a time series of
 normalized difference vegetation index (NDVI) and calculate IRG, as
-described in Bischoff et al. (2012) [\[1\]](#references). At the moment,
-the `irg` package is designed to work with MODIS imagery, but we’re
-working on adding other approaches. IRG helps identify the timing of
-green-up and can be used to determine if migratory animals are “surfing”
-a green-wave of high quality forage or if non-migratory animals are
-selecting available resources at the peak IRG in their environments.
+described in Bischoff et al. (2012) [\[1\]](#references). IRG helps
+identify the timing of green-up and can be used to determine if
+migratory animals are “surfing” a green-wave of high quality forage or
+if non-migratory animals are selecting available resources at the peak
+IRG in their environments. ~~At the moment, the `irg` package is
+designed to work with MODIS imagery, but we’re working on adding other
+sensors~~.
+
+Update: we recently added an example Landsat 8 dataset. The `irg`
+package functions have been updated to be more flexible to different
+sensors. Let us know (open an issue!) if you use a sensor other than
+MODIS for calculating IRG. Thanks!
 
 ## Approach
 
@@ -68,16 +74,42 @@ library(ggplot2)
 library(irg)
 
 # Load package data
-ndvi <- fread(system.file("extdata", "ndvi.csv", package = "irg"))
+ndvi <- fread(system.file("extdata", "sampled-ndvi-MODIS-MOD13Q1.csv", package = "irg"))
 
-# Calculate IRG using example data: a raw NDVI time series
-IRG <- irg(ndvi)
+# Filter and scale NDVI
+filter_ndvi(ndvi)
+scale_ndvi(ndvi)
+scale_doy(ndvi)
 
-# Plot IRG and NDVI for 1 year at 1 point (please excuse the manual color scale)
+# Guess starting parameters
+model_start(ndvi, id = 'id', year = 'yr')
+
+# Double logistic model parameters given starting parameters for nls
+mods <- model_params(
+  ndvi,
+  returns = 'models',
+  id = 'id', year = 'yr',
+  xmidS = 'xmidS_start', xmidA = 'xmidA_start',
+  scalS = 0.05,
+  scalA = 0.01
+)
+
+# Fit double log to NDVI
+fit <- model_ndvi(mods, observed = FALSE)
+
+# Calculate IRG for each day of the year
+calc_irg(fit)
+
+# Plot IRG and NDVI for 1 year at 1 point
 cols <- c('IRG' = '#14c62f', 'NDVI' = '#47694d')
-ggplot(IRG[yr == 2007 & id == sample(id, 1)], aes(x = t)) +
+
+random_yr <- sample(fit$yr, 1)
+random_id <- sample(fit$id, 1)
+
+ggplot(fit[yr == random_yr & id == random_id], aes(x = t)) +
     geom_line(aes(y = irg, color = 'IRG')) +
     geom_line(aes(y = fitted, color = 'NDVI')) +
+    geom_point(aes(y = scaled), data = ndvi[yr == random_yr & id == random_id]) + 
     scale_color_manual(values = cols) +
     labs(y = '', color = '')
 ```
