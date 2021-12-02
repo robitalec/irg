@@ -48,6 +48,7 @@ install.packages('irg')
 
 * [`data.table`](https://github.com/Rdatatable/data.table) for all tabular processing 
 * [`RcppRoll`](https://github.com/kevinushey/RcppRoll) for fast rolling medians in `filter_roll`. 
+* [`chk`](https://github.com/pre-processing-r/chk) for internal checks. 
 
 No external dependencies. 
 
