@@ -1,6 +1,6 @@
 Package: irg
 Title: Instantaneous Rate of Green Up
-Version: 0.1.4
+Version: 0.1.4.9000
 Authors@R: 
     person(given = "Alec L.",
            family = "Robitaille",
