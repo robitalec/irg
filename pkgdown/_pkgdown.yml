@@ -37,7 +37,7 @@ reference:
     - '`irg`'
   - title: Example Earth Engine scripts
     desc:
-    - '`use_example_ee_script'`
+    - '`use_example_ee_script`'
   - title: Package data
     desc: ~
     contents:
