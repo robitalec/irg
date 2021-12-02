@@ -23,11 +23,24 @@ options(scipen = 9999)
 The `irg` package opts for a tabular calculation of the instantaneous rate of green-up (IRG) as opposed to a raster based approach. Sampling MODIS imagery is left up to the user and a prerequisite for all functions. The main input (`DT`) for all functions is a [`data.table`](https://github.com/Rdatatable/data.table) of an NDVI time series. The sampling unit (`id`) is flexible (a decision for the user) though we would anticipate points or polygons, or maybe a pixel. All functions leverage the speed of `data.table` to efficiently filter, scale and model NDVI time series, and calculate IRG. 
 
 
-## Setup
-Install the latest version with [`remotes`](https://github.com/r-lib/remotes). 
+## Installation
+Install with CRAN
 
-```{r remotes}
-remotes::install_gitlab('robit.a/irg')
+```{r, eval = FALSE}
+# Install 
+install.packages('irg')
+```
+
+or R-universe
+
+```{r, eval = FALSE}
+# Enable the robitalec universe
+options(repos = c(
+    robitalec = 'https://robitalec.r-universe.dev',
+    CRAN = 'https://cloud.r-project.org'))
+
+# Install 
+install.packages('irg')
 ```
 
 ### Packages
