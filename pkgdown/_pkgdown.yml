@@ -1,7 +1,7 @@
 articles:
   getting-started-with-irg: getting-started-with-irg.html
 
-url: https://github.com/robitalec/irg
+url: https://robitalec.github.io/irg/
 
 template:
   params:
@@ -38,7 +38,8 @@ reference:
   - title: Package data
     desc: ~
     contents:
-    - '`ndvi`'
+    - '`sampled-ndvi-MODIS-MOD13Q1.csv`'
+    - '`sampled-ndvi-Landsat-LC08-T1-L2.csv`'
 
 navbar:
   left:
