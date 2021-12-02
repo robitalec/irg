@@ -99,9 +99,14 @@ setDT(DF)
 ```
 
 #### Sampling NDVI
-Though `irg` is not involved in the sampling step, it is important that the input data matches the package's expectations.
+Though `irg` is not involved in the sampling step, it is important that the
+input data matches the package's expectations.
 
-We used the incredible [Google Earth Engine](http://earthengine.google.com/) to sample MODIS NDVI (MOD13Q1.006)<!--share script/another vignette?-->. There are also R packages specific to MODIS ([`MODIStsp`](https://github.com/ropensci/MODIStsp)) and general purpose raster operations ([`raster`](https://github.com/rspatial/raster)), and others (let us know)...
+We used the incredible [Google Earth Engine](http://earthengine.google.com/) to
+sample MODIS NDVI (MOD13Q1.006). There are also R packages specific to MODIS
+([`MODIStsp`](https://github.com/ropensci/MODIStsp)) and general purpose raster
+operations ([`raster`](https://github.com/rspatial/raster)), and 
+an R interface to Earth Engine [`rgee`](https://github.com/r-spatial/rgee).
 
 Update: we recently added the `use_example_ee_script()` function which 
 offers an example script for extracting NDVI in Earth Engine. There
