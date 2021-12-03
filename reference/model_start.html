@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">irg</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.2.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.4.9000</span>
       </span>
     </div>
 
@@ -40,12 +40,15 @@
   <ul class="dropdown-menu" role="menu"><li>
       <a href="../articles/getting-started-with-irg.html">Getting started with irg</a>
     </li>
+    <li>
+      <a href="../articles/example-scripts.html">Example Earth Engine scripts</a>
+    </li>
   </ul></li>
 <li>
   <a href="../news/index.html">News</a>
 </li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="https://github.com/robitalec/irg/">
+  <a href="https://github.com/robitalec/irg/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -60,7 +63,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Model starting parameters</h1>
-    <small class="dont-index">Source: <a href="https://github.com/robitalec/irg/blob/HEAD/R/model.R"><code>R/model.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/robitalec/irg/blob/HEAD/R/model.R" class="external-link"><code>R/model.R</code></a></small>
     <div class="hidden name"><code>model_start.Rd</code></div>
     </div>
 
@@ -68,7 +71,9 @@
     <p>Try guessing starting parameters for model_params and model_ndvi.</p>
     </div>
 
-    <div id="ref-usage">Usage,<div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">model_start</span><span class="op">(</span><span class="va">DT</span>, id <span class="op">=</span> <span class="st">"id"</span>, year <span class="op">=</span> <span class="st">"yr"</span><span class="op">)</span></code></pre></div></div>
+    <div id="ref-usage">
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">model_start</span><span class="op">(</span><span class="va">DT</span>, id <span class="op">=</span> <span class="st">"id"</span>, year <span class="op">=</span> <span class="st">"yr"</span><span class="op">)</span></code></pre></div>
+    </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
@@ -89,8 +94,9 @@
     </div>
     <div id="see-also">
     <h2>See also</h2>
-    <div class="dont-index"><p>Other model: <code><a href="model_ndvi.html">model_ndvi</a></code>,
-  <code><a href="model_params.html">model_params</a></code></p></div>
+    <div class="dont-index"><p>Other model: 
+<code><a href="model_ndvi.html">model_ndvi</a>()</code>,
+<code><a href="model_params.html">model_params</a>()</code></p></div>
     </div>
 
     <div id="ref-examples">
@@ -99,99 +105,99 @@
 <span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com" class="external-link">data.table</a></span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Read in example data</span></span>
-<span class="r-in"><span class="va">ndvi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/fread.html" class="external-link">fread</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"ndvi.csv"</span>, package <span class="op">=</span> <span class="st">"irg"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">ndvi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/fread.html" class="external-link">fread</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"sampled-ndvi-MODIS-MOD13Q1.csv"</span>, package <span class="op">=</span> <span class="st">"irg"</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Filter and scale NDVI time series</span></span>
 <span class="r-in"><span class="fu"><a href="filter_ndvi.html">filter_ndvi</a></span><span class="op">(</span><span class="va">ndvi</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       id   yr DayOfYear  NDVI SummaryQA filtered winter rolled    top</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    1:  1 2002         3 -1367         3     4099   4099   4099 7443.4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    2:  2 2002        14  -304         3     5382   5382   5382 7462.9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    3:  3 2002         1   374         2     3702   3702   3702 6709.8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    4:  4 2002        15   635         3     5180   5180   5180 7288.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    5:  5 2002         9   685         2     4621   4621   4621 7645.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ---                                                                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1261:  1 2012       353   151         2     4099   4099   4099 7443.4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1262:  2 2012       356   330         2     5382   5382   5382 7462.9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1263:  3 2012       356   560         2     3702   3702   3702 6709.8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1264:  4 2012       356  1720         2     5180   5180   5180 7288.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1265:  5 2012       356  2689         2     4621   4621   4621 7645.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      id   NDVI SummaryQA DayOfYear   yr  filtered    winter    rolled       top</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1:  0 0.1864         3        11 2015 0.3076500 0.3076500 0.3076500 0.8735000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2:  1 0.0541         2         3 2015 0.3163400 0.3163400 0.3163400 0.8632175</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   3:  2 0.1781         3        11 2015 0.2649875 0.2649875 0.2649875 0.8707500</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   4:  3 0.1024         2         5 2015 0.2301750 0.2301750 0.2301750 0.8635525</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   5:  4 0.0898         2         3 2015 0.2177150 0.2177150 0.2177150 0.8476000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  ---                                                                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 801:  2 0.1179         2       364 2019 0.2649875 0.2649875 0.2649875 0.8707500</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 802:  3 0.0789         2       364 2019 0.2301750 0.2301750 0.2301750 0.8635525</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 803:  4 0.1572         2       364 2019 0.2177150 0.2177150 0.2177150 0.8476000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 804:  5 0.0763         2       364 2019 0.3163400 0.3163400 0.3163400 0.8632175</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 805:  6 0.1197         2       362 2019 0.3149325 0.3149325 0.3149325 0.8632000</span>
 <span class="r-in"><span class="fu"><a href="scale_doy.html">scale_doy</a></span><span class="op">(</span><span class="va">ndvi</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       id   yr DayOfYear  NDVI SummaryQA filtered winter rolled    top</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    1:  1 2002         3 -1367         3     4099   4099   4099 7443.4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    2:  2 2002        14  -304         3     5382   5382   5382 7462.9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    3:  3 2002         1   374         2     3702   3702   3702 6709.8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    4:  4 2002        15   635         3     5180   5180   5180 7288.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    5:  5 2002         9   685         2     4621   4621   4621 7645.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ---                                                                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1261:  1 2012       353   151         2     4099   4099   4099 7443.4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1262:  2 2012       356   330         2     5382   5382   5382 7462.9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1263:  3 2012       356   560         2     3702   3702   3702 6709.8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1264:  4 2012       356  1720         2     5180   5180   5180 7288.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1265:  5 2012       356  2689         2     4621   4621   4621 7645.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                 t</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    1: 0.005479452</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    2: 0.035616438</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    3: 0.000000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    4: 0.038356164</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    5: 0.021917808</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ---            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1261: 0.964383562</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1262: 0.972602740</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1263: 0.972602740</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1264: 0.972602740</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1265: 0.972602740</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      id   NDVI SummaryQA DayOfYear   yr  filtered    winter    rolled       top</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1:  0 0.1864         3        11 2015 0.3076500 0.3076500 0.3076500 0.8735000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2:  1 0.0541         2         3 2015 0.3163400 0.3163400 0.3163400 0.8632175</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   3:  2 0.1781         3        11 2015 0.2649875 0.2649875 0.2649875 0.8707500</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   4:  3 0.1024         2         5 2015 0.2301750 0.2301750 0.2301750 0.8635525</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   5:  4 0.0898         2         3 2015 0.2177150 0.2177150 0.2177150 0.8476000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  ---                                                                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 801:  2 0.1179         2       364 2019 0.2649875 0.2649875 0.2649875 0.8707500</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 802:  3 0.0789         2       364 2019 0.2301750 0.2301750 0.2301750 0.8635525</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 803:  4 0.1572         2       364 2019 0.2177150 0.2177150 0.2177150 0.8476000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 804:  5 0.0763         2       364 2019 0.3163400 0.3163400 0.3163400 0.8632175</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 805:  6 0.1197         2       362 2019 0.3149325 0.3149325 0.3149325 0.8632000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                t</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1: 0.027397260</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2: 0.005479452</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   3: 0.027397260</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   4: 0.010958904</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   5: 0.005479452</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  ---            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 801: 0.994520548</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 802: 0.994520548</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 803: 0.994520548</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 804: 0.994520548</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 805: 0.989041096</span>
 <span class="r-in"><span class="fu"><a href="scale_ndvi.html">scale_ndvi</a></span><span class="op">(</span><span class="va">ndvi</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       id   yr DayOfYear  NDVI SummaryQA filtered winter rolled    top</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    1:  1 2002         3 -1367         3     4099   4099   4099 7443.4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    2:  2 2002        14  -304         3     5382   5382   5382 7462.9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    3:  3 2002         1   374         2     3702   3702   3702 6709.8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    4:  4 2002        15   635         3     5180   5180   5180 7288.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    5:  5 2002         9   685         2     4621   4621   4621 7645.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ---                                                                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1261:  1 2012       353   151         2     4099   4099   4099 7443.4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1262:  2 2012       356   330         2     5382   5382   5382 7462.9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1263:  3 2012       356   560         2     3702   3702   3702 6709.8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1264:  4 2012       356  1720         2     5180   5180   5180 7288.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1265:  5 2012       356  2689         2     4621   4621   4621 7645.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                 t scaled</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    1: 0.005479452      0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    2: 0.035616438      0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    3: 0.000000000      0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    4: 0.038356164      0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    5: 0.021917808      0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ---                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1261: 0.964383562      0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1262: 0.972602740      0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1263: 0.972602740      0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1264: 0.972602740      0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1265: 0.972602740      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      id   NDVI SummaryQA DayOfYear   yr  filtered    winter    rolled       top</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1:  0 0.1864         3        11 2015 0.3076500 0.3076500 0.3076500 0.8735000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2:  1 0.0541         2         3 2015 0.3163400 0.3163400 0.3163400 0.8632175</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   3:  2 0.1781         3        11 2015 0.2649875 0.2649875 0.2649875 0.8707500</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   4:  3 0.1024         2         5 2015 0.2301750 0.2301750 0.2301750 0.8635525</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   5:  4 0.0898         2         3 2015 0.2177150 0.2177150 0.2177150 0.8476000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  ---                                                                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 801:  2 0.1179         2       364 2019 0.2649875 0.2649875 0.2649875 0.8707500</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 802:  3 0.0789         2       364 2019 0.2301750 0.2301750 0.2301750 0.8635525</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 803:  4 0.1572         2       364 2019 0.2177150 0.2177150 0.2177150 0.8476000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 804:  5 0.0763         2       364 2019 0.3163400 0.3163400 0.3163400 0.8632175</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 805:  6 0.1197         2       362 2019 0.3149325 0.3149325 0.3149325 0.8632000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                t scaled</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1: 0.027397260      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2: 0.005479452      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   3: 0.027397260      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   4: 0.010958904      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   5: 0.005479452      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  ---                   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 801: 0.994520548      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 802: 0.994520548      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 803: 0.994520548      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 804: 0.994520548      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 805: 0.989041096      0</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Guess starting parameters for xmidS and xmidA</span></span>
 <span class="r-in"><span class="fu">model_start</span><span class="op">(</span><span class="va">ndvi</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       id   yr DayOfYear NDVI SummaryQA filtered winter rolled    top         t</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    1:  2 2003        NA   NA        NA       NA   5382     NA 7462.9        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    2:  2 2009        NA   NA        NA       NA   5382     NA 7462.9        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    3:  2 2011        NA   NA        NA       NA   5382     NA 7462.9        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    4:  2 2011        NA   NA        NA       NA   5382     NA 7462.9        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    5:  4 2002        61  375         2       NA   5180     NA 7288.1 0.1643836</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ---                                                                         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1261:  5 2011       247 7634         0     7634   4621   7727 7645.1 0.6739726</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1262:  4 2005       251 7554         0     7554   5180   7554 7288.1 0.6849315</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1263:  4 2009       253 7289         0     7289   5180   7289 7288.1 0.6904110</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1264:  2 2008       256 7581         0     7581   5382   7581 7462.9 0.6986301</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1265:  5 2012       262 7773         1     7773   4621   7905 7645.1 0.7150685</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       scaled xmidS_start xmidA_start</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    1:     NA   0.4767123   0.7150685</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    2:     NA   0.4575342          NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    3:     NA   0.4986301   0.7780822</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    4:     NA   0.4986301   0.7780822</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    5:     NA   0.4328767   0.8164384</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ---                               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1261:      1   0.4000000   0.7890411</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1262:      1   0.4657534   0.7534247</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1263:      1   0.4547945   0.7479452</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1264:      1   0.4712329   0.8164384</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1265:      1   0.3342466          NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      id   NDVI SummaryQA DayOfYear   yr filtered    winter rolled       top</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1:  0 0.0791         2        61 2016       NA 0.3076500     NA 0.8735000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2:  1 0.0526         2        61 2016       NA 0.3163400     NA 0.8632175</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   3:  2 0.0707         2        61 2016       NA 0.2649875     NA 0.8707500</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   4:  3 0.0456         2        61 2016       NA 0.2301750     NA 0.8635525</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   5:  5 0.0526         2        61 2016       NA 0.3163400     NA 0.8632175</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  ---                                                                       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 801:  1 0.8755         1       225 2015   0.8755 0.3163400 0.8671 0.8632175</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 802:  2 0.8740         1       225 2015   0.8740 0.2649875 0.8732 0.8707500</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 803:  3 0.8643         1       225 2015   0.8643 0.2301750 0.8643 0.8635525</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 804:  5 0.8755         1       225 2015   0.8755 0.3163400 0.8671 0.8632175</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 805:  6 0.8729         1       225 2015   0.8729 0.3149325 0.8688 0.8632000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              t scaled xmidS_start xmidA_start</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1: 0.1643836     NA   0.3452055   0.7095890</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2: 0.1643836     NA   0.3452055   0.7095890</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   3: 0.1643836     NA   0.3452055   0.7095890</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   4: 0.1643836     NA   0.3452055   0.7095890</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   5: 0.1643836     NA   0.3452055   0.7095890</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  ---                                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 801: 0.6136986      1   0.4000000   0.7123288</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 802: 0.6136986      1   0.3808219   0.7123288</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 803: 0.6136986      1   0.3808219   0.7808219</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 804: 0.6136986      1   0.4000000   0.7123288</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 805: 0.6136986      1   0.3808219   0.7808219</span>
 </code></pre></div>
     </div>
   </div>
@@ -206,7 +212,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.0.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer></div>
