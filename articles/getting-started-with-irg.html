@@ -34,7 +34,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">irg</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.5.9000</span>
       </span>
     </div>
 
@@ -230,7 +230,7 @@
 <h4 id="sampling-ndvi">Sampling NDVI<a class="anchor" aria-label="anchor" href="#sampling-ndvi"></a>
 </h4>
 <p>Though <code>irg</code> is not involved in the sampling step, it is important that the input data matches the package’s expectations.</p>
-<p>We used the incredible <a href="http://earthengine.google.com/" class="external-link">Google Earth Engine</a> to sample MODIS NDVI (MOD13Q1.006). There are also R packages specific to MODIS (<a href="https://github.com/ropensci/MODIStsp" class="external-link"><code>MODIStsp</code></a>) and general purpose raster operations (<a href="https://github.com/rspatial/raster" class="external-link"><code>raster</code></a>), and an R interface to Earth Engine <a href="https://github.com/r-spatial/rgee" class="external-link"><code>rgee</code></a>.</p>
+<p>We used the incredible <a href="https://earthengine.google.com/" class="external-link">Google Earth Engine</a> to sample MODIS NDVI (MOD13Q1.006). There are also R packages specific to MODIS (<a href="https://github.com/ropensci/MODIStsp" class="external-link"><code>MODIStsp</code></a>) and general purpose raster operations (<a href="https://github.com/rspatial/raster" class="external-link"><code>raster</code></a>), and an R interface to Earth Engine <a href="https://github.com/r-spatial/rgee" class="external-link"><code>rgee</code></a>.</p>
 <p>Update: we recently added the <code><a href="../reference/use_example_ee_script.html">use_example_ee_script()</a></code> function which offers an example script for extracting NDVI in Earth Engine. There are two versions, one for sampling MODIS MOD13Q1 and another for sampling Landsat 8.</p>
 </div>
 <div class="section level4">
@@ -243,8 +243,8 @@
 <div class="section level2">
 <h2 id="workflow">Workflow<a class="anchor" aria-label="anchor" href="#workflow"></a>
 </h2>
-<div id="htmlwidget-68bfd1c80e5bc968b762" style="width:700px;height:600px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-68bfd1c80e5bc968b762">{"x":{"diagram":"\n\tdigraph irg_functions  {\n\tgraph [rankdir=LR, compound=TRUE, fontsize = 28]\n\n\tnode[shape=none, fontsize=28]\n\n\tsubgraph cluster_filt{\n\tlabel= \"1)\"; labeljust=\"l\";\n\tFiltering -> filter_ndvi [dir=none]\n\tfilter_ndvi -> filter_qa [dir=none]\n\tfilter_ndvi -> filter_winter [dir=none]\n  filter_ndvi -> filter_roll [dir=none]\n  filter_ndvi -> filter_top [dir=none]\n\n\tfilter_top -> filter_roll -> filter_winter -> filter_qa [dir=back]\n\t{rank=same; filter_qa; filter_winter; filter_roll; filter_top}\n\t}\n\n\tsubgraph cluster_scal{\n  label= \"2)\" labeljust=\"l\";\n\n\tScaling -> scale_doy [dir=none]\n\tScaling -> scale_ndvi [dir=none]\n\t}\n\n\tsubgraph cluster_mod{\n  label= \"3)\" labeljust=\"l\";\n\n\tModeling -> model_start [dir=none]\n\tModeling -> model_params [dir=none]\n\tModeling -> model_ndvi [dir=none]\n\n\tmodel_ndvi -> model_params -> model_start [dir=back]\n\t{rank=same; model_ndvi; model_params; model_start}\n\t}\n\n\tsubgraph cluster_irg{\n  label= \"4)\" labeljust=\"l\";\n\n\tIRG -> calc_irg [dir=none]\n\t}\n\n  Filtering -> Scaling -> Modeling -> IRG\n\t\n\t# irg -> Filtering\n\t# irg -> Scaling\n\t# irg -> Modeling\n\t# irg -> IRG\n\n\t}\n\t","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><p>There are 5 filtering functions, 2 scaling functions, 3 modeling functions and 2 IRG functions.</p>
+<div id="htmlwidget-f9fb5212e92ccb1381fc" style="width:700px;height:600px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f9fb5212e92ccb1381fc">{"x":{"diagram":"\n\tdigraph irg_functions  {\n\tgraph [rankdir=LR, compound=TRUE, fontsize = 28]\n\n\tnode[shape=none, fontsize=28]\n\n\tsubgraph cluster_filt{\n\tlabel= \"1)\"; labeljust=\"l\";\n\tFiltering -> filter_ndvi [dir=none]\n\tfilter_ndvi -> filter_qa [dir=none]\n\tfilter_ndvi -> filter_winter [dir=none]\n  filter_ndvi -> filter_roll [dir=none]\n  filter_ndvi -> filter_top [dir=none]\n\n\tfilter_top -> filter_roll -> filter_winter -> filter_qa [dir=back]\n\t{rank=same; filter_qa; filter_winter; filter_roll; filter_top}\n\t}\n\n\tsubgraph cluster_scal{\n  label= \"2)\" labeljust=\"l\";\n\n\tScaling -> scale_doy [dir=none]\n\tScaling -> scale_ndvi [dir=none]\n\t}\n\n\tsubgraph cluster_mod{\n  label= \"3)\" labeljust=\"l\";\n\n\tModeling -> model_start [dir=none]\n\tModeling -> model_params [dir=none]\n\tModeling -> model_ndvi [dir=none]\n\n\tmodel_ndvi -> model_params -> model_start [dir=back]\n\t{rank=same; model_ndvi; model_params; model_start}\n\t}\n\n\tsubgraph cluster_irg{\n  label= \"4)\" labeljust=\"l\";\n\n\tIRG -> calc_irg [dir=none]\n\t}\n\n  Filtering -> Scaling -> Modeling -> IRG\n\t\n\t# irg -> Filtering\n\t# irg -> Scaling\n\t# irg -> Modeling\n\t# irg -> IRG\n\n\t}\n\t","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><p>There are 5 filtering functions, 2 scaling functions, 3 modeling functions and 2 IRG functions.</p>
 <p>The <code><a href="../reference/irg.html">irg::irg</a></code> function is a wrapper for all steps - filtering, scaling, modeling and calculating IRG in one step. At this point, only defaults. Here’s 5 rows from the result.</p>
 <p>For options, head to the steps below.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
