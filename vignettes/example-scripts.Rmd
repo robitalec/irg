@@ -20,6 +20,8 @@ knitr::opts_chunk$set(
 library(irg)
 ```
 
+Just swap the regions with your own features or points and run!
+
 
 ## MODIS MOD13Q1 
 
