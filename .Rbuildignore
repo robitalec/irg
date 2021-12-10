@@ -12,3 +12,4 @@
 ^\.github$
 ^CITATION\.cff$
 ^codemeta\.json$
+^CRAN-RELEASE$

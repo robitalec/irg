@@ -1,3 +1,6 @@
+# Development version
+
+
 # v0.1.5 (2021-12-10)
 
 * added a vignette showing the example Earth Engine scripts (#15)
