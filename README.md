@@ -12,14 +12,14 @@ described in Bischoff et al. (2012) [\[1\]](#references). IRG helps
 identify the timing of green-up and can be used to determine if
 migratory animals are “surfing” a green-wave of high quality forage or
 if non-migratory animals are selecting available resources at the peak
-IRG in their environments. ~~At the moment, the `irg` package is
-designed to work with MODIS imagery, but we’re working on adding other
-sensors~~.
+IRG in their environments.
 
-Update: we recently added an example Landsat 8 dataset. The `irg`
-package functions have been updated to be more flexible to different
-sensors. Let us know (open an issue!) if you use a sensor other than
-MODIS for calculating IRG. Thanks!
+~~At the moment, the `irg` package is designed to work with MODIS
+imagery, but we’re working on adding other sensors~~. Update: we
+recently added an example Landsat 8 dataset. The `irg` package functions
+have been updated to be more flexible to different sensors. Let us know
+(open an issue!) if you use a sensor other than MODIS for calculating
+IRG. Thanks!
 
 ## Approach
 
