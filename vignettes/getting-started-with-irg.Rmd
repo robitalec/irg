@@ -102,7 +102,7 @@ setDT(DF)
 Though `irg` is not involved in the sampling step, it is important that the
 input data matches the package's expectations.
 
-We used the incredible [Google Earth Engine](http://earthengine.google.com/) to
+We used the incredible [Google Earth Engine](https://earthengine.google.com/) to
 sample MODIS NDVI (MOD13Q1.006). There are also R packages specific to MODIS
 ([`MODIStsp`](https://github.com/ropensci/MODIStsp)) and general purpose raster
 operations ([`raster`](https://github.com/rspatial/raster)), and 
