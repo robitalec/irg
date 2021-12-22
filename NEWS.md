@@ -1,5 +1,9 @@
 # Development version
 
+# v0.1.6
+
+* fixed use example testing, changed default behaviour to print without a filepath 
+provided
 
 # v0.1.5 (2021-12-10)
 
