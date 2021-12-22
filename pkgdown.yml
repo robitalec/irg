@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   example-scripts: example-scripts.html
   getting-started-with-irg: getting-started-with-irg.html
-last_built: 2021-12-22T02:07Z
+last_built: 2021-12-22T02:08Z
 urls:
   reference: https://robitalec.github.io/irg/reference
   article: https://robitalec.github.io/irg/articles
