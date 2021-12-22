@@ -4,22 +4,21 @@
 \alias{use_example_ee_script}
 \title{Use an example sampling script for Earth Engine}
 \usage{
-use_example_ee_script(sensor = "MODIS", filename = NULL, overwrite = FALSE)
+use_example_ee_script(sensor = "MODIS", filepath = NULL, overwrite = FALSE)
 }
 \arguments{
 \item{sensor}{either 'MODIS' or 'Landsat'}
 
-\item{filename}{file name indicating where to save the example script.
-Default is './Sample-NDVI-For-IRG-MODIS.js' if sensor is 'MODIS' or
-'Sample-NDVI-For-IRG-Landsat.js' if sensor is 'Landsat'.}
+\item{filepath}{file path relative to current working director, indicating
+where to save the example script. default is NULL, simply printing lines
+to the console.}
 
 \item{overwrite}{boolean indicating if the file should overwrite existing
 files. default is FALSE.}
 }
 \value{
-\code{use_example_ee_script} saves an example NDVI extraction script in the
-current working directory using a default filename,
-or if \code{filename} is provided, at the location specified.
+\code{use_example_ee_script} prints an example NDVI extraction script or
+if \code{filepath} is provided, saves it at the location specified.
 }
 \description{
 Provides an example script for use in Earth Engine, as a preceeding step
