@@ -33,7 +33,7 @@ All functions leverage the speed of `data.table` to efficiently filter,
 scale, and model NDVI time series and calculate IRG.
 
 More details in the first vignette: [Getting started with
-IRG](https://github.com/robitalec/irg/articles/getting-started-with-irg.html).
+IRG](https://robitalec.github.io/irg/articles/getting-started-with-irg.html).
 
 ## Installation
 
