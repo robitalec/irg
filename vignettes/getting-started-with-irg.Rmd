@@ -50,7 +50,6 @@ install.packages('irg')
 * [`RcppRoll`](https://github.com/kevinushey/RcppRoll) for fast rolling medians in `filter_roll`. 
 * [`chk`](https://github.com/pre-processing-r/chk) for internal checks. 
 
-No external dependencies. 
 
 ### Input data
 `irg` requires an NDVI time series in a  `data.table`. 
