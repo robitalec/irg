@@ -28,7 +28,11 @@ Just swap the regions with your own features or points and run!
 To access an example script for extracting NDVI from
 MODIS MOD13Q1 imagery in Earth Engine, run: 
 
-```{r}
+```{r, echo = TRUE, eval = FALSE}
+use_example_ee_script(sensor = 'MODIS')
+```
+
+```{r, echo = FALSE, eval = TRUE}
 use_example_ee_script(sensor = 'MODIS')
 ```
 
@@ -38,6 +42,10 @@ use_example_ee_script(sensor = 'MODIS')
 To access an example script for extracting NDVI from
 Landsat 8 imagery in Earth Engine, run: 
 
-```{r, eval = TRUE}
+```{r, echo = TRUE, eval = FALSE}
+use_example_ee_script(sensor = 'Landsat')
+```
+
+```{r, echo = FALSE, eval = TRUE}
 use_example_ee_script(sensor = 'Landsat')
 ```
