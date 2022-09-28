@@ -25,3 +25,7 @@ Provides an example script for use in Earth Engine, as a preceeding step
 to using the \code{irg} package. Use the script to sample NDVI in Earth
 Engine, then use the \code{irg} package to calculate the instantaneous rate of green-up.
 }
+\examples{
+library(irg)
+use_example_ee_script(sensor = 'MODIS')
+}

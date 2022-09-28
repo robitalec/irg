@@ -20,6 +20,8 @@
 #' @export
 #'
 #' @examples
+#' library(irg)
+#' use_example_ee_script(sensor = 'MODIS')
 use_example_ee_script <- function(sensor = 'MODIS',
 																	filepath = NULL,
 																	overwrite = FALSE) {
