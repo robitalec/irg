@@ -34,7 +34,7 @@ Engine, then use the irg package to calculate the instantaneous rate of green-up
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Vignettes
      
     <span class="caret"></span>
@@ -76,27 +76,117 @@ Engine, then use the <code>irg</code> package to calculate the instantaneous rat
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">use_example_ee_script</span><span class="op">(</span>sensor <span class="op">=</span> <span class="st">"MODIS"</span>, filepath <span class="op">=</span> <span class="cn">NULL</span>, overwrite <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">use_example_ee_script</span><span class="op">(</span>sensor <span class="op">=</span> <span class="st">"MODIS"</span>, filepath <span class="op">=</span> <span class="cn">NULL</span>, overwrite <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>sensor</dt>
 <dd><p>either 'MODIS' or 'Landsat'</p></dd>
+
+
 <dt>filepath</dt>
 <dd><p>file path relative to current working director, indicating
 where to save the example script. default is NULL, simply printing lines
 to the console.</p></dd>
+
+
 <dt>overwrite</dt>
 <dd><p>boolean indicating if the file should overwrite existing
 files. default is FALSE.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p><code>use_example_ee_script</code> prints an example NDVI extraction script or
+    
+
+<p><code>use_example_ee_script</code> prints an example NDVI extraction script or
 if <code>filepath</code> is provided, saves it at the location specified.</p>
     </div>
 
+    <div id="ref-examples">
+    <h2>Examples</h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/robitalec/irg" class="external-link">irg</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">use_example_ee_script</span><span class="op">(</span>sensor <span class="op">=</span> <span class="st">'MODIS'</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> // Sample NDVI for IRG - MODIS MOD13Q1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> // Example from irg package https://github.com/robitalec/irg</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> // Alec L. Robitaille</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> // Functions ===================================================================</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> function rescaleBands (im) {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   var viBands = im.select(['NDVI', 'EVI']).multiply(0.0001);</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   var surfBands = im.select('sur_refl_b0.*').multiply(0.0001);</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   var viewBands = im.select(['ViewZenith', 'SolarZenith', 'RelativeAzimuth']).multiply(0.01);</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   return(im.addBands(viBands, null, true)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            .addBands(surfBands, null, true)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            .addBands(viewBands, null, true));</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> // Function to grab year from image and add it as a band</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> function addYear(img) {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   return(img.addBands(ee.Image(img.date().get('year')).rename('yr')));</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> // Function to sample an image in each region of supplied geometry</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> function sampleRegions (im) {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	return(im.reduceRegions(features, ee.Reducer.mean(), 250)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            .copyProperties(im));</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> // Feature ====================================================================</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> var features = ee.FeatureCollection(</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         [ee.Feature(ee.Geometry.Point([-109.96, 53.853]),</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         {"id": "0"}),</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         ee.Feature(ee.Geometry.Point([-109.94, 53.852]),</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         {"id": "1"}),</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         ee.Feature(ee.Geometry.Point([-109.95, 53.851]),</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         {"id": "2"}),</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         ee.Feature(ee.Geometry.Point([-109.93, 53.854]),</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         {"id": "3"}),</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         ee.Feature(ee.Geometry.Point([-109.92, 53.853]),</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         {"id": "4"}),</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         ee.Feature(ee.Geometry.Point([-109.94, 53.852]),</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         {"id": "5"}),</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         ee.Feature(ee.Geometry.Point([-109.93, 53.851]),</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         {"id": "6"})]);</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> // Images ======================================================================</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> var modis = ee.ImageCollection('MODIS/006/MOD13Q1');</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> // Filter ======================================================================</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> modis = modis.filterDate('2015-01-01', '2020-01-01')</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              .filterBounds(features);</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> // Process images ==============================================================</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> // Add dates</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> modis = modis.map(addYear)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              .map(rescaleBands);</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> // Sample images ===============================================================</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> var sample = modis.map(sampleRegions)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                   .flatten()</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                   .filter(ee.Filter.neq('NDVI', null));</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> // Export ======================================================================</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Export.table.toDrive({</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   collection: sample,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   description: 'sampled-ndvi-MODIS-MOD13Q1',</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   selectors: ['id', 'NDVI', 'SummaryQA', 'DayOfYear', 'yr']</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> });</span>
+</code></pre></div>
+    </div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top"><h2 data-toc-skip>Contents</h2>
@@ -109,7 +199,7 @@ if <code>filepath</code> is provided, saves it at the location specified.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

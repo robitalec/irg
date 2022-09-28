@@ -50,7 +50,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Vignettes
      
     <span class="caret"></span>
@@ -91,7 +91,7 @@
       <h1 data-toc-skip>Example Earth Engine scripts</h1>
                         <h4 data-toc-skip class="author">Alec L. Robitaille</h4>
             
-            <h4 data-toc-skip class="date">2022-02-18</h4>
+            <h4 data-toc-skip class="date">2022-09-28</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/robitalec/irg/blob/HEAD/vignettes/example-scripts.Rmd" class="external-link"><code>vignettes/example-scripts.Rmd</code></a></small>
       <div class="hidden name"><code>example-scripts.Rmd</code></div>
@@ -101,198 +101,200 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/robitalec/irg" class="external-link">irg</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/robitalec/irg" class="external-link">irg</a></span><span class="op">)</span></span></code></pre></div>
 <p>Just swap the regions with your own features or points and run!</p>
 <div class="section level2">
 <h2 id="modis-mod13q1">MODIS MOD13Q1<a class="anchor" aria-label="anchor" href="#modis-mod13q1"></a>
 </h2>
 <p>To access an example script for extracting NDVI from MODIS MOD13Q1 imagery in Earth Engine, run:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">use_example_ee_script</span>(<span class="dt">sensor =</span> <span class="st">'MODIS'</span>)</span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="op">/</span><span class="er">/</span><span class="st"> </span>Sample NDVI <span class="cf">for</span> IRG <span class="op">-</span><span class="st"> </span>MODIS MOD13Q1</span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="op">/</span><span class="er">/</span><span class="st"> </span>Example from irg package https<span class="op">:</span><span class="er">//</span>github.com<span class="op">/</span>robitalec<span class="op">/</span>irg</span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="op">/</span><span class="er">/</span><span class="st"> </span>Alec L. Robitaille</span>
-<span id="cb2-5"><a href="#cb2-5"></a></span>
-<span id="cb2-6"><a href="#cb2-6"></a><span class="op">/</span><span class="er">/</span><span class="st"> </span>Functions <span class="op">==</span><span class="er">=================================================================</span></span>
-<span id="cb2-7"><a href="#cb2-7"></a><span class="cf">function</span> <span class="kw">rescaleBands</span> (im) {</span>
-<span id="cb2-8"><a href="#cb2-8"></a>  var viBands =<span class="st"> </span><span class="kw">im.select</span>([<span class="st">'NDVI'</span>, <span class="st">'EVI'</span>])<span class="kw">.multiply</span>(<span class="fl">0.0001</span>);</span>
-<span id="cb2-9"><a href="#cb2-9"></a>  var surfBands =<span class="st"> </span><span class="kw">im.select</span>(<span class="st">'sur_refl_b0.*'</span>)<span class="kw">.multiply</span>(<span class="fl">0.0001</span>);</span>
-<span id="cb2-10"><a href="#cb2-10"></a>  var viewBands =<span class="st"> </span><span class="kw">im.select</span>([<span class="st">'ViewZenith'</span>, <span class="st">'SolarZenith'</span>, <span class="st">'RelativeAzimuth'</span>])<span class="kw">.multiply</span>(<span class="fl">0.01</span>);</span>
-<span id="cb2-11"><a href="#cb2-11"></a></span>
-<span id="cb2-12"><a href="#cb2-12"></a>  <span class="kw">return</span>(<span class="kw">im.addBands</span>(viBands, null, true)</span>
-<span id="cb2-13"><a href="#cb2-13"></a>           <span class="kw">.addBands</span>(surfBands, null, true)</span>
-<span id="cb2-14"><a href="#cb2-14"></a>           <span class="kw">.addBands</span>(viewBands, null, true));</span>
-<span id="cb2-15"><a href="#cb2-15"></a>}</span>
-<span id="cb2-16"><a href="#cb2-16"></a></span>
-<span id="cb2-17"><a href="#cb2-17"></a><span class="op">/</span><span class="er">/</span><span class="st"> </span>Function to grab year from image and add it as a band</span>
-<span id="cb2-18"><a href="#cb2-18"></a><span class="cf">function</span> <span class="kw">addYear</span>(img) {</span>
-<span id="cb2-19"><a href="#cb2-19"></a>  <span class="kw">return</span>(<span class="kw">img.addBands</span>(<span class="kw">ee.Image</span>(<span class="kw">img.date</span>()<span class="kw">.get</span>(<span class="st">'year'</span>))<span class="kw">.rename</span>(<span class="st">'yr'</span>)));</span>
-<span id="cb2-20"><a href="#cb2-20"></a>}</span>
-<span id="cb2-21"><a href="#cb2-21"></a></span>
-<span id="cb2-22"><a href="#cb2-22"></a><span class="op">/</span><span class="er">/</span><span class="st"> </span>Function to sample an image <span class="cf">in</span> each region of supplied geometry</span>
-<span id="cb2-23"><a href="#cb2-23"></a><span class="cf">function</span> <span class="kw">sampleRegions</span> (im) {</span>
-<span id="cb2-24"><a href="#cb2-24"></a>    <span class="kw">return</span>(<span class="kw">im.reduceRegions</span>(features, <span class="kw">ee.Reducer.mean</span>(), <span class="dv">250</span>)</span>
-<span id="cb2-25"><a href="#cb2-25"></a>           <span class="kw">.copyProperties</span>(im));</span>
-<span id="cb2-26"><a href="#cb2-26"></a>}</span>
-<span id="cb2-27"><a href="#cb2-27"></a></span>
-<span id="cb2-28"><a href="#cb2-28"></a></span>
-<span id="cb2-29"><a href="#cb2-29"></a></span>
-<span id="cb2-30"><a href="#cb2-30"></a><span class="op">/</span><span class="er">/</span><span class="st"> </span>Feature <span class="op">==</span><span class="er">==================================================================</span></span>
-<span id="cb2-31"><a href="#cb2-31"></a>var features =<span class="st"> </span><span class="kw">ee.FeatureCollection</span>(</span>
-<span id="cb2-32"><a href="#cb2-32"></a>        [<span class="kw">ee.Feature</span>(<span class="kw">ee.Geometry.Point</span>([<span class="op">-</span><span class="fl">109.96</span>, <span class="fl">53.853</span>]),</span>
-<span id="cb2-33"><a href="#cb2-33"></a>        {<span class="st">"id"</span><span class="op">:</span><span class="st"> "0"</span>}),</span>
-<span id="cb2-34"><a href="#cb2-34"></a>        <span class="kw">ee.Feature</span>(<span class="kw">ee.Geometry.Point</span>([<span class="op">-</span><span class="fl">109.94</span>, <span class="fl">53.852</span>]),</span>
-<span id="cb2-35"><a href="#cb2-35"></a>        {<span class="st">"id"</span><span class="op">:</span><span class="st"> "1"</span>}),</span>
-<span id="cb2-36"><a href="#cb2-36"></a>        <span class="kw">ee.Feature</span>(<span class="kw">ee.Geometry.Point</span>([<span class="op">-</span><span class="fl">109.95</span>, <span class="fl">53.851</span>]),</span>
-<span id="cb2-37"><a href="#cb2-37"></a>        {<span class="st">"id"</span><span class="op">:</span><span class="st"> "2"</span>}),</span>
-<span id="cb2-38"><a href="#cb2-38"></a>        <span class="kw">ee.Feature</span>(<span class="kw">ee.Geometry.Point</span>([<span class="op">-</span><span class="fl">109.93</span>, <span class="fl">53.854</span>]),</span>
-<span id="cb2-39"><a href="#cb2-39"></a>        {<span class="st">"id"</span><span class="op">:</span><span class="st"> "3"</span>}),</span>
-<span id="cb2-40"><a href="#cb2-40"></a>        <span class="kw">ee.Feature</span>(<span class="kw">ee.Geometry.Point</span>([<span class="op">-</span><span class="fl">109.92</span>, <span class="fl">53.853</span>]),</span>
-<span id="cb2-41"><a href="#cb2-41"></a>        {<span class="st">"id"</span><span class="op">:</span><span class="st"> "4"</span>}),</span>
-<span id="cb2-42"><a href="#cb2-42"></a>        <span class="kw">ee.Feature</span>(<span class="kw">ee.Geometry.Point</span>([<span class="op">-</span><span class="fl">109.94</span>, <span class="fl">53.852</span>]),</span>
-<span id="cb2-43"><a href="#cb2-43"></a>        {<span class="st">"id"</span><span class="op">:</span><span class="st"> "5"</span>}),</span>
-<span id="cb2-44"><a href="#cb2-44"></a>        <span class="kw">ee.Feature</span>(<span class="kw">ee.Geometry.Point</span>([<span class="op">-</span><span class="fl">109.93</span>, <span class="fl">53.851</span>]),</span>
-<span id="cb2-45"><a href="#cb2-45"></a>        {<span class="st">"id"</span><span class="op">:</span><span class="st"> "6"</span>})]);</span>
-<span id="cb2-46"><a href="#cb2-46"></a></span>
-<span id="cb2-47"><a href="#cb2-47"></a></span>
-<span id="cb2-48"><a href="#cb2-48"></a><span class="op">/</span><span class="er">/</span><span class="st"> </span>Images <span class="op">==</span><span class="er">====================================================================</span></span>
-<span id="cb2-49"><a href="#cb2-49"></a>var modis =<span class="st"> </span><span class="kw">ee.ImageCollection</span>(<span class="st">'MODIS/006/MOD13Q1'</span>);</span>
-<span id="cb2-50"><a href="#cb2-50"></a></span>
-<span id="cb2-51"><a href="#cb2-51"></a></span>
-<span id="cb2-52"><a href="#cb2-52"></a></span>
-<span id="cb2-53"><a href="#cb2-53"></a><span class="op">/</span><span class="er">/</span><span class="st"> </span>Filter <span class="op">==</span><span class="er">====================================================================</span></span>
-<span id="cb2-54"><a href="#cb2-54"></a>modis =<span class="st"> </span><span class="kw">modis.filterDate</span>(<span class="st">'2015-01-01'</span>, <span class="st">'2020-01-01'</span>)</span>
-<span id="cb2-55"><a href="#cb2-55"></a>             <span class="kw">.filterBounds</span>(features);</span>
-<span id="cb2-56"><a href="#cb2-56"></a></span>
-<span id="cb2-57"><a href="#cb2-57"></a></span>
-<span id="cb2-58"><a href="#cb2-58"></a></span>
-<span id="cb2-59"><a href="#cb2-59"></a><span class="op">/</span><span class="er">/</span><span class="st"> </span>Process images <span class="op">==</span><span class="er">============================================================</span></span>
-<span id="cb2-60"><a href="#cb2-60"></a><span class="er">//</span><span class="st"> </span>Add dates</span>
-<span id="cb2-61"><a href="#cb2-61"></a>modis =<span class="st"> </span><span class="kw">modis.map</span>(addYear)</span>
-<span id="cb2-62"><a href="#cb2-62"></a>             <span class="kw">.map</span>(rescaleBands);</span>
-<span id="cb2-63"><a href="#cb2-63"></a></span>
-<span id="cb2-64"><a href="#cb2-64"></a></span>
-<span id="cb2-65"><a href="#cb2-65"></a></span>
-<span id="cb2-66"><a href="#cb2-66"></a><span class="op">/</span><span class="er">/</span><span class="st"> </span>Sample images <span class="op">==</span><span class="er">=============================================================</span></span>
-<span id="cb2-67"><a href="#cb2-67"></a>var sample =<span class="st"> </span><span class="kw">modis.map</span>(sampleRegions)</span>
-<span id="cb2-68"><a href="#cb2-68"></a>                  <span class="kw">.flatten</span>()</span>
-<span id="cb2-69"><a href="#cb2-69"></a>                  <span class="kw">.filter</span>(<span class="kw">ee.Filter.neq</span>(<span class="st">'NDVI'</span>, null));</span>
-<span id="cb2-70"><a href="#cb2-70"></a></span>
-<span id="cb2-71"><a href="#cb2-71"></a></span>
-<span id="cb2-72"><a href="#cb2-72"></a></span>
-<span id="cb2-73"><a href="#cb2-73"></a><span class="op">/</span><span class="er">/</span><span class="st"> </span>Export <span class="op">==</span><span class="er">====================================================================</span></span>
-<span id="cb2-74"><a href="#cb2-74"></a><span class="kw">Export.table.toDrive</span>({</span>
-<span id="cb2-75"><a href="#cb2-75"></a>  collection<span class="op">:</span><span class="st"> </span>sample,</span>
-<span id="cb2-76"><a href="#cb2-76"></a>  description<span class="op">:</span><span class="st"> 'sampled-ndvi-MODIS-MOD13Q1'</span>,</span>
-<span id="cb2-77"><a href="#cb2-77"></a>  selectors<span class="op">:</span><span class="st"> </span>[<span class="st">'id'</span>, <span class="st">'NDVI'</span>, <span class="st">'SummaryQA'</span>, <span class="st">'DayOfYear'</span>, <span class="st">'yr'</span>]</span>
-<span id="cb2-78"><a href="#cb2-78"></a>});</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/use_example_ee_script.html">use_example_ee_script</a></span><span class="op">(</span>sensor <span class="op">=</span> <span class="st">'MODIS'</span><span class="op">)</span></span></code></pre></div>
+<pre><code>// Sample NDVI for IRG - MODIS MOD13Q1
+// Example from irg package https://github.com/robitalec/irg
+// Alec L. Robitaille
+
+// Functions ===================================================================
+function rescaleBands (im) {
+  var viBands = im.select(['NDVI', 'EVI']).multiply(0.0001);
+  var surfBands = im.select('sur_refl_b0.*').multiply(0.0001);
+  var viewBands = im.select(['ViewZenith', 'SolarZenith', 'RelativeAzimuth']).multiply(0.01);
+
+  return(im.addBands(viBands, null, true)
+           .addBands(surfBands, null, true)
+           .addBands(viewBands, null, true));
+}
+
+// Function to grab year from image and add it as a band
+function addYear(img) {
+  return(img.addBands(ee.Image(img.date().get('year')).rename('yr')));
+}
+
+// Function to sample an image in each region of supplied geometry
+function sampleRegions (im) {
+    return(im.reduceRegions(features, ee.Reducer.mean(), 250)
+           .copyProperties(im));
+}
+
+
+
+// Feature ====================================================================
+var features = ee.FeatureCollection(
+        [ee.Feature(ee.Geometry.Point([-109.96, 53.853]),
+        {"id": "0"}),
+        ee.Feature(ee.Geometry.Point([-109.94, 53.852]),
+        {"id": "1"}),
+        ee.Feature(ee.Geometry.Point([-109.95, 53.851]),
+        {"id": "2"}),
+        ee.Feature(ee.Geometry.Point([-109.93, 53.854]),
+        {"id": "3"}),
+        ee.Feature(ee.Geometry.Point([-109.92, 53.853]),
+        {"id": "4"}),
+        ee.Feature(ee.Geometry.Point([-109.94, 53.852]),
+        {"id": "5"}),
+        ee.Feature(ee.Geometry.Point([-109.93, 53.851]),
+        {"id": "6"})]);
+
+
+// Images ======================================================================
+var modis = ee.ImageCollection('MODIS/006/MOD13Q1');
+
+
+
+// Filter ======================================================================
+modis = modis.filterDate('2015-01-01', '2020-01-01')
+             .filterBounds(features);
+
+
+
+// Process images ==============================================================
+// Add dates
+modis = modis.map(addYear)
+             .map(rescaleBands);
+
+
+
+// Sample images ===============================================================
+var sample = modis.map(sampleRegions)
+                  .flatten()
+                  .filter(ee.Filter.neq('NDVI', null));
+
+
+
+// Export ======================================================================
+Export.table.toDrive({
+  collection: sample,
+  description: 'sampled-ndvi-MODIS-MOD13Q1',
+  selectors: ['id', 'NDVI', 'SummaryQA', 'DayOfYear', 'yr']
+});</code></pre>
 </div>
 <div class="section level2">
 <h2 id="landsat-8">Landsat 8<a class="anchor" aria-label="anchor" href="#landsat-8"></a>
 </h2>
 <p>To access an example script for extracting NDVI from Landsat 8 imagery in Earth Engine, run:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">use_example_ee_script</span>(<span class="dt">sensor =</span> <span class="st">'Landsat'</span>)</span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="op">/</span><span class="er">/</span><span class="st"> </span>Sample NDVI <span class="cf">for</span> IRG <span class="op">-</span><span class="st"> </span>Landsat</span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="op">/</span><span class="er">/</span><span class="st"> </span>Example from irg package https<span class="op">:</span><span class="er">//</span>github.com<span class="op">/</span>robitalec<span class="op">/</span>irg</span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="op">/</span><span class="er">/</span><span class="st"> </span>Alec L. Robitaille</span>
-<span id="cb3-5"><a href="#cb3-5"></a></span>
-<span id="cb3-6"><a href="#cb3-6"></a><span class="op">/</span><span class="er">/</span><span class="st"> </span>Functions <span class="op">==</span><span class="er">=================================================================</span></span>
-<span id="cb3-7"><a href="#cb3-7"></a><span class="er">//</span><span class="st"> </span>Function to add mask identifying cloud and saturation</span>
-<span id="cb3-8"><a href="#cb3-8"></a><span class="op">/</span><span class="er">/</span><span class="st"> </span>Mask band =<span class="st"> </span><span class="cf">if</span> QA_PIXEL indicates unwanted pixels <span class="op">+</span></span>
-<span id="cb3-9"><a href="#cb3-9"></a><span class="er">//</span><span class="st">             </span><span class="cf">if</span> QA_RADSAT indicates saturated pixels</span>
-<span id="cb3-10"><a href="#cb3-10"></a><span class="op">/</span><span class="er">/</span><span class="st"> </span>Either =<span class="st"> </span><span class="dv">0</span> (good), <span class="dv">1</span> (one of two masking conditions), <span class="dv">2</span> (both conditions)</span>
-<span id="cb3-11"><a href="#cb3-11"></a><span class="op">/</span><span class="er">/</span><span class="st"> </span>Adapted from<span class="op">:</span><span class="st"> </span>Examples<span class="op">/</span>Cloud Masking<span class="op">/</span>Landsat8 Surface Reflectance</span>
-<span id="cb3-12"><a href="#cb3-12"></a><span class="cf">function</span> <span class="kw">addMask</span>(image) {</span>
-<span id="cb3-13"><a href="#cb3-13"></a>  <span class="op">/</span><span class="er">/</span><span class="st"> </span>Bit <span class="dv">0</span> <span class="op">-</span><span class="st"> </span>Fill</span>
-<span id="cb3-14"><a href="#cb3-14"></a>  <span class="op">/</span><span class="er">/</span><span class="st"> </span>Bit <span class="dv">1</span> <span class="op">-</span><span class="st"> </span>Dilated Cloud</span>
-<span id="cb3-15"><a href="#cb3-15"></a>  <span class="op">/</span><span class="er">/</span><span class="st"> </span>Bit <span class="dv">2</span> <span class="op">-</span><span class="st"> </span>Cirrus</span>
-<span id="cb3-16"><a href="#cb3-16"></a>  <span class="op">/</span><span class="er">/</span><span class="st"> </span>Bit <span class="dv">3</span> <span class="op">-</span><span class="st"> </span>Cloud</span>
-<span id="cb3-17"><a href="#cb3-17"></a>  <span class="op">/</span><span class="er">/</span><span class="st"> </span>Bit <span class="dv">4</span> <span class="op">-</span><span class="st"> </span>Cloud Shadow</span>
-<span id="cb3-18"><a href="#cb3-18"></a>  var qaMask =<span class="st"> </span><span class="kw">image.select</span>(<span class="st">'QA_PIXEL'</span>)<span class="kw">.bitwiseAnd</span>(<span class="kw">parseInt</span>(<span class="st">'11111'</span>, <span class="dv">2</span>))<span class="kw">.neq</span>(<span class="dv">0</span>);</span>
-<span id="cb3-19"><a href="#cb3-19"></a>  var saturationMask =<span class="st"> </span><span class="kw">image.select</span>(<span class="st">'QA_RADSAT'</span>)<span class="kw">.neq</span>(<span class="dv">0</span>);</span>
-<span id="cb3-20"><a href="#cb3-20"></a>  var mask =<span class="st"> </span><span class="kw">qaMask.add</span>(saturationMask);</span>
-<span id="cb3-21"><a href="#cb3-21"></a></span>
-<span id="cb3-22"><a href="#cb3-22"></a>  <span class="op">/</span><span class="er">/</span><span class="st"> </span>Apply the scaling factors to the appropriate bands.</span>
-<span id="cb3-23"><a href="#cb3-23"></a>  var opticalBands =<span class="st"> </span><span class="kw">image.select</span>(<span class="st">'SR_B.'</span>)<span class="kw">.multiply</span>(<span class="fl">0.0000275</span>)<span class="kw">.add</span>(<span class="op">-</span><span class="fl">0.2</span>);</span>
-<span id="cb3-24"><a href="#cb3-24"></a>  var thermalBands =<span class="st"> </span><span class="kw">image.select</span>(<span class="st">'ST_B.*'</span>)<span class="kw">.multiply</span>(<span class="fl">0.00341802</span>)<span class="kw">.add</span>(<span class="fl">149.0</span>);</span>
-<span id="cb3-25"><a href="#cb3-25"></a></span>
-<span id="cb3-26"><a href="#cb3-26"></a>  <span class="op">/</span><span class="er">/</span><span class="st"> </span>Replace the original bands with the scaled ones and apply the masks.</span>
-<span id="cb3-27"><a href="#cb3-27"></a>  return <span class="kw">image.addBands</span>(opticalBands, null, true)</span>
-<span id="cb3-28"><a href="#cb3-28"></a>              <span class="kw">.addBands</span>(thermalBands, null, true)</span>
-<span id="cb3-29"><a href="#cb3-29"></a>              <span class="kw">.addBands</span>(<span class="kw">mask.rename</span>(<span class="st">'mask'</span>));</span>
-<span id="cb3-30"><a href="#cb3-30"></a>}</span>
-<span id="cb3-31"><a href="#cb3-31"></a></span>
-<span id="cb3-32"><a href="#cb3-32"></a><span class="op">/</span><span class="er">/</span><span class="st"> </span>Function to calculate NDVI and add it as a band</span>
-<span id="cb3-33"><a href="#cb3-33"></a><span class="cf">function</span> <span class="kw">calcNDVI</span>(im) {</span>
-<span id="cb3-34"><a href="#cb3-34"></a>    var ndvi =<span class="st"> </span><span class="kw">im.normalizedDifference</span>([<span class="st">'SR_B5'</span>,<span class="st">'SR_B4'</span>])<span class="kw">.rename</span>(<span class="st">'ndvi'</span>);</span>
-<span id="cb3-35"><a href="#cb3-35"></a>    return <span class="kw">im.addBands</span>(ndvi);</span>
-<span id="cb3-36"><a href="#cb3-36"></a>}</span>
-<span id="cb3-37"><a href="#cb3-37"></a></span>
-<span id="cb3-38"><a href="#cb3-38"></a><span class="op">/</span><span class="er">/</span><span class="st"> </span>Function to grab date from image and add it as a band</span>
-<span id="cb3-39"><a href="#cb3-39"></a><span class="cf">function</span> <span class="kw">addDates</span>(im) {</span>
-<span id="cb3-40"><a href="#cb3-40"></a>  var date =<span class="st"> </span><span class="kw">im.date</span>();</span>
-<span id="cb3-41"><a href="#cb3-41"></a>  return <span class="kw">im.addBands</span>(<span class="kw">ee.Image</span>([<span class="kw">date.getRelative</span>(<span class="st">'day'</span>, <span class="st">'year'</span>),</span>
-<span id="cb3-42"><a href="#cb3-42"></a>                                <span class="kw">date.get</span>(<span class="st">'year'</span>)])</span>
-<span id="cb3-43"><a href="#cb3-43"></a>                        <span class="kw">.rename</span>([<span class="st">'doy'</span>, <span class="st">'year'</span>]))<span class="kw">.float</span>();</span>
-<span id="cb3-44"><a href="#cb3-44"></a>}</span>
-<span id="cb3-45"><a href="#cb3-45"></a></span>
-<span id="cb3-46"><a href="#cb3-46"></a><span class="op">/</span><span class="er">/</span><span class="st"> </span>Function to sample an image <span class="cf">in</span> each region of supplied geometry</span>
-<span id="cb3-47"><a href="#cb3-47"></a><span class="cf">function</span> <span class="kw">sampleRegions</span> (im) {</span>
-<span id="cb3-48"><a href="#cb3-48"></a>    <span class="kw">return</span>(<span class="kw">im.reduceRegions</span>(features, <span class="kw">ee.Reducer.mean</span>(), <span class="dv">30</span>)</span>
-<span id="cb3-49"><a href="#cb3-49"></a>           <span class="kw">.copyProperties</span>(im));</span>
-<span id="cb3-50"><a href="#cb3-50"></a>}</span>
-<span id="cb3-51"><a href="#cb3-51"></a></span>
-<span id="cb3-52"><a href="#cb3-52"></a></span>
-<span id="cb3-53"><a href="#cb3-53"></a></span>
-<span id="cb3-54"><a href="#cb3-54"></a><span class="op">/</span><span class="er">/</span><span class="st"> </span>Feature <span class="op">==</span><span class="er">==================================================================</span></span>
-<span id="cb3-55"><a href="#cb3-55"></a>var features =<span class="st"> </span><span class="kw">ee.FeatureCollection</span>(</span>
-<span id="cb3-56"><a href="#cb3-56"></a>        [<span class="kw">ee.Feature</span>(<span class="kw">ee.Geometry.Point</span>([<span class="op">-</span><span class="fl">109.96</span>, <span class="fl">53.853</span>]),</span>
-<span id="cb3-57"><a href="#cb3-57"></a>        {<span class="st">"id"</span><span class="op">:</span><span class="st"> "0"</span>}),</span>
-<span id="cb3-58"><a href="#cb3-58"></a>        <span class="kw">ee.Feature</span>(<span class="kw">ee.Geometry.Point</span>([<span class="op">-</span><span class="fl">109.94</span>, <span class="fl">53.852</span>]),</span>
-<span id="cb3-59"><a href="#cb3-59"></a>        {<span class="st">"id"</span><span class="op">:</span><span class="st"> "1"</span>}),</span>
-<span id="cb3-60"><a href="#cb3-60"></a>        <span class="kw">ee.Feature</span>(<span class="kw">ee.Geometry.Point</span>([<span class="op">-</span><span class="fl">109.95</span>, <span class="fl">53.851</span>]),</span>
-<span id="cb3-61"><a href="#cb3-61"></a>        {<span class="st">"id"</span><span class="op">:</span><span class="st"> "2"</span>}),</span>
-<span id="cb3-62"><a href="#cb3-62"></a>        <span class="kw">ee.Feature</span>(<span class="kw">ee.Geometry.Point</span>([<span class="op">-</span><span class="fl">109.93</span>, <span class="fl">53.854</span>]),</span>
-<span id="cb3-63"><a href="#cb3-63"></a>        {<span class="st">"id"</span><span class="op">:</span><span class="st"> "3"</span>}),</span>
-<span id="cb3-64"><a href="#cb3-64"></a>        <span class="kw">ee.Feature</span>(<span class="kw">ee.Geometry.Point</span>([<span class="op">-</span><span class="fl">109.92</span>, <span class="fl">53.853</span>]),</span>
-<span id="cb3-65"><a href="#cb3-65"></a>        {<span class="st">"id"</span><span class="op">:</span><span class="st"> "4"</span>}),</span>
-<span id="cb3-66"><a href="#cb3-66"></a>        <span class="kw">ee.Feature</span>(<span class="kw">ee.Geometry.Point</span>([<span class="op">-</span><span class="fl">109.94</span>, <span class="fl">53.852</span>]),</span>
-<span id="cb3-67"><a href="#cb3-67"></a>        {<span class="st">"id"</span><span class="op">:</span><span class="st"> "5"</span>}),</span>
-<span id="cb3-68"><a href="#cb3-68"></a>        <span class="kw">ee.Feature</span>(<span class="kw">ee.Geometry.Point</span>([<span class="op">-</span><span class="fl">109.93</span>, <span class="fl">53.851</span>]),</span>
-<span id="cb3-69"><a href="#cb3-69"></a>        {<span class="st">"id"</span><span class="op">:</span><span class="st"> "6"</span>})]);</span>
-<span id="cb3-70"><a href="#cb3-70"></a></span>
-<span id="cb3-71"><a href="#cb3-71"></a></span>
-<span id="cb3-72"><a href="#cb3-72"></a></span>
-<span id="cb3-73"><a href="#cb3-73"></a><span class="op">/</span><span class="er">/</span><span class="st"> </span>Images <span class="op">==</span><span class="er">====================================================================</span></span>
-<span id="cb3-74"><a href="#cb3-74"></a>var l8 =<span class="st"> </span><span class="kw">ee.ImageCollection</span>(<span class="st">'LANDSAT/LC08/C02/T1_L2'</span>);</span>
-<span id="cb3-75"><a href="#cb3-75"></a></span>
-<span id="cb3-76"><a href="#cb3-76"></a></span>
-<span id="cb3-77"><a href="#cb3-77"></a></span>
-<span id="cb3-78"><a href="#cb3-78"></a><span class="op">/</span><span class="er">/</span><span class="st"> </span>Filter <span class="op">==</span><span class="er">====================================================================</span></span>
-<span id="cb3-79"><a href="#cb3-79"></a>l8 =<span class="st"> </span><span class="kw">l8.filterDate</span>(<span class="st">'2015-01-01'</span>, <span class="st">'2020-01-01'</span>)</span>
-<span id="cb3-80"><a href="#cb3-80"></a>       <span class="kw">.filterBounds</span>(features);</span>
-<span id="cb3-81"><a href="#cb3-81"></a></span>
-<span id="cb3-82"><a href="#cb3-82"></a></span>
-<span id="cb3-83"><a href="#cb3-83"></a></span>
-<span id="cb3-84"><a href="#cb3-84"></a><span class="op">/</span><span class="er">/</span><span class="st"> </span>Process images <span class="op">==</span><span class="er">============================================================</span></span>
-<span id="cb3-85"><a href="#cb3-85"></a><span class="er">//</span><span class="st"> </span>Mask clouds and calculate NDVI</span>
-<span id="cb3-86"><a href="#cb3-86"></a>l8 =<span class="st"> </span><span class="kw">l8.map</span>(addMask)</span>
-<span id="cb3-87"><a href="#cb3-87"></a>       <span class="kw">.map</span>(addDates)</span>
-<span id="cb3-88"><a href="#cb3-88"></a>       <span class="kw">.map</span>(calcNDVI);</span>
-<span id="cb3-89"><a href="#cb3-89"></a></span>
-<span id="cb3-90"><a href="#cb3-90"></a></span>
-<span id="cb3-91"><a href="#cb3-91"></a></span>
-<span id="cb3-92"><a href="#cb3-92"></a><span class="op">/</span><span class="er">/</span><span class="st"> </span>Sample images <span class="op">==</span><span class="er">=============================================================</span></span>
-<span id="cb3-93"><a href="#cb3-93"></a>var sample =<span class="st"> </span><span class="kw">l8.map</span>(sampleRegions)</span>
-<span id="cb3-94"><a href="#cb3-94"></a>               <span class="kw">.flatten</span>();</span>
-<span id="cb3-95"><a href="#cb3-95"></a></span>
-<span id="cb3-96"><a href="#cb3-96"></a></span>
-<span id="cb3-97"><a href="#cb3-97"></a></span>
-<span id="cb3-98"><a href="#cb3-98"></a><span class="op">/</span><span class="er">/</span><span class="st"> </span>Export <span class="op">==</span><span class="er">====================================================================</span></span>
-<span id="cb3-99"><a href="#cb3-99"></a><span class="kw">Export.table.toDrive</span>({</span>
-<span id="cb3-100"><a href="#cb3-100"></a>  collection<span class="op">:</span><span class="st"> </span>sample,</span>
-<span id="cb3-101"><a href="#cb3-101"></a>  description<span class="op">:</span><span class="st"> 'sampled-ndvi-Landsat-LC08-T1-L2'</span>,</span>
-<span id="cb3-102"><a href="#cb3-102"></a>  selectors<span class="op">:</span><span class="st"> </span>[<span class="st">'id'</span>, <span class="st">'ndvi'</span>, <span class="st">'mask'</span>, <span class="st">'doy'</span>, <span class="st">'year'</span>]</span>
-<span id="cb3-103"><a href="#cb3-103"></a>});</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/use_example_ee_script.html">use_example_ee_script</a></span><span class="op">(</span>sensor <span class="op">=</span> <span class="st">'Landsat'</span><span class="op">)</span></span></code></pre></div>
+<pre><code>// Sample NDVI for IRG - Landsat
+// Example from irg package https://github.com/robitalec/irg
+// Alec L. Robitaille
+
+// Functions ===================================================================
+// Function to add mask identifying cloud and saturation
+// Mask band = if QA_PIXEL indicates unwanted pixels +
+//             if QA_RADSAT indicates saturated pixels
+// Either = 0 (good), 1 (one of two masking conditions), 2 (both conditions)
+// Adapted from: Examples/Cloud Masking/Landsat8 Surface Reflectance
+function addMask(image) {
+  // Bit 0 - Fill
+  // Bit 1 - Dilated Cloud
+  // Bit 2 - Cirrus
+  // Bit 3 - Cloud
+  // Bit 4 - Cloud Shadow
+  var qaMask = image.select('QA_PIXEL').bitwiseAnd(parseInt('11111', 2)).neq(0);
+  var saturationMask = image.select('QA_RADSAT').neq(0);
+  var mask = qaMask.add(saturationMask);
+
+  // Apply the scaling factors to the appropriate bands.
+  var opticalBands = image.select('SR_B.').multiply(0.0000275).add(-0.2);
+  var thermalBands = image.select('ST_B.*').multiply(0.00341802).add(149.0);
+
+  // Replace the original bands with the scaled ones and apply the masks.
+  return image.addBands(opticalBands, null, true)
+              .addBands(thermalBands, null, true)
+              .addBands(mask.rename('mask'));
+}
+
+// Function to calculate NDVI and add it as a band
+function calcNDVI(im) {
+    var ndvi = im.normalizedDifference(['SR_B5','SR_B4']).rename('ndvi');
+    return im.addBands(ndvi);
+}
+
+// Function to grab date from image and add it as a band
+function addDates(im) {
+  var date = im.date();
+  return im.addBands(ee.Image([date.getRelative('day', 'year'),
+                                date.get('year')])
+                        .rename(['doy', 'year'])).float();
+}
+
+// Function to sample an image in each region of supplied geometry
+function sampleRegions (im) {
+    return(im.reduceRegions(features, ee.Reducer.mean(), 30)
+           .copyProperties(im));
+}
+
+
+
+// Feature ====================================================================
+var features = ee.FeatureCollection(
+        [ee.Feature(ee.Geometry.Point([-109.96, 53.853]),
+        {"id": "0"}),
+        ee.Feature(ee.Geometry.Point([-109.94, 53.852]),
+        {"id": "1"}),
+        ee.Feature(ee.Geometry.Point([-109.95, 53.851]),
+        {"id": "2"}),
+        ee.Feature(ee.Geometry.Point([-109.93, 53.854]),
+        {"id": "3"}),
+        ee.Feature(ee.Geometry.Point([-109.92, 53.853]),
+        {"id": "4"}),
+        ee.Feature(ee.Geometry.Point([-109.94, 53.852]),
+        {"id": "5"}),
+        ee.Feature(ee.Geometry.Point([-109.93, 53.851]),
+        {"id": "6"})]);
+
+
+
+// Images ======================================================================
+var l8 = ee.ImageCollection('LANDSAT/LC08/C02/T1_L2');
+
+
+
+// Filter ======================================================================
+l8 = l8.filterDate('2015-01-01', '2020-01-01')
+       .filterBounds(features);
+
+
+
+// Process images ==============================================================
+// Mask clouds and calculate NDVI
+l8 = l8.map(addMask)
+       .map(addDates)
+       .map(calcNDVI);
+
+
+
+// Sample images ===============================================================
+var sample = l8.map(sampleRegions)
+               .flatten();
+
+
+
+// Export ======================================================================
+Export.table.toDrive({
+  collection: sample,
+  description: 'sampled-ndvi-Landsat-LC08-T1-L2',
+  selectors: ['id', 'ndvi', 'mask', 'doy', 'year']
+});</code></pre>
 </div>
   </div>
 
@@ -313,7 +315,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>

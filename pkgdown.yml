@@ -1,10 +1,10 @@
 pandoc: 2.7.3
-pkgdown: 2.0.2
+pkgdown: 2.0.6
 pkgdown_sha: ~
 articles:
   example-scripts: example-scripts.html
   getting-started-with-irg: getting-started-with-irg.html
-last_built: 2022-02-18T02:02Z
+last_built: 2022-09-28T16:09Z
 urls:
   reference: https://robitalec.github.io/irg/reference
   article: https://robitalec.github.io/irg/articles
