@@ -33,7 +33,7 @@ script for sampling NDVI with Earth Engine [#10]
 
 
 # v 0.1.1 (2019-02-13)
-* fixed data.table recycling change ([#23](https://gitlab.com/robit.a/irg/-/issues/23)
+* fixed data.table recycling change ([#23](https://gitlab.com/robitalec/irg/-/issues/23)
 * minor edits to 'Getting Started' vignette
 
 # v 0.1.0 (2019-01-04)

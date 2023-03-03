@@ -1,6 +1,6 @@
 # Contributing
 
-Development of `irg` welcomes contribution of feature requests, bug reports and suggested improvements through the [issue board](https://gitlab.com/robit.a/irg/issues).
+Development of `irg` welcomes contribution of feature requests, bug reports and suggested improvements through the [issue board](https://gitlab.com/robitalec/irg/issues).
 
 ### Prefer to Email?
 
