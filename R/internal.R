@@ -13,7 +13,7 @@ overwrite_col <- function(DT = NULL, col = NULL) {
 ## @param DT data.table
 ## @keywords internal
 check_truelength <- function(DT) {
-	if (truelength(DT) == 0) {
+	if (truelength(DT) <= ncol(DT)) {
 		stop('please run data.table::setalloccol on your DT to allocate columns')
 	}
 }
