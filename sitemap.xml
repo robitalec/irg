@@ -1,81 +1,29 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://robitalec.github.io/irg/404.html</loc>
-  </url>
-  <url>
-    <loc>https://robitalec.github.io/irg/CODE_OF_CONDUCT.html</loc>
-  </url>
-  <url>
-    <loc>https://robitalec.github.io/irg/CONTRIBUTING.html</loc>
-  </url>
-  <url>
-    <loc>https://robitalec.github.io/irg/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://robitalec.github.io/irg/articles/example-scripts.html</loc>
-  </url>
-  <url>
-    <loc>https://robitalec.github.io/irg/articles/getting-started-with-irg.html</loc>
-  </url>
-  <url>
-    <loc>https://robitalec.github.io/irg/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://robitalec.github.io/irg/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://robitalec.github.io/irg/index.html</loc>
-  </url>
-  <url>
-    <loc>https://robitalec.github.io/irg/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://robitalec.github.io/irg/reference/calc_irg.html</loc>
-  </url>
-  <url>
-    <loc>https://robitalec.github.io/irg/reference/filter_ndvi.html</loc>
-  </url>
-  <url>
-    <loc>https://robitalec.github.io/irg/reference/filter_qa.html</loc>
-  </url>
-  <url>
-    <loc>https://robitalec.github.io/irg/reference/filter_roll.html</loc>
-  </url>
-  <url>
-    <loc>https://robitalec.github.io/irg/reference/filter_top.html</loc>
-  </url>
-  <url>
-    <loc>https://robitalec.github.io/irg/reference/filter_winter.html</loc>
-  </url>
-  <url>
-    <loc>https://robitalec.github.io/irg/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://robitalec.github.io/irg/reference/irg.html</loc>
-  </url>
-  <url>
-    <loc>https://robitalec.github.io/irg/reference/model_ndvi.html</loc>
-  </url>
-  <url>
-    <loc>https://robitalec.github.io/irg/reference/model_params.html</loc>
-  </url>
-  <url>
-    <loc>https://robitalec.github.io/irg/reference/model_start.html</loc>
-  </url>
-  <url>
-    <loc>https://robitalec.github.io/irg/reference/sampled-ndvi-Landsat-LC08-T1-L2.csv.html</loc>
-  </url>
-  <url>
-    <loc>https://robitalec.github.io/irg/reference/sampled-ndvi-MODIS-MOD13Q1.csv.html</loc>
-  </url>
-  <url>
-    <loc>https://robitalec.github.io/irg/reference/scale_doy.html</loc>
-  </url>
-  <url>
-    <loc>https://robitalec.github.io/irg/reference/scale_ndvi.html</loc>
-  </url>
-  <url>
-    <loc>https://robitalec.github.io/irg/reference/use_example_ee_script.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://robitalec.github.io/irg/404.html</loc></url>
+<url><loc>https://robitalec.github.io/irg/CODE_OF_CONDUCT.html</loc></url>
+<url><loc>https://robitalec.github.io/irg/CONTRIBUTING.html</loc></url>
+<url><loc>https://robitalec.github.io/irg/LICENSE.html</loc></url>
+<url><loc>https://robitalec.github.io/irg/articles/example-scripts.html</loc></url>
+<url><loc>https://robitalec.github.io/irg/articles/getting-started-with-irg.html</loc></url>
+<url><loc>https://robitalec.github.io/irg/articles/index.html</loc></url>
+<url><loc>https://robitalec.github.io/irg/authors.html</loc></url>
+<url><loc>https://robitalec.github.io/irg/index.html</loc></url>
+<url><loc>https://robitalec.github.io/irg/news/index.html</loc></url>
+<url><loc>https://robitalec.github.io/irg/reference/calc_irg.html</loc></url>
+<url><loc>https://robitalec.github.io/irg/reference/filter_ndvi.html</loc></url>
+<url><loc>https://robitalec.github.io/irg/reference/filter_qa.html</loc></url>
+<url><loc>https://robitalec.github.io/irg/reference/filter_roll.html</loc></url>
+<url><loc>https://robitalec.github.io/irg/reference/filter_top.html</loc></url>
+<url><loc>https://robitalec.github.io/irg/reference/filter_winter.html</loc></url>
+<url><loc>https://robitalec.github.io/irg/reference/index.html</loc></url>
+<url><loc>https://robitalec.github.io/irg/reference/irg.html</loc></url>
+<url><loc>https://robitalec.github.io/irg/reference/model_ndvi.html</loc></url>
+<url><loc>https://robitalec.github.io/irg/reference/model_params.html</loc></url>
+<url><loc>https://robitalec.github.io/irg/reference/model_start.html</loc></url>
+<url><loc>https://robitalec.github.io/irg/reference/sampled-ndvi-Landsat-LC08-T1-L2.csv.html</loc></url>
+<url><loc>https://robitalec.github.io/irg/reference/sampled-ndvi-MODIS-MOD13Q1.csv.html</loc></url>
+<url><loc>https://robitalec.github.io/irg/reference/scale_doy.html</loc></url>
+<url><loc>https://robitalec.github.io/irg/reference/scale_ndvi.html</loc></url>
+<url><loc>https://robitalec.github.io/irg/reference/use_example_ee_script.html</loc></url>
 </urlset>
+

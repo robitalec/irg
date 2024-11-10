@@ -6,21 +6,20 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Getting started with irg • irg</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/yeti/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/yeti/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="Getting started with irg">
-<meta property="og:description" content="irg">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
-    
+
 
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -43,7 +42,7 @@
 <li>
   <a href="../index.html">
     <span class="fa fa-home fa-lg"></span>
-     
+
   </a>
 </li>
 <li>
@@ -52,7 +51,7 @@
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Vignettes
-     
+
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
@@ -72,7 +71,7 @@
 <li>
   <a href="https://github.com/robitalec/irg/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
-     
+
   </a>
 </li>
       </ul>
@@ -83,25 +82,35 @@
 </div>
 <!--/.navbar -->
 
-      
 
-      </header><script src="getting-started-with-irg_files/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="getting-started-with-irg_files/htmlwidgets-1.5.4/htmlwidgets.js"></script><script src="getting-started-with-irg_files/viz-1.8.2/viz.js"></script><link href="getting-started-with-irg_files/DiagrammeR-styles-0.2/styles.css" rel="stylesheet">
-<script src="getting-started-with-irg_files/grViz-binding-1.0.9/grViz.js"></script><div class="row">
+
+      </header><script src="getting-started-with-irg_files/htmlwidgets-1.6.4/htmlwidgets.js"></script><script src="getting-started-with-irg_files/viz-1.8.2/viz.js"></script><link href="getting-started-with-irg_files/DiagrammeR-styles-0.2/styles.css" rel="stylesheet">
+<script src="getting-started-with-irg_files/grViz-binding-1.0.11/grViz.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Getting started with irg</h1>
-                        <h4 data-toc-skip class="author">Alec L. Robitaille</h4>
+                        <h4 data-toc-skip class="author">Alec L.
+Robitaille</h4>
             
-            <h4 data-toc-skip class="date">2022-09-28</h4>
+            <h4 data-toc-skip class="date">2024-11-10</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/robitalec/irg/blob/HEAD/vignettes/getting-started-with-irg.Rmd" class="external-link"><code>vignettes/getting-started-with-irg.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/robitalec/irg/blob/master/vignettes/getting-started-with-irg.Rmd" class="external-link"><code>vignettes/getting-started-with-irg.Rmd</code></a></small>
       <div class="hidden name"><code>getting-started-with-irg.Rmd</code></div>
 
     </div>
 
     
     
-<p>The <code>irg</code> package opts for a tabular calculation of the instantaneous rate of green-up (IRG) as opposed to a raster based approach. Sampling MODIS imagery is left up to the user and a prerequisite for all functions. The main input (<code>DT</code>) for all functions is a <a href="https://github.com/Rdatatable/data.table" class="external-link"><code>data.table</code></a> of an NDVI time series. The sampling unit (<code>id</code>) is flexible (a decision for the user) though we would anticipate points or polygons, or maybe a pixel. All functions leverage the speed of <code>data.table</code> to efficiently filter, scale and model NDVI time series, and calculate IRG.</p>
+<p>The <code>irg</code> package opts for a tabular calculation of the
+instantaneous rate of green-up (IRG) as opposed to a raster based
+approach. Sampling MODIS imagery is left up to the user and a
+prerequisite for all functions. The main input (<code>DT</code>) for all
+functions is a <a href="https://github.com/Rdatatable/data.table" class="external-link"><code>data.table</code></a>
+of an NDVI time series. The sampling unit (<code>id</code>) is flexible
+(a decision for the user) though we would anticipate points or polygons,
+or maybe a pixel. All functions leverage the speed of
+<code>data.table</code> to efficiently filter, scale and model NDVI time
+series, and calculate IRG.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -121,21 +130,27 @@
 <div class="section level3">
 <h3 id="packages">Packages<a class="anchor" aria-label="anchor" href="#packages"></a>
 </h3>
-<p><code>irg</code> depends on three packages (and <code>stats</code>):</p>
+<p><code>irg</code> depends on three packages (and
+<code>stats</code>):</p>
 <ul>
 <li>
-<a href="https://github.com/Rdatatable/data.table" class="external-link"><code>data.table</code></a> for all tabular processing</li>
+<a href="https://github.com/Rdatatable/data.table" class="external-link"><code>data.table</code></a>
+for all tabular processing</li>
 <li>
-<a href="https://github.com/kevinushey/RcppRoll" class="external-link"><code>RcppRoll</code></a> for fast rolling medians in <code>filter_roll</code>.</li>
+<a href="https://github.com/kevinushey/RcppRoll" class="external-link"><code>RcppRoll</code></a>
+for fast rolling medians in <code>filter_roll</code>.</li>
 <li>
-<a href="https://github.com/pre-processing-r/chk" class="external-link"><code>chk</code></a> for internal checks.</li>
+<a href="https://github.com/pre-processing-r/chk" class="external-link"><code>chk</code></a> for
+internal checks.</li>
 </ul>
 </div>
 <div class="section level3">
 <h3 id="input-data">Input data<a class="anchor" aria-label="anchor" href="#input-data"></a>
 </h3>
-<p><code>irg</code> requires an NDVI time series in a <code>data.table</code>.</p>
-<p>Though names can be different and specified at input, but the default names and required columns are:</p>
+<p><code>irg</code> requires an NDVI time series in a
+<code>data.table</code>.</p>
+<p>Though names can be different and specified at input, but the default
+names and required columns are:</p>
 <ul>
 <li>id: sampling unit identification (point id, polygon id, …)</li>
 <li>yr: year of sample</li>
@@ -146,7 +161,8 @@
 <p>SummaryQA details:</p>
 <ul>
 <li>0: Good data, use with confidence</li>
-<li>1: Marginal data, useful but look at detailed QA for more information</li>
+<li>1: Marginal data, useful but look at detailed QA for more
+information</li>
 <li>2: Pixel covered with snow/ice</li>
 <li>3: Pixel is cloudy</li>
 </ul>
@@ -155,7 +171,7 @@
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/robitalec/irg" class="external-link">irg</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com" class="external-link">data.table</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">ndvi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/fread.html" class="external-link">fread</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata'</span>, <span class="st">'sampled-ndvi-MODIS-MOD13Q1.csv'</span>, package <span class="op">=</span> <span class="st">'irg'</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">ndvi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdatatable.gitlab.io/data.table/reference/fread.html" class="external-link">fread</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata'</span>, <span class="st">'sampled-ndvi-MODIS-MOD13Q1.csv'</span>, package <span class="op">=</span> <span class="st">'irg'</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># or look at the help page</span></span>
 <span><span class="op">?</span><span class="va">ndvi</span></span>
@@ -217,34 +233,50 @@
 <div class="section level4">
 <h4 id="data-frame">data.frame<a class="anchor" aria-label="anchor" href="#data-frame"></a>
 </h4>
-<p>If your data is a <code>data.frame</code>, convert it by reference:</p>
+<p>If your data is a <code>data.frame</code>, convert it by
+reference:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Pretend</span></span>
 <span><span class="va">DF</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">ndvi</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Convert by reference</span></span>
-<span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/setDT.html" class="external-link">setDT</a></span><span class="op">(</span><span class="va">DF</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdatatable.gitlab.io/data.table/reference/setDT.html" class="external-link">setDT</a></span><span class="op">(</span><span class="va">DF</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="sampling-ndvi">Sampling NDVI<a class="anchor" aria-label="anchor" href="#sampling-ndvi"></a>
 </h4>
-<p>Though <code>irg</code> is not involved in the sampling step, it is important that the input data matches the package’s expectations.</p>
-<p>We used the incredible <a href="https://earthengine.google.com/" class="external-link">Google Earth Engine</a> to sample MODIS NDVI (MOD13Q1.006). There are also R packages specific to MODIS (<a href="https://github.com/ropensci/MODIStsp" class="external-link"><code>MODIStsp</code></a>) and general purpose raster operations (<a href="https://github.com/rspatial/raster" class="external-link"><code>raster</code></a>), and an R interface to Earth Engine <a href="https://github.com/r-spatial/rgee" class="external-link"><code>rgee</code></a>.</p>
-<p>Update: we recently added the <code><a href="../reference/use_example_ee_script.html">use_example_ee_script()</a></code> function which offers an example script for extracting NDVI in Earth Engine. There are two versions, one for sampling MODIS MOD13Q1 and another for sampling Landsat 8.</p>
+<p>Though <code>irg</code> is not involved in the sampling step, it is
+important that the input data matches the package’s expectations.</p>
+<p>We used the incredible <a href="https://earthengine.google.com/" class="external-link">Google Earth Engine</a> to sample
+MODIS NDVI (MOD13Q1.006). There are also R packages specific to MODIS
+(<a href="https://github.com/ropensci/MODIStsp" class="external-link"><code>MODIStsp</code></a>)
+and general purpose raster operations (<a href="https://github.com/rspatial/raster" class="external-link"><code>raster</code></a>), and
+an R interface to Earth Engine <a href="https://github.com/r-spatial/rgee" class="external-link"><code>rgee</code></a>.</p>
+<p>Update: we recently added the <code><a href="../reference/use_example_ee_script.html">use_example_ee_script()</a></code>
+function which offers an example script for extracting NDVI in Earth
+Engine. There are two versions, one for sampling MODIS MOD13Q1 and
+another for sampling Landsat 8.</p>
 </div>
 <div class="section level4">
 <h4 id="temporal-extent">Temporal extent<a class="anchor" aria-label="anchor" href="#temporal-extent"></a>
 </h4>
-<p>Filtering steps in <code>irg</code> use a baseline ‘winterNDVI’ and upper quantile as described by Bischoff et al. (2012). These steps require multiple years of sampled NDVI for each <code>id</code>. In addition, make sure to include all samples throughout the year, leaving the filtering for <code>irg</code>.</p>
+<p>Filtering steps in <code>irg</code> use a baseline ‘winterNDVI’ and
+upper quantile as described by Bischoff et al. (2012). These steps
+require multiple years of sampled NDVI for each <code>id</code>. In
+addition, make sure to include all samples throughout the year, leaving
+the filtering for <code>irg</code>.</p>
 </div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="workflow">Workflow<a class="anchor" aria-label="anchor" href="#workflow"></a>
 </h2>
-<div id="htmlwidget-6d28b48973f91d824320" style="width:700px;height:600px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-6d28b48973f91d824320">{"x":{"diagram":"\n\tdigraph irg_functions  {\n\tgraph [rankdir=LR, compound=TRUE, fontsize = 28]\n\n\tnode[shape=none, fontsize=28]\n\n\tsubgraph cluster_filt{\n\tlabel= \"1)\"; labeljust=\"l\";\n\tFiltering -> filter_ndvi [dir=none]\n\tfilter_ndvi -> filter_qa [dir=none]\n\tfilter_ndvi -> filter_winter [dir=none]\n  filter_ndvi -> filter_roll [dir=none]\n  filter_ndvi -> filter_top [dir=none]\n\n\tfilter_top -> filter_roll -> filter_winter -> filter_qa [dir=back]\n\t{rank=same; filter_qa; filter_winter; filter_roll; filter_top}\n\t}\n\n\tsubgraph cluster_scal{\n  label= \"2)\" labeljust=\"l\";\n\n\tScaling -> scale_doy [dir=none]\n\tScaling -> scale_ndvi [dir=none]\n\t}\n\n\tsubgraph cluster_mod{\n  label= \"3)\" labeljust=\"l\";\n\n\tModeling -> model_start [dir=none]\n\tModeling -> model_params [dir=none]\n\tModeling -> model_ndvi [dir=none]\n\n\tmodel_ndvi -> model_params -> model_start [dir=back]\n\t{rank=same; model_ndvi; model_params; model_start}\n\t}\n\n\tsubgraph cluster_irg{\n  label= \"4)\" labeljust=\"l\";\n\n\tIRG -> calc_irg [dir=none]\n\t}\n\n  Filtering -> Scaling -> Modeling -> IRG\n\t\n\t# irg -> Filtering\n\t# irg -> Scaling\n\t# irg -> Modeling\n\t# irg -> IRG\n\n\t}\n\t","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><p>There are 5 filtering functions, 2 scaling functions, 3 modeling functions and 2 IRG functions.</p>
-<p>The <code><a href="../reference/irg.html">irg::irg</a></code> function is a wrapper for all steps - filtering, scaling, modeling and calculating IRG in one step. At this point, only defaults. Here’s 5 rows from the result.</p>
+<div id="htmlwidget-ac96cb3ee4656e2e9ec3" style="width:700px;height:600px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ac96cb3ee4656e2e9ec3">{"x":{"diagram":"\n\tdigraph irg_functions  {\n\tgraph [rankdir=LR, compound=TRUE, fontsize = 28]\n\n\tnode[shape=none, fontsize=28]\n\n\tsubgraph cluster_filt{\n\tlabel= \"1)\"; labeljust=\"l\";\n\tFiltering -> filter_ndvi [dir=none]\n\tfilter_ndvi -> filter_qa [dir=none]\n\tfilter_ndvi -> filter_winter [dir=none]\n  filter_ndvi -> filter_roll [dir=none]\n  filter_ndvi -> filter_top [dir=none]\n\n\tfilter_top -> filter_roll -> filter_winter -> filter_qa [dir=back]\n\t{rank=same; filter_qa; filter_winter; filter_roll; filter_top}\n\t}\n\n\tsubgraph cluster_scal{\n  label= \"2)\" labeljust=\"l\";\n\n\tScaling -> scale_doy [dir=none]\n\tScaling -> scale_ndvi [dir=none]\n\t}\n\n\tsubgraph cluster_mod{\n  label= \"3)\" labeljust=\"l\";\n\n\tModeling -> model_start [dir=none]\n\tModeling -> model_params [dir=none]\n\tModeling -> model_ndvi [dir=none]\n\n\tmodel_ndvi -> model_params -> model_start [dir=back]\n\t{rank=same; model_ndvi; model_params; model_start}\n\t}\n\n\tsubgraph cluster_irg{\n  label= \"4)\" labeljust=\"l\";\n\n\tIRG -> calc_irg [dir=none]\n\t}\n\n  Filtering -> Scaling -> Modeling -> IRG\n\t\n\t# irg -> Filtering\n\t# irg -> Scaling\n\t# irg -> Modeling\n\t# irg -> IRG\n\n\t}\n\t","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><p>There are 5 filtering functions, 2 scaling functions, 3 modeling
+functions and 2 IRG functions.</p>
+<p>The <code><a href="../reference/irg.html">irg::irg</a></code> function is a wrapper for all steps -
+filtering, scaling, modeling and calculating IRG in one step. At this
+point, only defaults. Here’s 5 rows from the result.</p>
 <p>For options, head to the steps below.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/irg.html">irg</a></span><span class="op">(</span><span class="va">ndvi</span><span class="op">)</span></span></code></pre></div>
@@ -258,39 +290,39 @@
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="right">0</td>
-<td align="right">2016</td>
+<td align="right">4</td>
+<td align="right">2015</td>
 <td align="right">0.4000000</td>
-<td align="right">0.9405414</td>
-<td align="right">0.2230530</td>
+<td align="right">0.7464973</td>
+<td align="right">0.7568202</td>
 </tr>
 <tr class="even">
-<td align="right">0</td>
-<td align="right">2016</td>
+<td align="right">4</td>
+<td align="right">2015</td>
 <td align="right">0.4027397</td>
-<td align="right">0.9469233</td>
-<td align="right">0.2003355</td>
+<td align="right">0.7668056</td>
+<td align="right">0.7150786</td>
 </tr>
 <tr class="odd">
-<td align="right">0</td>
-<td align="right">2016</td>
+<td align="right">4</td>
+<td align="right">2015</td>
 <td align="right">0.4054795</td>
-<td align="right">0.9526484</td>
-<td align="right">0.1796680</td>
+<td align="right">0.7859509</td>
+<td align="right">0.6727004</td>
 </tr>
 <tr class="even">
-<td align="right">0</td>
-<td align="right">2016</td>
+<td align="right">4</td>
+<td align="right">2015</td>
 <td align="right">0.4082192</td>
-<td align="right">0.9577767</td>
-<td align="right">0.1609208</td>
+<td align="right">0.8039235</td>
+<td align="right">0.6302437</td>
 </tr>
 <tr class="odd">
-<td align="right">0</td>
-<td align="right">2016</td>
+<td align="right">4</td>
+<td align="right">2015</td>
 <td align="right">0.4109589</td>
-<td align="right">0.9623641</td>
-<td align="right">0.1439600</td>
+<td align="right">0.8207280</td>
+<td align="right">0.5882021</td>
 </tr>
 </tbody>
 </table>
@@ -333,7 +365,7 @@
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/robitalec/irg" class="external-link">irg</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Read in example data</span></span>
-<span><span class="va">ndvi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/fread.html" class="external-link">fread</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata'</span>, <span class="st">'sampled-ndvi-MODIS-MOD13Q1.csv'</span>, package <span class="op">=</span> <span class="st">'irg'</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">ndvi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdatatable.gitlab.io/data.table/reference/fread.html" class="external-link">fread</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata'</span>, <span class="st">'sampled-ndvi-MODIS-MOD13Q1.csv'</span>, package <span class="op">=</span> <span class="st">'irg'</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Filter NDVI time series</span></span>
 <span><span class="fu"><a href="../reference/filter_qa.html">filter_qa</a></span><span class="op">(</span><span class="va">ndvi</span>, qa <span class="op">=</span> <span class="st">'SummaryQA'</span>, good <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
@@ -348,7 +380,8 @@
 <div class="section level2">
 <h2 id="scaling">Scaling<a class="anchor" aria-label="anchor" href="#scaling"></a>
 </h2>
-<p>Two scaling functions are use to scale the day of year column and filtered NDVI time series between 0-1.</p>
+<p>Two scaling functions are use to scale the day of year column and
+filtered NDVI time series between 0-1.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Scale variables</span></span>
 <span><span class="fu"><a href="../reference/scale_doy.html">scale_doy</a></span><span class="op">(</span><span class="va">ndvi</span>, doy <span class="op">=</span> <span class="st">'DayOfYear'</span><span class="op">)</span></span>
@@ -357,10 +390,15 @@
 <div class="section level2">
 <h2 id="modeling">Modeling<a class="anchor" aria-label="anchor" href="#modeling"></a>
 </h2>
-<p>Three functions are used to model the NDVI times series to a double logistic curve, as described by Bischoff et al. (2012).</p>
-<p><span class="math display">\[fitted = \frac{1}{1 + e^ \frac{xmidS - t}{scalS}} - \frac{1}{1 + e^ \frac{xmidA - t}{scalA}}\]</span></p>
-<p>Two options from this point are available: fitting NDVI and calculating IRG for observed data only, or for the full year.</p>
-<p>To calculate for every day of every year, specify <code>returns = 'models'</code> in <code>model_params</code>, <code>observed = FALSE</code> in <code>model_ndvi</code> and assign the output of <code>model_ndvi</code>.</p>
+<p>Three functions are used to model the NDVI times series to a double
+logistic curve, as described by Bischoff et al. (2012).</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mi>i</mi><mi>t</mi><mi>t</mi><mi>e</mi><mi>d</mi><mo>=</mo><mfrac><mn>1</mn><mrow><mn>1</mn><mo>+</mo><msup><mi>e</mi><mfrac><mrow><mi>x</mi><mi>m</mi><mi>i</mi><mi>d</mi><mi>S</mi><mo>−</mo><mi>t</mi></mrow><mrow><mi>s</mi><mi>c</mi><mi>a</mi><mi>l</mi><mi>S</mi></mrow></mfrac></msup></mrow></mfrac><mo>−</mo><mfrac><mn>1</mn><mrow><mn>1</mn><mo>+</mo><msup><mi>e</mi><mfrac><mrow><mi>x</mi><mi>m</mi><mi>i</mi><mi>d</mi><mi>A</mi><mo>−</mo><mi>t</mi></mrow><mrow><mi>s</mi><mi>c</mi><mi>a</mi><mi>l</mi><mi>A</mi></mrow></mfrac></msup></mrow></mfrac></mrow><annotation encoding="application/x-tex">fitted = \frac{1}{1 + e^ \frac{xmidS - t}{scalS}} - \frac{1}{1 + e^ \frac{xmidA - t}{scalA}}</annotation></semantics></math></p>
+<p>Two options from this point are available: fitting NDVI and
+calculating IRG for observed data only, or for the full year.</p>
+<p>To calculate for every day of every year, specify
+<code>returns = 'models'</code> in <code>model_params</code>,
+<code>observed = FALSE</code> in <code>model_ndvi</code> and assign the
+output of <code>model_ndvi</code>.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Guess starting parameters</span></span>
 <span><span class="fu"><a href="../reference/model_start.html">model_start</a></span><span class="op">(</span><span class="va">ndvi</span>, id <span class="op">=</span> <span class="st">'id'</span>, year <span class="op">=</span> <span class="st">'yr'</span><span class="op">)</span></span>
@@ -377,7 +415,9 @@
 <span></span>
 <span><span class="co"># Fit double log to NDVI</span></span>
 <span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/model_ndvi.html">model_ndvi</a></span><span class="op">(</span><span class="va">mods</span>, observed <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
-<p>Alternatively, to calculate for the observed data only, specify <code>returns = 'columns'</code> in <code>model_params</code> and <code>observed = TRUE</code> in <code>model_ndvi</code>.</p>
+<p>Alternatively, to calculate for the observed data only, specify
+<code>returns = 'columns'</code> in <code>model_params</code> and
+<code>observed = TRUE</code> in <code>model_ndvi</code>.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Guess starting parameters</span></span>
 <span><span class="fu"><a href="../reference/model_start.html">model_start</a></span><span class="op">(</span><span class="va">ndvi</span>, id <span class="op">=</span> <span class="st">'id'</span>, year <span class="op">=</span> <span class="st">'yr'</span><span class="op">)</span></span>
@@ -398,7 +438,8 @@
 <div class="section level2">
 <h2 id="irg">IRG<a class="anchor" aria-label="anchor" href="#irg"></a>
 </h2>
-<p><span class="math display">\[IRG = \frac{e ^ \frac{t + xmidS}{scalS}}{2 scalS e ^ \frac{t + xmidS}{scalS} + scalS e ^ \frac{2t}{scalS} + scalS e ^ \frac{2midS}{scalS}}\]</span> Finally, calculate IRG:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mi>R</mi><mi>G</mi><mo>=</mo><mfrac><msup><mi>e</mi><mfrac><mrow><mi>t</mi><mo>+</mo><mi>x</mi><mi>m</mi><mi>i</mi><mi>d</mi><mi>S</mi></mrow><mrow><mi>s</mi><mi>c</mi><mi>a</mi><mi>l</mi><mi>S</mi></mrow></mfrac></msup><mrow><mn>2</mn><mi>s</mi><mi>c</mi><mi>a</mi><mi>l</mi><mi>S</mi><msup><mi>e</mi><mfrac><mrow><mi>t</mi><mo>+</mo><mi>x</mi><mi>m</mi><mi>i</mi><mi>d</mi><mi>S</mi></mrow><mrow><mi>s</mi><mi>c</mi><mi>a</mi><mi>l</mi><mi>S</mi></mrow></mfrac></msup><mo>+</mo><mi>s</mi><mi>c</mi><mi>a</mi><mi>l</mi><mi>S</mi><msup><mi>e</mi><mfrac><mrow><mn>2</mn><mi>t</mi></mrow><mrow><mi>s</mi><mi>c</mi><mi>a</mi><mi>l</mi><mi>S</mi></mrow></mfrac></msup><mo>+</mo><mi>s</mi><mi>c</mi><mi>a</mi><mi>l</mi><mi>S</mi><msup><mi>e</mi><mfrac><mrow><mn>2</mn><mi>m</mi><mi>i</mi><mi>d</mi><mi>S</mi></mrow><mrow><mi>s</mi><mi>c</mi><mi>a</mi><mi>l</mi><mi>S</mi></mrow></mfrac></msup></mrow></mfrac></mrow><annotation encoding="application/x-tex">IRG = \frac{e ^ \frac{t + xmidS}{scalS}}{2 scalS e ^ \frac{t + xmidS}{scalS} + scalS e ^ \frac{2t}{scalS} + scalS e ^ \frac{2midS}{scalS}}</annotation></semantics></math>
+Finally, calculate IRG:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Calculate IRG for each day of the year</span></span>
 <span><span class="fu"><a href="../reference/calc_irg.html">calc_irg</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span>
@@ -410,9 +451,7 @@
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
-    </nav>
-</div>
+      </div>
 
 </div>
 
@@ -425,16 +464,16 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
       </footer>
 </div>
 
-  
 
 
-  
+
+
 
   </body>
 </html>
