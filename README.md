@@ -1,7 +1,11 @@
 
+<!-- badges: start -->
+
+[![R-CMD-check](https://github.com/robitalec/irg/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/robitalec/irg/actions/workflows/R-CMD-check.yaml)
 [![lifecycle](https://img.shields.io/badge/lifecycle-active-green.svg)](https://www.tidyverse.org/lifecycle/#active)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/irg)](https://cran.r-project.org/package=irg)
+<!-- badges: end -->
 
 # irg
 
