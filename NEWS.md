@@ -4,6 +4,7 @@
 
 * fixed use example testing, changed default behaviour to print without a filepath 
 provided
+* updated GitHub actions (#16)
 
 # v0.1.5 (2021-12-10)
 

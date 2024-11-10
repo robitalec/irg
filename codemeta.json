@@ -8,13 +8,13 @@
   "codeRepository": "https://github.com/robitalec/irg",
   "issueTracker": "https://github.com/robitalec/irg/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.1.1 (2021-08-10)",
+  "runtimePlatform": "R version 4.4.2 (2024-10-31)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -163,5 +163,5 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "271.401KB"
+  "fileSize": "268.911KB"
 }
